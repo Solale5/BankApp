@@ -20,6 +20,7 @@ async function poolDemo() {
   console.log('Source Table', insertion, res )
   
   const now = await pool.query("SELECT NOW()");
+  
   await pool.end();
 
   return now;
