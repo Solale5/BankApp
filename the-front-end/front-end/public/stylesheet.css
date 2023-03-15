@@ -31,3 +31,18 @@
   background-color: #04AA6D;
   color: white;
 }
+
+
+
+
+form {
+  width: 50%;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}

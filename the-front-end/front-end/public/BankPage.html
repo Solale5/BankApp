@@ -7,6 +7,10 @@
 
   </head>
   <body>
+
+
+
+
     <div class = topbar>
       <div class="atm" style="float:left">
         <a href="atmfinder.html">ATM Finder</a>
@@ -16,20 +20,38 @@
       </div>
     </div>
 
+
+    <!-- display accounts and amounts -->
     <div>
       <div>
         <pre>
-        <p>Checking account:     $amount</p>
+          <p>Checking account:     $amount</p>
+        </pre>
+        <button onclick="transferChecking()">Transfer</button>
+        <p id="text"></p>
+        <form name="CheckingDrop" id="Checkingdrop" class="hide">
+        <select name="project">
+          <option value="noselect">select</option>
+          <option value="saving">Savings</option>
+          <option value="credit">Credit</option>
+        </select>
+        </form>
+        <input type="field" name="textbox" id="textbox" class="hide"></input>
+        <button onclick="transferChecking()" name="confirm" id="confirm" class="hide">confirm</button>
+
+
+
+        <script src=script.js> </script>
+
+      </div>
+      <div>
+        <pre>
+          <p>saving account:       $amount</p>
         </pre>
       </div>
       <div>
         <pre>
-        <p>saving account:       $amount</p>
-        </pre>
-      </div>
-      <div>
-        <pre>
-        <p>credit:               $amount</p>
+          <p>credit:               $amount</p>
         </pre>
       </div>
     </div>
