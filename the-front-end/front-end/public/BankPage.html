@@ -28,21 +28,21 @@
           <p>Checking account:     $amount</p>
         </pre>
         <button onclick="transferChecking()">Transfer</button>
-        <p id="text"></p>
-        <form name="CheckingDrop" id="Checkingdrop" class="hide">
-        <select name="project">
-          <option value="noselect">select</option>
-          <option value="saving">Savings</option>
-          <option value="credit">Credit</option>
-        </select>
-        </form>
-        <input type="field" name="textbox" id="textbox" class="hide"></input>
-        <button onclick="transferChecking()" name="confirm" id="confirm" class="hide">confirm</button>
-
+        <div id="toggleChecking" class="hidden">
+          <p id="text"></p>
+          <form name="CheckingDrop" id="Checkingdrop">
+          <select name="project">
+            <option value="noselect">select</option>
+            <option value="saving">Savings</option>
+            <option value="credit">Credit</option>
+          </select>
+          </form>
+          <input type="field" name="textbox" id="textbox" ></input>
+          <button onclick="transferChecking()" name="confirm" id="confirm" >confirm</button>
+        </div>
 
 
         <script src=script.js> </script>
-
       </div>
       <div>
         <pre>

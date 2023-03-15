@@ -34,7 +34,7 @@
 
 
 
-
+/*not sure if necessary*/
 form {
   width: 50%;
 }
@@ -45,4 +45,10 @@ form {
 
 .show {
   display: block;
+}
+
+
+
+.hidden {
+  display: none;
 }
