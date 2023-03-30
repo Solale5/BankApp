@@ -5,6 +5,8 @@ if (process.env.NODE_ENV !== "production") {
 // Importing Libraies that we installed using npm
 const express = require("express");
 const app = express();
+const axios = require("axios");
+
 const bcrypt = require("bcrypt"); // Importing bcrypt package to encrypt the password
 // to login using goole or facebook or ..
 const passport = require("passport");
@@ -37,6 +39,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride("_method"));
 const cors = require("cors");
+const { response } = require("express");
 app.use(cors());
 
 app.use(express.json());
@@ -85,6 +88,54 @@ app.get("/login", checkNotAuthenticated, (req, res) => {
 
 app.get("/register", checkNotAuthenticated, (req, res) => {
   res.render("register.ejs");
+});
+
+// for find atm page, just sends locations back
+app.post("/atms", (req, res) => {
+  const apiKey = process.env.GOOGLE_MAP_KEY;
+
+  let locationCurr;
+  let latitude;
+  let longitude;
+  let atms = [];
+  let address = req.body.address;
+  const radius = 10000; // in meters
+  console.log(address);
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`;
+  //get user location
+  let url2;
+  axios
+    .get(url)
+    .then((data) => {
+      console.log(data.data);
+      locationCurr = data.data.results[0].geometry.location;
+      latitude = locationCurr.lat;
+      longitude = locationCurr.lng;
+      console.log(locationCurr);
+      atms.push(locationCurr);
+      console.log("here");
+      url2 = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=${radius}&type=bank&keyword=chase&key=${apiKey}`;
+      atm();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  let atm = function () {
+    axios
+      .get(url2)
+      .then((response) => {
+        // console.log(response.data.results[0]);
+
+        for (let i = 0; i < response.data.results.length; i++) {
+          atms.push(response.data.results[i].geometry.location);
+        }
+        res.send(JSON.stringify(atms));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 });
 
 // End Routes
