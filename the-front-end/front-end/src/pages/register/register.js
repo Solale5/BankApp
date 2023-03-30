@@ -33,9 +33,9 @@ function RegistrationPage() {
 
       // Do something with the response data
       console.log(data);
-      // if (data.registeredUser == name) {
-      //   // window.location.href = "/login";
-      // }
+      if (data.registeredUser == name) {
+        // window.location.href = "/login";
+      }
     } catch (error) {
       console.error(error);
       // Handle the error
