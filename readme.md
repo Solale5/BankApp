@@ -4,7 +4,7 @@ This is an online banking system designed for customers to easily manage their f
 
 ## Technologies Used
 
-- React
+- React.js
 - Node.js
 - MySQL
 
@@ -29,8 +29,8 @@ To get started with the Banking App, follow these steps:
 
 1. Clone the repository
 2. Install the necessary dependencies using `npm install`
-3. Run the application using `npm start`
-4. Run the backend server using `cd backend` | `npm install` | `node server.js`
+3. Run the front end application using `cd the-front-end/front-end`|`npm start`
+4. Run the backend server using `cd backend` | `npm install` | `nodemon server.js`
 
 ## Features
 
@@ -38,8 +38,6 @@ To get started with the Banking App, follow these steps:
 - View account balances and transaction history
 - ...
 
-The `src` folder contains the main source code files of the application. It includes the `index.js` file, which is the entry point of the application, and the `App.js` file, which contains the main logic and components of the application.
+The `src` folder in the frontend contains the main source code files of the application. It includes the `index.js` file, which is the entry point of the application, and the `App.js` file, which contains the main logic and components of the application.
 
-The `pages` directory contains the different pages of the application. Currently, there is only one page, the login page, which is located in the `login` directory. This directory includes the `login.js` file, which contains the logic and components for the login page, and the `login.css` file, which contains the styles for the login page.
-
-Overall, the project structure is simple and easy to navigate, making it easy for developers to add new features and pages to the application.
+The `pages` directory contains the different pages of the application.
