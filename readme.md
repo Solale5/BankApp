@@ -29,7 +29,8 @@ To get started with the Banking App, follow these steps:
 
 1. Clone the repository
 2. Install the necessary dependencies using `npm install`
-3. Run the front end application using `cd the-front-end/front-end`|`npm start`
+3. Run the front end application using
+   `cd the-front-end/front-end` | `npm install` | `npm start`
 4. Run the backend server using `cd backend` | `npm install` | `nodemon server.js`
 
 ## Features
