@@ -41,6 +41,13 @@ function AccountPage() {
    };
    */}
 
+  {/* experimenting with for loop to display items */}
+  const rows = [];
+  let numrows = 3;
+  for(let i = 0; i < numrows; i++) {
+    rows.push(<p>item</p>);
+  }
+
 
   return (
     //everything must go in between the "bod" div
@@ -747,6 +754,10 @@ function AccountPage() {
         </Accordion.Item>
       </Accordion>
 
+
+
+      <h1> EXPERIMENTAL </h1>
+      <tbody>{rows}</tbody>
 
     </div>
   );
