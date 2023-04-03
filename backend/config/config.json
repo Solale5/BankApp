@@ -1,23 +1,25 @@
 {
   "development": {
-    "username": "admin",
+    "host": "bankappdb.civbp2vs1lry.us-east-2.rds.amazonaws.com",
+    "database": "public",
+    "username": "Team1",
+    "password": "BankTeam1",
+    "dialect": "mysql"
+
+  },
+  "test": {
+    
+     "username": "admin",
     "password": "ahmed01144",
     "database": "bank-db",
     "host": "database-1.ckas55t5li1y.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "admin",
+    "password": "ahmed01144",
+    "database": "bank-db",
+    "host": "database-1.ckas55t5li1y.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   }
 }

@@ -20,7 +20,7 @@ app.listen(port, () => {
 
 
 const main = async () => {
-  
+  await sequelize.sync({ force: true })
 }
 
 main()
