@@ -3,16 +3,19 @@ import { Link } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import Collapse from "react-bootstrap/Collapse";
-
-/* for formatting form in modal popup, shelved for now */
 
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-// import "./home.css";
+import "./account.css";
+
+{/* for formatting form in modal popup, shelved for now
+
+  import Modal from "react-bootstrap/Modal";
+  import Collapse from "react-bootstrap/Collapse";
+*/}
+
 
 // for how to add multiple events to a single button
 // https://upmostly.com/tutorials/adding-multiple-functions-inside-a-single-onclick-event-handler
@@ -32,13 +35,12 @@ function AccountPage() {
   }
   const [open, setOpen] = useState(false);
 
-  {
-    /*
+  {/*
    const toggle = () => {
      setOpen(!open);
    };
-   */
-  }
+   */}
+
 
   return (
     //everything must go in between the "bod" div
@@ -52,6 +54,9 @@ function AccountPage() {
         <Accordion.Item eventKey="0">
           <Accordion.Header>Checking 1</Accordion.Header>
           <Accordion.Body>
+
+
+            {/*
             //buttons
             <div className="d-grid gap-2">
               <Button variant="dark" size="sm" onClick={handleShow}>
@@ -132,12 +137,9 @@ function AccountPage() {
                 </Button>
               </Modal.Footer>
             </Modal>
-          </Accordion.Body>
-        </Accordion.Item>
+            */}
 
-        <Accordion.Item eventKey="1">
-          <Accordion.Header>Checking 2</Accordion.Header>
-          <Accordion.Body>
+
             <Accordion>
               <Accordion.Item eventKey="1T">
                 <Accordion.Header>Transfer</Accordion.Header>
@@ -146,7 +148,7 @@ function AccountPage() {
                     <Form.Group
                       as={Row}
                       className="mb-3"
-                      controlId="checkingAccNum"
+                      controlId="CheckingAccNum"
                     >
                       <Col sm={10}>
                         <Form.Control
@@ -159,7 +161,7 @@ function AccountPage() {
                     <Form.Group
                       as={Row}
                       className="mb-3"
-                      controlId="checkingRoutNum"
+                      controlId="CheckingRoutNum"
                     >
                       <Col sm={10}>
                         <Form.Control
@@ -172,7 +174,7 @@ function AccountPage() {
                     <Form.Group
                       as={Row}
                       className="mb-3"
-                      controlId="checkingAmount"
+                      controlId="CheckingTransferAmount"
                     >
                       <Form.Label column sm={2}>
                         $
@@ -193,36 +195,11 @@ function AccountPage() {
                 <Accordion.Header>Withdraw</Accordion.Header>
                 <Accordion.Body>
                   <Form>
-                    <Form.Group
-                      as={Row}
-                      className="mb-3"
-                      controlId="checkingAccNum"
-                    >
-                      <Col sm={10}>
-                        <Form.Control
-                          type="text"
-                          placeholder="Account Number"
-                        />
-                      </Col>
-                    </Form.Group>
 
                     <Form.Group
                       as={Row}
                       className="mb-3"
-                      controlId="checkingRoutNum"
-                    >
-                      <Col sm={10}>
-                        <Form.Control
-                          type="text"
-                          placeholder="Routing Number"
-                        />
-                      </Col>
-                    </Form.Group>
-
-                    <Form.Group
-                      as={Row}
-                      className="mb-3"
-                      controlId="checkingAmount"
+                      controlId="CheckingWithdrawAmount"
                     >
                       <Form.Label column sm={2}>
                         $
@@ -243,7 +220,7 @@ function AccountPage() {
                 <Accordion.Header>Deposit</Accordion.Header>
                 <Accordion.Body>
                   <Form>
-                    <Form.Group className="mb-3" controlId="SavingDepositImage">
+                    <Form.Group className="mb-3" controlId="CheckingDepositImage">
                       <Form.Label>Please upload image of Check</Form.Label>
                       <Form.Control type="file" />
                     </Form.Group>
@@ -253,7 +230,128 @@ function AccountPage() {
                     <Form.Group
                       as={Row}
                       className="mb-3"
-                      controlId="checkingAmount"
+                      controlId="checkingDepositAmount"
+                    >
+                      <Form.Label column sm={2}>
+                        $
+                      </Form.Label>
+                      <Col sm={10}>
+                        <Form.Control type="text" placeholder="Amount" />
+                      </Col>
+                    </Form.Group>
+
+                    <Button variant="secondary" onClick={" "}>
+                      Deposit
+                    </Button>
+                  </Form>
+                </Accordion.Body>
+              </Accordion.Item>
+
+              <Accordion.Item eventKey="1I">
+                <Accordion.Header>Information</Accordion.Header>
+                <Accordion.Body>
+                  account number and routing number goes here
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+
+          </Accordion.Body>
+        </Accordion.Item>
+
+        <Accordion.Item eventKey="1">
+          <Accordion.Header>Checking 2</Accordion.Header>
+          <Accordion.Body>
+            <Accordion>
+              <Accordion.Item eventKey="1T">
+                <Accordion.Header>Transfer</Accordion.Header>
+                <Accordion.Body>
+                  <Form>
+                    <Form.Group
+                      as={Row}
+                      className="mb-3"
+                      controlId="CheckingAccNum"
+                    >
+                      <Col sm={10}>
+                        <Form.Control
+                          type="text"
+                          placeholder="Account Number"
+                        />
+                      </Col>
+                    </Form.Group>
+
+                    <Form.Group
+                      as={Row}
+                      className="mb-3"
+                      controlId="CheckingRoutNum"
+                    >
+                      <Col sm={10}>
+                        <Form.Control
+                          type="text"
+                          placeholder="Routing Number"
+                        />
+                      </Col>
+                    </Form.Group>
+
+                    <Form.Group
+                      as={Row}
+                      className="mb-3"
+                      controlId="CheckingTransferAmount"
+                    >
+                      <Form.Label column sm={2}>
+                        $
+                      </Form.Label>
+                      <Col sm={10}>
+                        <Form.Control type="text" placeholder="Amount" />
+                      </Col>
+                    </Form.Group>
+
+                    <Button variant="secondary" onClick={" "}>
+                      Transfer
+                    </Button>
+                  </Form>
+                </Accordion.Body>
+              </Accordion.Item>
+
+              <Accordion.Item eventKey="1W">
+                <Accordion.Header>Withdraw</Accordion.Header>
+                <Accordion.Body>
+                  <Form>
+
+                    <Form.Group
+                      as={Row}
+                      className="mb-3"
+                      controlId="CheckingWithdrawAmount"
+                    >
+                      <Form.Label column sm={2}>
+                        $
+                      </Form.Label>
+                      <Col sm={10}>
+                        <Form.Control type="text" placeholder="Amount" />
+                      </Col>
+                    </Form.Group>
+
+                    <Button variant="secondary" onClick={" "}>
+                      Withdraw
+                    </Button>
+                  </Form>
+                </Accordion.Body>
+              </Accordion.Item>
+
+              <Accordion.Item eventKey="1D">
+                <Accordion.Header>Deposit</Accordion.Header>
+                <Accordion.Body>
+                  <Form>
+                    <Form.Group className="mb-3" controlId="CheckingDepositImage">
+                      <Form.Label>Please upload image of Check</Form.Label>
+                      <Form.Control type="file" />
+                    </Form.Group>
+
+                    <p> OR </p>
+
+                    <Form.Group
+                      as={Row}
+                      className="mb-3"
+                      controlId="checkingDepositAmount"
                     >
                       <Form.Label column sm={2}>
                         $
@@ -294,7 +392,7 @@ function AccountPage() {
                     <Form.Group
                       as={Row}
                       className="mb-3"
-                      controlId="checkingAccNum"
+                      controlId="SavingAccNum"
                     >
                       <Col sm={10}>
                         <Form.Control
@@ -307,7 +405,7 @@ function AccountPage() {
                     <Form.Group
                       as={Row}
                       className="mb-3"
-                      controlId="checkingRoutNum"
+                      controlId="SavingRoutNum"
                     >
                       <Col sm={10}>
                         <Form.Control
@@ -320,7 +418,7 @@ function AccountPage() {
                     <Form.Group
                       as={Row}
                       className="mb-3"
-                      controlId="checkingAmount"
+                      controlId="SavingTransferAmount"
                     >
                       <Form.Label column sm={2}>
                         $
@@ -341,36 +439,11 @@ function AccountPage() {
                 <Accordion.Header>Withdraw</Accordion.Header>
                 <Accordion.Body>
                   <Form>
-                    <Form.Group
-                      as={Row}
-                      className="mb-3"
-                      controlId="checkingAccNum"
-                    >
-                      <Col sm={10}>
-                        <Form.Control
-                          type="text"
-                          placeholder="Account Number"
-                        />
-                      </Col>
-                    </Form.Group>
 
                     <Form.Group
                       as={Row}
                       className="mb-3"
-                      controlId="checkingRoutNum"
-                    >
-                      <Col sm={10}>
-                        <Form.Control
-                          type="text"
-                          placeholder="Routing Number"
-                        />
-                      </Col>
-                    </Form.Group>
-
-                    <Form.Group
-                      as={Row}
-                      className="mb-3"
-                      controlId="checkingAmount"
+                      controlId="SavingWithdrawAmount"
                     >
                       <Form.Label column sm={2}>
                         $
@@ -401,7 +474,7 @@ function AccountPage() {
                     <Form.Group
                       as={Row}
                       className="mb-3"
-                      controlId="checkingAmount"
+                      controlId="SavingDepositAmount"
                     >
                       <Form.Label column sm={2}>
                         $
@@ -438,7 +511,7 @@ function AccountPage() {
                     <Form.Group
                       as={Row}
                       className="mb-3"
-                      controlId="checkingAccNum"
+                      controlId="SavingAccNum"
                     >
                       <Col sm={10}>
                         <Form.Control
@@ -451,7 +524,7 @@ function AccountPage() {
                     <Form.Group
                       as={Row}
                       className="mb-3"
-                      controlId="checkingRoutNum"
+                      controlId="SavingRoutNum"
                     >
                       <Col sm={10}>
                         <Form.Control
@@ -464,7 +537,7 @@ function AccountPage() {
                     <Form.Group
                       as={Row}
                       className="mb-3"
-                      controlId="checkingAmount"
+                      controlId="SavingTransferAmount"
                     >
                       <Form.Label column sm={2}>
                         $
@@ -485,36 +558,11 @@ function AccountPage() {
                 <Accordion.Header>Withdraw</Accordion.Header>
                 <Accordion.Body>
                   <Form>
-                    <Form.Group
-                      as={Row}
-                      className="mb-3"
-                      controlId="checkingAccNum"
-                    >
-                      <Col sm={10}>
-                        <Form.Control
-                          type="text"
-                          placeholder="Account Number"
-                        />
-                      </Col>
-                    </Form.Group>
 
                     <Form.Group
                       as={Row}
                       className="mb-3"
-                      controlId="checkingRoutNum"
-                    >
-                      <Col sm={10}>
-                        <Form.Control
-                          type="text"
-                          placeholder="Routing Number"
-                        />
-                      </Col>
-                    </Form.Group>
-
-                    <Form.Group
-                      as={Row}
-                      className="mb-3"
-                      controlId="checkingAmount"
+                      controlId="SavingWithdrawAmount"
                     >
                       <Form.Label column sm={2}>
                         $
@@ -545,7 +593,7 @@ function AccountPage() {
                     <Form.Group
                       as={Row}
                       className="mb-3"
-                      controlId="checkingAmount"
+                      controlId="SavingDepositAmount"
                     >
                       <Form.Label column sm={2}>
                         $
@@ -574,17 +622,115 @@ function AccountPage() {
       </Accordion>
 
       <h1> Credit Accounts </h1>
-      <Accordion defaultActiveKey="0">
+      <Accordion>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Credit 1</Accordion.Header>
           <Accordion.Body>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            <p>Amount Due: $XXXX.XX</p>
+            <p>Due Date: DD/MM/YY</p>
+
+
+
+
+
+
+
+
+
+            <Accordion>
+              <Accordion.Item eventKey="1P">
+                <Accordion.Header>Pay</Accordion.Header>
+                <Accordion.Body>
+                  <Form>
+                    <Form.Group
+                      as={Row}
+                      className="mb-3"
+                      controlId="CreditSelectAcc"
+                    >
+
+                      <Form.Label>Select Account:</Form.Label>
+                      <Form.Select>
+                        <option>Select</option>
+                        <option>Checking</option>
+                        <option>Saving</option>
+                      </Form.Select>
+
+                    </Form.Group>
+
+                    <Form.Group
+                      as={Row}
+                      className="mb-3"
+                      controlId="CheckingTransferAmount"
+                    >
+                      <Form.Label column sm={2}>
+                        $
+                      </Form.Label>
+                      <Col sm={10}>
+                        <Form.Control type="text" placeholder="Amount" />
+                      </Col>
+                    </Form.Group>
+
+                    <Button variant="secondary" onClick={" "}>
+                      Pay
+                    </Button>
+                  </Form>
+                </Accordion.Body>
+              </Accordion.Item>
+
+              <Accordion.Item eventKey="1A">
+                <Accordion.Header>Automate</Accordion.Header>
+                <Accordion.Body>
+                  <Form>
+                    <Form.Group
+                      as={Row}
+                      className="mb-3"
+                      controlId="CreditAutoAccNum"
+                    >
+                      <Col sm={10}>
+                        <Form.Control
+                          type="text"
+                          placeholder="Account Number"
+                        />
+                      </Col>
+                    </Form.Group>
+
+                    <Form.Group
+                      as={Row}
+                      className="mb-3"
+                      controlId="CreditAutoRoutNum"
+                    >
+                      <Col sm={10}>
+                        <Form.Control
+                          type="text"
+                          placeholder="Routing Number"
+                        />
+                      </Col>
+                    </Form.Group>
+
+                    <Form.Group
+                      as={Row}
+                      className="mb-3"
+                      controlId="CreditSelectAcc"
+                    >
+
+                      <Form.Label>From:</Form.Label>
+                      <Form.Select>
+                        <option>Select</option>
+                        <option>Checking</option>
+                        <option>Saving</option>
+                      </Form.Select>
+
+                    </Form.Group>
+
+
+                    <Button variant="secondary" onClick={" "}>
+                      Confirm
+                    </Button>
+                  </Form>
+                </Accordion.Body>
+              </Accordion.Item>
+
+            </Accordion>
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="1">
@@ -600,6 +746,8 @@ function AccountPage() {
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
+
+
     </div>
   );
 }
