@@ -2,59 +2,47 @@
 const {
   Model
 } = require('sequelize');
-const account = require('./account');
-const transactions = require('./transactions');
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Transactions extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(Address, Account, Transactions) {
-      this.hasOne(Address)
-      this.hasMany(Account)
-      this.hasMany(Transactions)
+    static associate(Source, Account, User) {
+      this.hasOne(Source)
+      this.belongsTo(Account)
+      this.belongsTo(User)
     }
-
   }
-  User.init({
+  Transactions.init({
     uuid: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    age: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    password: {
+    routingNumber: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    security_question: {
+    transactionAmt: {
+      type: DataTypes.DOUBLE,
+      allowNull: false
+    },
+    transactionType: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    phoneNum: {
-      type: DataTypes.NUMBER,
-      allowNull: false
-    },
-    email: {
+    description: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    recoveryEmail: {
+    checkNumber: {
       type: DataTypes.STRING,
-      allowNull: false
-    },
+    }
   }, {
     sequelize,
-    modelName: 'User',
-    tableName: 'dummy',
+    tableName: 'Transactions',
+    modelName: 'Transactions',
   });
-  return User;
+  return Transactions;
 };
