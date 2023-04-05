@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { sequelize, User } = require('./models')
+const { sequelize, User,Token  } = require('./models')
 
 const app = express()
 app.use(express.json())
@@ -20,7 +20,7 @@ app.listen(port, () => {
 
 
 const main = async () => {
-  await sequelize.sync({ force: true })
+  await sequelize.sync({ alter: true })
 }
 
 main()

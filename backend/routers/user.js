@@ -1,5 +1,5 @@
 const express = require('express')
-const {User} = require('../models')
+const {User, Token} = require('../models')
 //const auth = require('../middleware/auth')
 
 const validator = require('validator')
@@ -15,7 +15,7 @@ router.post('/users/signup', async (req, res) => {
     try {
         
       const user = await User.create({ email, password })
-      
+  
       return res.send({user})
 
     } catch (err) {
@@ -24,15 +24,19 @@ router.post('/users/signup', async (req, res) => {
     }
   })
 
-// copied 
-
 
 router.post('/users/login', async (req, res) => {
   try {
+    // find the user by email
       const user = await User.findOne({ where: { email: req.body.email, password:req.body.password } })
       
-      const token = user.generateAuthToken()
-      res.send({ user, token })
+      // generate and save the token
+      const token = jwt.sign({ _id: user.id}, 'thisismynewcourse')
+      await Token.create({ userid: user.id, value: token});
+
+      //test
+      const tokens = await Token.findAll();
+      res.send({ user, tokens })
      
   } catch (e) {
       res.status(400).send()

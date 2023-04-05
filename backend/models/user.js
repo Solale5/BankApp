@@ -4,47 +4,39 @@ const {
 } = require('sequelize');
 
 
+//const Token = require('../models/token')
+const {Token}= require('../models/token')
+
+
+const jwt = require('jsonwebtoken')
+
+
 module.exports = (sequelize, DataTypes) => {
+  //forwards declaration
   class User extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate({Token}) {
       // define association here
+      this.hasMany(Token, { foreignKey: 'userid' })
     }
-
 
   }
 
 
-  User.prototype.generateAuthToken =   async  function () {
-    const user = this
-
-    // change this later to a random string
-    const token = jwt.sign({ _id: user.password}, 'thisismynewcourse')
-    
-    user.tokens = user.tokens.concat({ token })
-
-    return token
-    }
-
-
   User.init({
+
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-
     },
     password: {
       type: DataTypes.STRING
     }
-    , tokens: {
-      type: DataTypes.JSON
-    }
-
-  
+   
   }, {
     sequelize,
     modelName: 'User',
