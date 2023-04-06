@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken')
 
 
 const router = new express.Router()
-router.post('/users/signup', async (req, res) => {
+router.post('/api/clients/signup', async (req, res) => {
     try {
       const user = await User.create(req.body)
       return res.status(201).send({user})
@@ -22,7 +22,7 @@ router.post('/users/signup', async (req, res) => {
 
 
   // adding auth only for testing purposes
-router.post('/users/login',async (req, res) => {
+router.post('/api/clients/login',async (req, res) => {
   try {
     // find the user by email
       const user = await User.findOne({ where: { email: req.body.email, password:req.body.password } })
@@ -45,8 +45,8 @@ router.post('/users/login',async (req, res) => {
 
 // logout 
 // you should provide the token in the request header
-router.post('/users/logout', auth, async (req, res) => {
- 
+router.post('/api/clients/logout', auth, async (req, res) => {
+ console.log('logout', req.token)
 try{
       await Token.destroy({
         where: {
@@ -61,7 +61,7 @@ try{
 })
 
 // logout from all devices 
-router.post('/users/logoutAll', auth, async (req, res) => {
+router.post('/api/clients/logoutAll', auth, async (req, res) => {
   try {
     await Token.destroy({
       where: {
@@ -75,11 +75,12 @@ router.post('/users/logoutAll', auth, async (req, res) => {
 })
 
 //get the user profile
-router.get('/users/me', auth, async (req, res) => {
+router.get('/api/clients/me', auth, async (req, res) => {
+  
   res.send(req.user)
 })
 
-router.patch('/users/me', auth, async (req, res) => {
+router.patch('/api/clients/me', auth, async (req, res) => {
   const updates = Object.keys(req.body)
   const allowedUpdates = [ 'email', 'password']
   const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
@@ -98,5 +99,25 @@ router.patch('/users/me', auth, async (req, res) => {
 })
 
 
+router.delete('/api/clients/me', auth, async (req, res) => {
+  try {
+    await Token.destroy({
+      where: {
+        userid: req.user.id}
+
+      });  
+
+      await User.destroy({
+        where: {
+          id: req.user.id
+        }
+      })
+
+
+      res.send()
+  } catch (e) {
+      res.status(500).send()
+  }
+})
 
 module.exports = router

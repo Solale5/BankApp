@@ -2,8 +2,9 @@ const jwt = require('jsonwebtoken')
 const {User,Token} = require('../models/')
 
 const auth = async (req, res, next) => {
+
     try {
-        const token = req.header('Authorization').replace('Bearer ', '')
+        const token = req.header('authorization').replace('Bearer ', '')
         const decoded = jwt.verify(token, 'thisismynewcourse')
         const token_record = await Token.findOne({where:{ userid: decoded._id, value: token} })
 
@@ -14,8 +15,7 @@ const auth = async (req, res, next) => {
 
         req.token = token
         req.user = user
-
-        console.log(req)
+        
         next()
     } catch (e) {
         res.status(401).send({ error: 'Please authenticate.' })
