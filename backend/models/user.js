@@ -58,6 +58,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    securityAnswer: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     phoneNumber: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -83,6 +87,7 @@ module.exports = (sequelize, DataTypes) => {
       beforeSave: async (user, options) => {
         if(user.changed('password')){
           user.password = await bcrypt.hash(user.password, 8)
+          user.securityAnswer = await bcrypt.hash(user.securityAnswer, 8) 
         }
       }, 
       
