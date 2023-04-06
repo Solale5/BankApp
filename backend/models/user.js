@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
 
       // not tested yet 
         this.hasOne(Address)
-        this.hasMany(Account)
+        this.hasMany(Account,  { foreignKey: 'userid' })
         this.hasMany(Transactions)
     }
 

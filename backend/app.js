@@ -6,12 +6,12 @@ const app = express()
 app.use(express.json())
 
 const userRouter = require('./routers/user')
-//const taskRouter = require('./routers/task')
+const accountRouter = require('./routers/account')
 
 const port = process.env.PORT || 3000
 
 app.use(userRouter)
-//app.use(taskRouter)
+app.use(accountRouter)
 
 app.listen(port, () => {
     console.log('Server is up on port ' + port)
@@ -22,7 +22,7 @@ app.listen(port, () => {
 const main = async () => {
 
   // remove the force option to avoid dropping the table
-  await sequelize.sync({ force: true })
+  await sequelize.sync()
   
 }
 

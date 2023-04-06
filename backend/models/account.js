@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({Transactions, User}) {
       this.hasMany(Transactions)
-      this.belongsTo(User)
+      this.belongsTo(User, {foreignKey: 'userid'})
 
     }
   }
@@ -24,21 +24,26 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
     },
-    name: {
-      type: DataTypes.STRING,
+    userid: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
-    accountINTEGER: {
+    type: {
       type: DataTypes.STRING,
-      allowNull: false
+      //allowNull: false
+      defaultValue: 'Checking'
     },
-    routingINTEGER: {
+    accountNumber: {
       type: DataTypes.STRING,
-      allowNull: false
+      //allowNull: false
+    },
+    routingNumber: {
+      type: DataTypes.STRING,
+      //allowNull: false
     },
     balance: {
       type: DataTypes.DOUBLE,
-      allowNull: false
+      defaultValue: 0
     }
   }, {
     sequelize,
