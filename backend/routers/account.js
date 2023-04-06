@@ -77,6 +77,33 @@ router.patch('/api/clients/me/accounts/:id/withdraw', auth, async (req, res) => 
     }
   })
 
+// transfer to another account 
+// internal trnasfer 
+router.post('/api/clients/me/accounts/:id/transfer', auth, async (req, res) => {
+    const _id = req.params.id
+  
+    try {
+        const account = await Account.findOne({where: {uuid: _id, userid: req.user.id}})
+        if (!account ) {
+            return res.status(404).send()
+        }
+        account.balance = account.balance - req.body.balance
+        await account.save()
+
+        const user = await User.findOne({where: {email: req.body.email}}); 
+        // TODO: send a request to the deposit endpoint of the other account
+        const account2 = await Account.findOne({where: { userid: user.id}})
+        account2.balance = account2.balance + req.body.balance
+        await account2.save()
+
+
+          res.send({ account, user, account2 })
+    } catch (e) {
+        res.status(400).send(e)
+    }
+  })
+
+
 // delete a specific account
 router.delete('/api/clients/me/accounts/:id', auth, async (req, res) => {
     const _id = req.params.id
@@ -91,10 +118,16 @@ router.delete('/api/clients/me/accounts/:id', auth, async (req, res) => {
 })
 
 
+
 // TODO: 
 // should I hid any information of the account?
 // should I add a new account for each user?
 // How to generate the account number and routing number?
 // How to make sure the account number and routing number are unique?
+// which account to receive the money ? 
+// How to transfer money to another account?
+// how to transfer money to an external bank account ? 
+// Is there a special format for a bank account number and the routing number?
+
 
 module.exports = router
