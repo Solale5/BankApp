@@ -20,7 +20,10 @@ app.listen(port, () => {
 
 
 const main = async () => {
-  await sequelize.sync({ alter: true })
+
+  // remove the force option to avoid dropping the table
+  await sequelize.sync({ force: true })
+  
 }
 
 main()
