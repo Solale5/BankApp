@@ -42,4 +42,61 @@ router.post('/users/login',async (req, res) => {
 })
 
 
+
+// logout 
+// you should provide the token in the request header
+router.post('/users/logout', auth, async (req, res) => {
+ 
+try{
+      await Token.destroy({
+        where: {
+          value: req.token,
+          userid: req.user.id
+          }
+        });     
+      res.status(200).send()
+    } catch (e) {
+      res.status(500).send()
+  }
+})
+
+// logout from all devices 
+router.post('/users/logoutAll', auth, async (req, res) => {
+  try {
+    await Token.destroy({
+      where: {
+        userid: req.user.id
+        }
+      });  
+      res.send()
+  } catch (e) {
+      res.status(500).send()
+  }
+})
+
+//get the user profile
+router.get('/users/me', auth, async (req, res) => {
+  res.send(req.user)
+})
+
+router.patch('/users/me', auth, async (req, res) => {
+  const updates = Object.keys(req.body)
+  const allowedUpdates = [ 'email', 'password']
+  const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+
+  if (!isValidOperation) {
+      return res.status(400).send({ error: 'Invalid updates!' })
+  }
+
+  try {
+      updates.forEach((update) => req.user[update] = req.body[update])
+      await req.user.save()
+      res.send(req.user)
+  } catch (e) {
+      res.status(400).send(e)
+  }
+})
+
+
+
 module.exports = router
