@@ -6,8 +6,9 @@ const {
 const {Account} = require('../models/account');
 const {transactions} = require('../models/transactions');
 const {Token}= require('../models/token')
-
-const jwt = require('jsonwebtoken')
+const validator = require('validator')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken');
 
 
 module.exports = (sequelize, DataTypes) => {
@@ -28,6 +29,11 @@ module.exports = (sequelize, DataTypes) => {
         this.hasMany(Transactions)
     }
 
+
+    // toJSON() {
+    //   return { ...this.get(), id: undefined, password:undefined, uuid: undefined }
+    // }
+
   }
 
   User.init({
@@ -38,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      
     },
     age: {
       type: DataTypes.INTEGER,
@@ -57,7 +64,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true,
+      validate:{
+        isEmail: true
+      },
+    
     },
     recoveryEmail: {
       type: DataTypes.STRING,
@@ -67,10 +79,20 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
     tableName: 'User',
-  });
+    hooks:{
+      beforeSave: async (user, options) => {
+        if(user.changed('password')){
+          user.password = await bcrypt.hash(user.password, 8)
+        }
+      }, 
+      
+    }
+      
+  },  );
 
   return User;
 };
+
 
 
 
