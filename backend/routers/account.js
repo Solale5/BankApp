@@ -2,13 +2,10 @@ const express = require('express')
 const {User, Account} = require('../models')
 const auth = require('../middleware/auth')
 const jwt = require('jsonwebtoken')
-
-
 const router = new express.Router()
 
-
 // add a new account 
-// make sure it is only one account of each type 
+// a user might have multiple accounts of the same type 
 router.post('/api/clients/me/accounts/', auth, async (req, res) => {
     try {
       const account = await Account.create({userid: req.user.id})
