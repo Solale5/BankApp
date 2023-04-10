@@ -2,14 +2,12 @@
 const {
   Model
 } = require('sequelize');
+const Transactions =  require('../models/transactions')
+
+
 module.exports = (sequelize, DataTypes) => {
   class Source extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(Transactions) {
+    static associate({Transactions}) {
       this.belongsTo(Transactions)
     }
   }

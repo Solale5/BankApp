@@ -2,6 +2,8 @@
 const {
   Model
 } = require('sequelize');
+const {User} =  require('../models/user')
+
 module.exports = (sequelize, DataTypes) => {
   class Address extends Model {
     /**
@@ -9,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(User) {
+    static associate({User}) {
       this.belongsTo(User)
     }
 
@@ -28,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     city: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     state: {

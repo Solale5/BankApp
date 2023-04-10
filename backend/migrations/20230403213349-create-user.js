@@ -1,57 +1,61 @@
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, DataTypes) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Users', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
-      uuid: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4
+      fname: {
+        type: Sequelize.STRING
       },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false
+      lname: {
+        type: Sequelize.STRING
       },
-      age: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+      iduser: {
+        type: Sequelize.STRING
       },
       password: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
       security_question: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
-      phoneNum: {
-        type: DataTypes.NUMBER,
-        allowNull: false
+      phone: {
+        type: Sequelize.NUMBER
       },
       email: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
-      recoveryEmail: {
-        type: DataTypes.STRING,
-        allowNull: false
+      recovEmail: {
+        type: Sequelize.STRING
+      },
+      zip: {
+        type: Sequelize.NUMBER
+      },
+      street: {
+        type: Sequelize.STRING
+      },
+      city: {
+        type: Sequelize.STRING
+      },
+      state: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
-        type: DataTypes.DATE
+        type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: DataTypes.DATE
+        type: Sequelize.DATE
       }
     });
   },
-  async down(queryInterface, DataTypes) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Users');
   }
 };

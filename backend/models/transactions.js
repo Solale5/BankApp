@@ -2,6 +2,12 @@
 const {
   Model
 } = require('sequelize');
+
+const {Source} =  require('../models/source')
+const {Account} =  require('../models/account')
+const {User} =  require('../models/user')
+
+
 module.exports = (sequelize, DataTypes) => {
   class Transactions extends Model {
     /**
@@ -9,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(Source, Account, User) {
+    static associate({Source, Account, User}) {
       this.hasOne(Source)
       this.belongsTo(Account)
       this.belongsTo(User)
@@ -20,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
     },
-    routingNumber: {
+    routingINTEGER: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -36,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    checkNumber: {
+    checkINTEGER: {
       type: DataTypes.STRING,
     }
   }, {
