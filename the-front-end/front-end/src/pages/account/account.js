@@ -4,6 +4,10 @@ import Accordion from "react-bootstrap/Accordion";
 
 import Button from "react-bootstrap/Button";
 
+import CheckingAccord from "./AccComponents/checkingAccord.js";
+
+import AnimalCard from "./test";
+
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -49,6 +53,29 @@ function AccountPage() {
   }
 
 
+    const checkings = [];
+    let numcheckings = 2;
+    for(let i =0; i<numcheckings; i++) {
+      checkings.push(<CheckingAccord
+
+
+        />);
+    }
+
+    const tests = [];
+    let testnum = 3;
+    for(let i=0; i<testnum; i++){
+      tests.push(<AnimalCard
+                  name={i}
+                  scientificName="scientificName"
+                  size="size"
+                />)
+    }
+
+
+
+
+
   return (
     //everything must go in between the "bod" div
     <div className="bod">
@@ -61,92 +88,6 @@ function AccountPage() {
         <Accordion.Item eventKey="0">
           <Accordion.Header>Checking 1</Accordion.Header>
           <Accordion.Body>
-
-
-            {/*
-            //buttons
-            <div className="d-grid gap-2">
-              <Button variant="dark" size="sm" onClick={handleShow}>
-                Transfer
-              </Button>{" "}
-              <Button
-                variant="dark"
-                size="sm"
-                onClick={() => setOpen(!open)}
-                aria-controls="withdraw-collapse"
-                aria-expanded={open}
-              >
-                Withdraw
-              </Button>{" "}
-              <Collapse in={open}>
-                <div id="withdraw-collapse">collapse Withdraw</div>
-              </Collapse>
-              <Button
-                variant="dark"
-                size="sm"
-                onClick={() => setOpen(!open)}
-                aria-controls="deposit-collapse"
-                aria-expanded={open}
-              >
-                Deposit
-              </Button>{" "}
-              <Collapse in={open}>
-                <div id="deposit-collapse">collapse deposit</div>
-              </Collapse>
-              <Button variant="dark" size="sm">
-                Information
-              </Button>{" "}
-            </div>
-            // modal popups
-            <Modal show={show} onHide={handleClose}>
-              <Modal.Header closeButton>
-                <Modal.Title> Transfer To: </Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Form>
-                  <Form.Group
-                    as={Row}
-                    className="mb-3"
-                    controlId="checkingAccNum"
-                  >
-                    <Col sm={10}>
-                      <Form.Control type="text" placeholder="Account Number" />
-                    </Col>
-                  </Form.Group>
-
-                  <Form.Group
-                    as={Row}
-                    className="mb-3"
-                    controlId="checkingRoutNum"
-                  >
-                    <Col sm={10}>
-                      <Form.Control type="text" placeholder="Routing Number" />
-                    </Col>
-                  </Form.Group>
-
-                  <Form.Group
-                    as={Row}
-                    className="mb-3"
-                    controlId="checkingAmount"
-                  >
-                    <Form.Label column sm={2}>
-                      $
-                    </Form.Label>
-                    <Col sm={10}>
-                      <Form.Control type="text" placeholder="Amount" />
-                    </Col>
-                  </Form.Group>
-                </Form>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                  Transfer
-                </Button>
-              </Modal.Footer>
-            </Modal>
-            */}
-
-
             <Accordion>
               <Accordion.Item eventKey="1T">
                 <Accordion.Header>Transfer</Accordion.Header>
@@ -758,6 +699,18 @@ function AccountPage() {
 
       <h1> EXPERIMENTAL </h1>
       <tbody>{rows}</tbody>
+
+      <h1> modularize </h1>
+      <tbody>{checkings}</tbody>
+
+      <AnimalCard
+          name="name"
+          scientificName="scientificName"
+          size="size"
+        />
+
+        <h1> testing </h1>
+        <tbody>{tests}</tbody>
 
     </div>
   );
