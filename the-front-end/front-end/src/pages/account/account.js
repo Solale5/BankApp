@@ -5,6 +5,8 @@ import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 
 import CheckingAccord from "./AccComponents/checkingAccord.js";
+import SavingAccord from "./AccComponents/savingAccord.js";
+import CreditAccord from "./AccComponents/creditAccord.js";
 
 import AnimalCard from "./test";
 
@@ -53,24 +55,42 @@ function AccountPage() {
   }
 
 
-    const checkings = [];
-    let numcheckings = 2;
-    for(let i =0; i<numcheckings; i++) {
-      checkings.push(<CheckingAccord
+  const checkings = [];
+  let numcheckings = 2;
+  for(let i =0; i<numcheckings; i++) {
+    checkings.push(<CheckingAccord
+                    acc_num={i}
+                    />);
+  }
+
+  const savings = [];
+  let numsavings = 2;
+  for(let i = 0; i<numsavings; i++) {
+    savings.push(<SavingAccord
+                  acc_num= {i}
+                  />);
+  }
 
 
-        />);
-    }
+  const credits = []
+  let numcredits = 2;
+  for(let i=0; i<numcredits; i++) {
+    credits.push(<CreditAccord
+                  acc_num={3*i}
+                  />);
+  }
 
-    const tests = [];
-    let testnum = 3;
-    for(let i=0; i<testnum; i++){
-      tests.push(<AnimalCard
-                  name={i}
-                  scientificName="scientificName"
-                  size="size"
-                />)
-    }
+  const tests = [];
+  let testnum = 3;
+  for(let i=0; i<testnum; i++){
+    tests.push(<AnimalCard
+                name={i}
+                scientificName="scientificName"
+                size="size"
+              />)
+  }
+
+
 
 
 
@@ -448,6 +468,8 @@ function AccountPage() {
             </Accordion>
           </Accordion.Body>
         </Accordion.Item>
+      </Accordion>
+      <Accordion>
         <Accordion.Item eventKey="1">
           <Accordion.Header>Saving 2</Accordion.Header>
           <Accordion.Body>
@@ -681,6 +703,8 @@ function AccountPage() {
             </Accordion>
           </Accordion.Body>
         </Accordion.Item>
+      </Accordion>
+      <Accordion>
         <Accordion.Item eventKey="1">
           <Accordion.Header>Credit 2</Accordion.Header>
           <Accordion.Body>
@@ -701,7 +725,17 @@ function AccountPage() {
       <tbody>{rows}</tbody>
 
       <h1> modularize </h1>
-      <tbody>{checkings}</tbody>
+
+      <h1>Checking Accounts</h1>
+      {checkings}
+
+      <h1>Saving Accounts</h1>
+      {savings}
+
+      <h1>Credit Accounts</h1>
+      {credits}
+
+
 
       <AnimalCard
           name="name"
@@ -711,6 +745,11 @@ function AccountPage() {
 
         <h1> testing </h1>
         <tbody>{tests}</tbody>
+
+
+      <SavingAccord
+          acc_num="134"
+      />
 
     </div>
   );

@@ -8,12 +8,13 @@ import Row from "react-bootstrap/Row";
 
 import Button from "react-bootstrap/Button";
 
-export default class CheckingAccord extends Component {
-  render() {
+export default function CheckingAccord({
+  acc_num
+}) {
     return(
       <Accordion>
         <Accordion.Item eventKey="0">
-          <Accordion.Header>Checking 1</Accordion.Header>
+          <Accordion.Header>...{acc_num}</Accordion.Header>
           <Accordion.Body>
             <Accordion>
               <Accordion.Item eventKey="1T">
@@ -135,6 +136,5 @@ export default class CheckingAccord extends Component {
 
 
       </Accordion>
-    );
+    )
   }
-}

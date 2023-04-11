@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
 import blueMarker from "./pinblue.png";
-import GOOGLE_MAPS_API_KEY from "../../../../keys";
+import GOOGLE_MAPS_API_KEY from "./keys";
 
 const mapStyles = {
   width: "100%",
