@@ -3,9 +3,9 @@ const {
   Model
 } = require('sequelize');
 
-const {Account} = require('../models/account');
-const {transactions} = require('../models/transactions');
-const {Token}= require('../models/token')
+const { Account } = require('../models/account');
+const { transactions } = require('../models/transactions');
+const { Token } = require('../models/token')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
@@ -19,19 +19,19 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({Token, Address, Account, Transactions}) {
+    static associate({ Token, Address, Account, Transactions }) {
       // define association here
       this.hasMany(Token, { foreignKey: 'userid' })
 
       // not tested yet 
-        this.hasOne(Address)
-        this.hasMany(Account,  { foreignKey: 'userid' })
-        this.hasMany(Transactions)
+      this.hasOne(Address)
+      this.hasMany(Account, { foreignKey: 'userid' })
+      this.hasMany(Transactions)
     }
 
 
     toJSON() {
-      return { ...this.get(), password:undefined, uuid: undefined }
+      return { ...this.get(), password: undefined, uuid: undefined }
     }
 
   }
@@ -44,7 +44,6 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      
     },
     age: {
       type: DataTypes.INTEGER,
@@ -52,7 +51,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: [5, 100]
+      }
     },
     securityQuestion: {
       type: DataTypes.STRING,
@@ -63,17 +65,20 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     phoneNumber: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        is: ["\(?\d{3}\)?-? *\d{3}-? *-?\d{4}"]
+      }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      validate:{
+      validate: {
         isEmail: true
       },
-    
+
     },
     recoveryEmail: {
       type: DataTypes.STRING,
@@ -83,17 +88,17 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
     tableName: 'User',
-    hooks:{
+    hooks: {
       beforeSave: async (user, options) => {
-        if(user.changed('password')){
+        if (user.changed('password')) {
           user.password = await bcrypt.hash(user.password, 8)
-          user.securityAnswer = await bcrypt.hash(user.securityAnswer, 8) 
+          user.securityAnswer = await bcrypt.hash(user.securityAnswer, 8)
         }
-      }, 
-      
+      },
+
     }
-      
-  },  );
+
+  },);
 
   return User;
 };
@@ -101,4 +106,3 @@ module.exports = (sequelize, DataTypes) => {
 
 
 
-  

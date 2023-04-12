@@ -2,12 +2,12 @@
 const {
   Model
 } = require('sequelize');
-const Transactions =  require('../models/transactions')
+const Transactions = require('../models/transactions')
 
 
 module.exports = (sequelize, DataTypes) => {
   class Source extends Model {
-    static associate({Transactions}) {
+    static associate({ Transactions }) {
       this.belongsTo(Transactions)
     }
   }
@@ -18,11 +18,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     sourceType: {
       type: DataTypes.STRING,
-      allowNull: false
+      defaultValue: 'ATM',
+      validate: {
+        isIn: [['ATM', 'Check', 'Online']]
+      }
     },
     sourceLocation: {
       type: DataTypes.STRING,
-      allowNull: false
+      defaultValue: "N/A"
     }
   }, {
     sequelize,

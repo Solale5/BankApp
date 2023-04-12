@@ -2,7 +2,7 @@
 const {
   Model
 } = require('sequelize');
-const {User} =  require('../models/user')
+const { User } = require('../models/user')
 
 module.exports = (sequelize, DataTypes) => {
   class Address extends Model {
@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({User}) {
+    static associate({ User }) {
       this.belongsTo(User)
     }
 
@@ -23,7 +23,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     zipcode: {
       type: DataTypes.STRING,
-      allowNull: false
+      validate: {
+        is: ["^\d{5}(?:[-\s]\d{4})?$"]
+      }
     },
     street: {
       type: DataTypes.STRING,
@@ -35,7 +37,19 @@ module.exports = (sequelize, DataTypes) => {
     },
     state: {
       type: DataTypes.STRING,
-      allowNull: false
+      validate: {
+        isIn:
+          [['AK', 'AL', 'AR', 'AZ', 'CA',
+            'CO', 'CT', 'DE', 'FL', 'GA',
+            'HI', 'IA', 'ID', 'IL', 'IN',
+            'KS', 'KY', 'LA', 'MA', 'MD',
+            'ME', 'MI', 'MN', 'MO', 'MS',
+            'MT', 'NC', 'ND', 'NE', 'NH',
+            'NJ', 'NM', 'NV', 'NY', 'OH',
+            'OK', 'OR', 'PA', 'RI', 'SC',
+            'SD', 'TN', 'TX', 'UT', 'VA',
+            'VT', 'WA', 'WI', 'WV', 'WY']]
+      }
     },
   }, {
     sequelize,

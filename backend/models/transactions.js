@@ -3,9 +3,9 @@ const {
   Model
 } = require('sequelize');
 
-const {Source} =  require('../models/source')
-const {Account} =  require('../models/account')
-const {User} =  require('../models/user')
+const { Source } = require('../models/source')
+const { Account } = require('../models/account')
+const { User } = require('../models/user')
 
 
 module.exports = (sequelize, DataTypes) => {
@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({Source, Account, User}) {
+    static associate({ Source, Account, User }) {
       this.hasOne(Source)
       this.belongsTo(Account)
       this.belongsTo(User)
@@ -28,15 +28,25 @@ module.exports = (sequelize, DataTypes) => {
     },
     routingINTEGER: {
       type: DataTypes.STRING,
-      allowNull: false
+      unique: true,
+      validate: {
+        isNumeric: true,
+        len: 9
+      }
     },
     transactionAmt: {
-      type: DataTypes.DOUBLE,
-      allowNull: false
+      type: DataTypes.STRING,
+      defaultValue: 0,
+      validate: {
+        isNumeric: true,
+        isFloat: true
+      }
     },
     transactionType: {
       type: DataTypes.STRING,
-      allowNull: false
+      validate: {
+        isIn: [['Deposit', 'Withdrawal', 'Transfer']]
+      }
     },
     description: {
       type: DataTypes.STRING,
@@ -44,6 +54,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     checkINTEGER: {
       type: DataTypes.STRING,
+      validate: {
+        isNumeric: true,
+        len: [3, 5]
+      }
     }
   }, {
     sequelize,
