@@ -1,5 +1,8 @@
 import React, { useState, Component } from "react";
 import { Link } from "react-router-dom";
+
+import axios from 'axios';
+
 import Accordion from "react-bootstrap/Accordion";
 
 import Col from "react-bootstrap/Col";
@@ -11,6 +14,11 @@ import Button from "react-bootstrap/Button";
 export default function CheckingAccord({
   acc_num
 }) {
+
+
+
+
+
     return(
       <Accordion>
         <Accordion.Item eventKey="0">
