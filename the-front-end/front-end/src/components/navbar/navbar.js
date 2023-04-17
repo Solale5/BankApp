@@ -9,6 +9,7 @@ export default function Navbar() {
       <ul>
         <CustomLink to="/">Home</CustomLink>
         <CustomLink to="/findatm">Find ATM</CustomLink>
+        <CustomLink to="/automate">Automate Payments</CustomLink>
       </ul>
     </nav>
   );

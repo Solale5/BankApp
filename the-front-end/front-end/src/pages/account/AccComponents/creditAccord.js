@@ -67,56 +67,10 @@ export default function CreditAccord({
               </Accordion.Body>
             </Accordion.Item>
 
-            <Accordion.Item eventKey="1A">
-              <Accordion.Header>Automate</Accordion.Header>
+            <Accordion.Item eventKey="1I">
+              <Accordion.Header>Information</Accordion.Header>
               <Accordion.Body>
-                <Form>
-                  <Form.Group
-                    as={Row}
-                    className="mb-3"
-                    controlId="CreditAutoAccNum"
-                  >
-                    <Col sm={10}>
-                      <Form.Control
-                        type="text"
-                        placeholder="Account Number"
-                      />
-                    </Col>
-                  </Form.Group>
-
-                  <Form.Group
-                    as={Row}
-                    className="mb-3"
-                    controlId="CreditAutoRoutNum"
-                  >
-                    <Col sm={10}>
-                      <Form.Control
-                        type="text"
-                        placeholder="Routing Number"
-                      />
-                    </Col>
-                  </Form.Group>
-
-                  <Form.Group
-                    as={Row}
-                    className="mb-3"
-                    controlId="CreditSelectAcc"
-                  >
-
-                    <Form.Label>From:</Form.Label>
-                    <Form.Select>
-                      <option>Select</option>
-                      <option>Checking</option>
-                      <option>Saving</option>
-                    </Form.Select>
-
-                  </Form.Group>
-
-
-                  <Button variant="secondary" onClick={" "}>
-                    Confirm
-                  </Button>
-                </Form>
+                account number and routing number goes here
               </Accordion.Body>
             </Accordion.Item>
 
