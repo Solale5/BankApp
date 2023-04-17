@@ -5,6 +5,7 @@ import Register from "./pages/register/register";
 import { Route, Routes } from "react-router-dom";
 import FindAtm from "./pages/findatm/findatm";
 import AccountPage from "./pages/account/account";
+import ManagerPage from "./pages/managerPage/manager";
 function App() {
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
         <Route path="/findatm" element={<FindAtm />} />
         <Route path="/register" element={<Register />} />
         <Route path="/account" element={<AccountPage />} />
+        <Route path="/manager" element={<ManagerPage />} />
       </Routes>
     </>
   );

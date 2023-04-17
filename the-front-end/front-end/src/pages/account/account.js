@@ -32,7 +32,7 @@ import "./account.css";
 function AccountPage() {
 
 
-  let hardcodedApiKey = "http://localhost:5001";
+  let endpoint = "http://localhost:5001/atms";
 
 
   {
