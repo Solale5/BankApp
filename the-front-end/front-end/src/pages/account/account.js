@@ -14,6 +14,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
+import axios from 'axios';
 
 
 
@@ -91,6 +92,22 @@ function AccountPage() {
   }
 
 
+  // testing file upload
+  const [file, setFile] = useState()
+  const [description, setDescription] = useState("")
+  const [imageName, setImageName] = useState()
+
+  const submit = async event => {
+    event.preventDefault()
+
+    const formData = new FormData()
+    formData.append("image", file)
+    formData.append("description", description)
+
+    const result = await axios.post('/backend/imageDeposit/images', formData, { headers: {'Content-Type': 'multipart/form-data'}})
+    setImageName(result.data.imageName)
+  }
+
 
 
 
@@ -128,6 +145,18 @@ function AccountPage() {
       <SavingAccord
           acc_num="134"
       />
+
+
+
+      <form onSubmit={submit}>
+        <input
+          filename={file}
+          onChange={e => setFile(e.target.files[0])}
+          type="file"
+          accept="image/*"
+        ></input>
+        <button type="submit">Submit</button>
+      </form>
 
     </div>
   );

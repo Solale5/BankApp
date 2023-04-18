@@ -15,6 +15,20 @@ export default function CheckingAccord({
   acc_num
 }) {
 
+    const [file, setFile] = useState()
+    const [description, setDescription] = useState("")
+    const [imageName, setImageName] = useState()
+
+    const submit = async event => {
+      event.preventDefault()
+
+      const formData = new FormData()
+      formData.append("image", file)
+      formData.append("description", description)
+
+      const result = await axios.post('/backend/imageDeposit/images', formData, { headers: {'Content-Type': 'multipart/form-data'}})
+      setImageName(result.data.imageName)
+    }
 
 
 
@@ -103,10 +117,17 @@ export default function CheckingAccord({
               <Accordion.Item eventKey="1D">
                 <Accordion.Header>Deposit</Accordion.Header>
                 <Accordion.Body>
-                  <Form>
+
+
+                {/*
+                  <Form onSubmit={submit}>
                     <Form.Group className="mb-3" controlId="CheckingDepositImage">
                       <Form.Label>Please upload image of Check</Form.Label>
-                      <Form.Control type="file" />
+                      <Form.Control
+                        filename={file}
+                        type="file"
+                        onChange={e => setFile(e.target.files[0])}
+                      />
                     </Form.Group>
 
                     <p> OR </p>
@@ -124,10 +145,22 @@ export default function CheckingAccord({
                       </Col>
                     </Form.Group>
 
-                    <Button variant="secondary" onClick={" "}>
+                    <Button variant="secondary" type="submit">
                       Deposit
                     </Button>
                   </Form>
+                  */}
+
+                  <form onSubmit={submit}>
+                    <input
+                      filename={file}
+                      onChange={e => setFile(e.target.files[0])}
+                      type="file"
+                      accept="image/*"
+                    ></input>
+                    <button type="submit">Submit</button>
+                  </form>
+
                 </Accordion.Body>
               </Accordion.Item>
 
