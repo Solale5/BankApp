@@ -2,12 +2,16 @@ const express = require('express')
 const {User, Token} = require('../models')
 const auth = require('../middleware/auth')
 const jwt = require('jsonwebtoken')
-
+const verifyEmail = require('./tokensender')
 
 const router = new express.Router()
 router.post('/api/clients/signup', async (req, res) => {
     try {
       const user = await User.create(req.body)
+
+      //verify email 
+      await verifyEmail(req.body.email)
+
       return res.status(201).send({user})
     } catch (err) {
       return res.status(400).json(err)
@@ -117,5 +121,26 @@ router.delete('/api/clients/me', auth, async (req, res) => {
       res.status(500).send()
   }
 })
+
+
+// verify the email 
+router.get('/users/verify/:token',  (req, res)=>{
+	const token = req.params.token;
+
+	// Verifying the JWT token
+	jwt.verify(token, 'ourSecretKey',  async (err, decoded) => {
+		if (err) {
+     
+			res.send("Email verification failed, possibly the link is invalid or expired");
+		}
+		else {
+      const user = await User.findOne({ where: { email: decoded.data } })
+      await user.update({active: true})
+			res.send("Email verifified successfully");
+		}
+	});
+});
+
+
 
 module.exports = router

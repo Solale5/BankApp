@@ -8,7 +8,7 @@ const router = new express.Router()
 // a user might have multiple accounts of the same type 
 router.post('/api/clients/me/accounts/', auth, async (req, res) => {
     try {
-      const account = await Account.create({userid: req.user.id})
+      const account = await Account.create({userid: req.user.id, type: req.body.type})
       return res.status(201).send({account})
     } catch (err) {
       return res.status(400).json(err)
@@ -117,14 +117,19 @@ router.delete('/api/clients/me/accounts/:id', auth, async (req, res) => {
 
 
 // TODO: 
-// should I hid any information of the account?
-// should I add a new account for each user?
-// How to generate the account number and routing number?
-// How to make sure the account number and routing number are unique?
+// should I hide any information of the account? no 
+// should I add a new account for each user? 5 accounts for each user 
+// How to generate the account number and routing number? 
+// How to make sure the account number is unique?
 // which account to receive the money ? 
 // How to transfer money to another account?
 // how to transfer money to an external bank account ? 
 // Is there a special format for a bank account number and the routing number?
+// transfer to another account but not credit 
+// internal transfer within the same user accounts 
+//[ each month pay off  credit card]
+// transfer to another account but not credit
+
 
 
 module.exports = router

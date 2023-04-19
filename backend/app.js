@@ -1,5 +1,6 @@
 const express = require('express')
 
+
 const { sequelize, User,Token  } = require('./models')
 
 const app = express()
@@ -22,7 +23,7 @@ app.listen(port, () => {
 const main = async () => {
 
   // remove the force option to avoid dropping the table
-  await sequelize.sync({ alter:true})
+  await sequelize.sync({ force:true})
   
 }
 

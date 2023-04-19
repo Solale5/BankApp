@@ -46,6 +46,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       
     },
+    active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     age: {
       type: DataTypes.INTEGER,
       allowNull: false
