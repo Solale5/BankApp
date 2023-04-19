@@ -2,9 +2,28 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+/*
+const {
+  S3Client,
+  PutObjectCommand
+} = require("@aws-sdk/client-s3");
+
+const s3Config = {
+  accessKeyId: process.env.AKIA3FPU3UHCJEBJ7U5S,
+  secretAccessKey: process.env.MxJfxeiefvYRGmtu650BGEX3Qp7nxWIGEOQmiPA3,
+  region: "us-west-1",
+};
+
+const s3Client = new S3Client(s3Config);
+*/
+
+
 const { sequelize, User, Token } = require("./models");
 const express = require("express");
 const app = express();
+
+//app.use(fileUpload());
+
 app.use(express.json());
 const axios = require("axios");
 const cors = require("cors");
@@ -15,6 +34,11 @@ app.use(express.json());
 
 const userRouter = require("./routers/user");
 const accountRouter = require("./routers/account");
+
+
+//const fileUpload = require("express-fileupload");
+
+
 
 const port = process.env.PORT || 5001;
 
@@ -71,6 +95,25 @@ app.post("/atms", (req, res) => {
       });
   };
 });
+
+/*
+app.post("/upload", async (req, res) => {
+  const file = req.files.file;
+  const fileName = req.files.file.name;
+
+  const bucketParams = {
+    Bucket: process.env.bankapppicturebucket,
+    Key: fileName,
+    Body: file.data,
+  };
+  try {
+    const data = await s3Client.send(new PutObjectCommand(bucketParams));
+    res.send(data)
+  } catch (err) {
+    console.log("Error", err);
+  }
+});
+*/
 
 const main = async () => {
   // remove the force option to avoid dropping the table

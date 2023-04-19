@@ -2,6 +2,8 @@ import React, { useState, Component } from "react";
 import { Link } from "react-router-dom";
 
 import axios from 'axios';
+import {uploadFile} from 'react-s3';
+import AWS from 'aws-sdk';
 
 import Accordion from "react-bootstrap/Accordion";
 
@@ -11,10 +13,21 @@ import Row from "react-bootstrap/Row";
 
 import Button from "react-bootstrap/Button";
 
+
+AWS.config.update({
+  accessKeyId: 'AKIA3FPU3UHCJEBJ7U5S',
+  secretAccessKey: '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',
+  region: 'us-west-1',
+  signatureVersion: 'v4',
+});
+
+
 export default function CheckingAccord({
   acc_num
 }) {
 
+    /*
+    // some bs to try to send image to backend
     const [file, setFile] = useState()
     const [description, setDescription] = useState("")
     const [imageName, setImageName] = useState()
@@ -29,8 +42,43 @@ export default function CheckingAccord({
       const result = await axios.post('/backend/imageDeposit/images', formData, { headers: {'Content-Type': 'multipart/form-data'}})
       setImageName(result.data.imageName)
     }
+    */
+    const s3 = new AWS.S3();
+    const [imageUrl, setImageUrl] = useState(null);
+    const [file, setFile] = useState(null);
+
+    const handleFileSelect = (e) => {
+      setFile(e.target.files[0]);
+    }
+    const uploadToS3 = async () => {
+      if (!file) {
+        return;
+      }
+      const params = {
+        Bucket: 'bankapppicturebucket',
+        Key: `${Date.now()}.${file.name}`,
+        Body: file
+      };
+      const { Location } = await s3.upload(params).promise();
+      setImageUrl(Location);
+      console.log('uploading to s3', Location);
+    }
 
 
+    /*
+    const [selectedFile, setSelectedFile] = useState(null);
+    const handleFileInput = (e) => {
+
+        setSelectedFile(e.target.files[0]);
+    }
+    const handleUpload = async (file) => {
+        uploadFile(file, config)
+            .then(data => console.log(data))
+            .catch(err => console.error(err))
+
+    }*/
+
+    console.log("image");
 
 
     return(
@@ -151,15 +199,24 @@ export default function CheckingAccord({
                   </Form>
                   */}
 
-                  <form onSubmit={submit}>
-                    <input
-                      filename={file}
-                      onChange={e => setFile(e.target.files[0])}
-                      type="file"
-                      accept="image/*"
-                    ></input>
-                    <button type="submit">Submit</button>
-                  </form>
+
+
+                  <input type="file" onChange={handleFileSelect} />
+                  <h5>Input Deposit Amount:</h5>
+                  <input type="number" />
+                  <button onClick={uploadToS3}>Submit</button>
+                  {imageUrl && (
+                      <img src={imageUrl} alt="uploaded" />
+                  )}
+
+
+                  {/* if want to display image on site
+                  get rid of forms and add this to the bottom
+
+
+
+                  */}
+
 
                 </Accordion.Body>
               </Accordion.Item>
