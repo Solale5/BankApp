@@ -14,27 +14,32 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-import axios from 'axios';
+import axios from "axios";
 
-
+import { useLocation } from "react-router-dom";
 
 import "./account.css";
 
-{/* for formatting form in modal popup, shelved for now
+{
+  /* for formatting form in modal popup, shelved for now
 
   import Modal from "react-bootstrap/Modal";
   import Collapse from "react-bootstrap/Collapse";
-*/}
-
+*/
+}
 
 // for how to add multiple events to a single button
 // https://upmostly.com/tutorials/adding-multiple-functions-inside-a-single-onclick-event-handler
 
 function AccountPage() {
-
-
   let endpoint = "http://localhost:5001/atms";
-
+  // Access the passed data from useLocation hook
+  const location = useLocation();
+  const { id, token, email } = location.state;
+  // Render the data in your component
+  console.log(id);
+  console.log(token);
+  console.log(email);
 
   {
     /*modal popup show/close
@@ -50,68 +55,57 @@ function AccountPage() {
   }
   const [open, setOpen] = useState(false);
 
-  {/*
+  {
+    /*
    const toggle = () => {
      setOpen(!open);
    };
-   */}
+   */
+  }
 
   const checkings = [];
   let numcheckings = 2;
-  for(let i =0; i<numcheckings; i++) {
-    checkings.push(<CheckingAccord
-                    acc_num={i}
-                    />);
+  for (let i = 0; i < numcheckings; i++) {
+    checkings.push(<CheckingAccord acc_num={i} />);
   }
 
   const savings = [];
   let numsavings = 2;
-  for(let i = 0; i<numsavings; i++) {
-    savings.push(<SavingAccord
-                  acc_num= {i}
-                  />);
+  for (let i = 0; i < numsavings; i++) {
+    savings.push(<SavingAccord acc_num={i} />);
   }
 
-
-  const credits = []
+  const credits = [];
   let numcredits = 2;
-  for(let i=0; i<numcredits; i++) {
-    credits.push(<CreditAccord
-                  acc_num={3*i}
-                  />);
+  for (let i = 0; i < numcredits; i++) {
+    credits.push(<CreditAccord acc_num={3 * i} />);
   }
 
   const tests = [];
   let testnum = 3;
-  for(let i=0; i<testnum; i++){
-    tests.push(<AnimalCard
-                name={i}
-                scientificName="scientificName"
-                size="size"
-              />)
+  for (let i = 0; i < testnum; i++) {
+    tests.push(
+      <AnimalCard name={i} scientificName="scientificName" size="size" />
+    );
   }
-
 
   // testing file upload
-  const [file, setFile] = useState()
-  const [description, setDescription] = useState("")
-  const [imageName, setImageName] = useState()
+  const [file, setFile] = useState();
+  const [description, setDescription] = useState("");
+  const [imageName, setImageName] = useState();
 
-  const submit = async event => {
-    event.preventDefault()
+  const submit = async (event) => {
+    event.preventDefault();
 
-    const formData = new FormData()
-    formData.append("image", file)
-    formData.append("description", description)
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("description", description);
 
-    const result = await axios.post('/backend/imageDeposit/images', formData, { headers: {'Content-Type': 'multipart/form-data'}})
-    setImageName(result.data.imageName)
-  }
-
-
-
-
-
+    const result = await axios.post("/backend/imageDeposit/images", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    setImageName(result.data.imageName);
+  };
 
   return (
     //everything must go in between the "bod" div
@@ -119,8 +113,8 @@ function AccountPage() {
       {/* comments are showing for some reason
        use for loop with amount of accounts to determine
        how many accordion tabs to have */}
-
-
+      <p>account number: {id}</p>
+      <p>email = {email} </p>
       <h1>Checking Accounts</h1>
       {checkings}
 
@@ -130,34 +124,22 @@ function AccountPage() {
       <h1>Credit Accounts</h1>
       {credits}
 
+      <AnimalCard name="name" scientificName="scientificName" size="size" />
 
+      <h1> testing </h1>
+      <tbody>{tests}</tbody>
 
-      <AnimalCard
-          name="name"
-          scientificName="scientificName"
-          size="size"
-        />
-
-        <h1> testing </h1>
-        <tbody>{tests}</tbody>
-
-
-      <SavingAccord
-          acc_num="134"
-      />
-
-
+      <SavingAccord acc_num="134" />
 
       <form onSubmit={submit}>
         <input
           filename={file}
-          onChange={e => setFile(e.target.files[0])}
+          onChange={(e) => setFile(e.target.files[0])}
           type="file"
           accept="image/*"
         ></input>
         <button type="submit">Submit</button>
       </form>
-
     </div>
   );
 }

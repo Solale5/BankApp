@@ -30,9 +30,11 @@ router.post("/api/clients/login", async (req, res) => {
     const token = jwt.sign({ _id: user.id }, "thisismynewcourse");
     await Token.create({ userid: user.id, value: token });
 
-    res.send({ user, token });
+    res.status(200).json({ userId: user.id, email: user.email, token });
+    console.log("data sent");
+    console.log({ userId: user.id, email: user.email, token });
   } catch (e) {
-    return res.status(400).send({ error: "Invalid login credentials" });
+    return res.status(400).json({ error: "Invalid login credentials" });
   }
 });
 
