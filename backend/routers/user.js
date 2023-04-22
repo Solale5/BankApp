@@ -9,8 +9,8 @@ router.post('/api/clients/signup', async (req, res) => {
     try {
       const user = await User.create(req.body)
 
-      //verify email 
-      await verifyEmail(req.body.email)
+      //verify email  (uncomment later)
+      //await verifyEmail(req.body.email)
 
       return res.status(201).send({user})
     } catch (err) {
@@ -23,8 +23,9 @@ router.post('/api/clients/signup', async (req, res) => {
 router.post('/api/clients/login',async (req, res) => {
   try {
     // find the user by email
+    // check the password and the email verification
       const user = await User.findOne({ where: { email: req.body.email } })
-      if (!user) {
+      if (!user ) {
         throw new Error()
       }
 
