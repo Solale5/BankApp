@@ -27,6 +27,8 @@ To use Spartans-Bank backend API, you need to do the following:
 
 ## USER Endpoints
 
+##
+
 #### User Signup
 
 - ##### Endpoint: host/api/clients/signup
@@ -59,17 +61,21 @@ To use Spartans-Bank backend API, you need to do the following:
     PS: the link provided in the email should be the frontend endpoint that the user will access to verify the email. Frontend should fire a request to the backend to verify the email.
   - the user information and the signupToken will be provided in the body of the response.
 
+##
+
 #### User Email Verification
 
 - ##### Endpoint: host/api/clients/verify/{{signupToken}}
 
 <br>
-PS: the signupToken would be sent in the verification email.
+PS: the signupToken would be sent in the verification email which should be used here
 
 - ##### Request Type: POST
 
 - #### Response of the request:
   - `Email verifified successfully` will be provided on success and other messages on failure according to the error <br>
+
+##
 
 #### User Login
 
@@ -90,4 +96,18 @@ PS: the signupToken would be sent in the verification email.
   All fields in the above request body example must be provided <br>
 
 - #### Response of the request:
-  - the user information and the session token will be provided and will be attached to any further request to do any operation such as depositing or transferring money or updating the user information.
+  - the user information and the session token will be provided and must be attached to any further request to do any operation such as depositing or transferring money or updating the user information.
+
+##
+
+#### User Logout
+
+- ##### Endpoint: host/api/clients/logout
+- ##### Request Type: POST
+
+- ##### Required request information:
+
+  Authorization Token returned when you logged in must be provided in the header section of the request.
+
+- #### Response of the request:
+  - the user will be logged out and the session token will be removed from the database. The status will be 200 on success.
