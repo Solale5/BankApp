@@ -59,6 +59,7 @@ To use Spartans-Bank backend API, you need to do the following:
     PS: the link provided in the email should be the frontend endpoint that the user will access to verify the email. Frontend should fire a request to the backend to verify the email.
   - the user information and the signupToken will be provided in the body of the response.
 
+##
 #### User Email Verification
 
 - ##### Endpoint: host/api/clients/verify/{{signupToken}}
@@ -70,7 +71,7 @@ PS: the signupToken would be sent in the verification email.
 
 - #### Response of the request:
   - `Email verifified successfully` will be provided on success and other messages on failure according to the error <br>
-##
+    ##
 #### User Login
 
 - ##### Endpoint: host/api/clients/login
