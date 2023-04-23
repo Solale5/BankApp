@@ -10,7 +10,7 @@ const verifyEmail = async (user, token) => {
 	const text=  `
 	You recently signed up to Sparans Bank using this email.
 	Please follow the following link to verify your email:
-	http://${process.env.BASE_URL}/clients/verify/${token}
+	http://${process.env.BASE_URL}/api/clients/verify/${token}
 	Thanks for banking with us!
 	`
 	// send email function

@@ -36,8 +36,14 @@ router.post("/reset-password", async (req, res) => {
         }
 
         // frontend url 
-        const link = `${process.env.BASE_URL}/password-reset/${user.id}/${token}`;
-        await sendEmail(user.email, "Password reset", link);
+        const link = `https://${process.env.BASE_URL}/password-reset/${user.id}/${token.value}`;
+        const text=  `
+        Please, use the following link to reset your password: 
+        ${link}
+        Thanks for banking with us!
+        `
+
+        await sendEmail(user.email, "Password reset", text);
    
        //testing ( just provide the user id and the token)
        res.status(200).send({user, token})

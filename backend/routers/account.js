@@ -1,10 +1,8 @@
 const express = require('express')
-const {User, Account} = require('../models')
+const {Account} = require('../models')
 const auth = require('../middleware/auth')
-const jwt = require('jsonwebtoken')
 const router = new express.Router()
 require("dotenv").config();
-const crypto = require('crypto');
 const generateUniqueId = require('generate-unique-id');
 
 
