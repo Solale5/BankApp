@@ -62,7 +62,7 @@ export default function CheckingAccord({
 
     }*/
 
-    console.log("image");
+    //console.log("image");
 
 
     return(

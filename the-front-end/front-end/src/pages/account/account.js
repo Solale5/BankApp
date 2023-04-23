@@ -57,7 +57,7 @@ function AccountPage() {
 
   const addChecking = () => {
     fetch("http://localhost:5001/api/clients/me/accounts", {
-      method: "Post",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
@@ -71,6 +71,9 @@ function AccountPage() {
       }
       console.log("account created");
       return response.json();
+    })
+    .then(data => {
+      console.log(data);
     })
 
   }
@@ -212,7 +215,7 @@ function AccountPage() {
 
 
       <button onClick={addChecking}>addAccount</button>
-      <button onClick={fetchAccountData}>clickme</button>
+      <button onClick={fetchAccountData}>getAccounts</button>
 
       <p>{accounts.account_number}</p>
 
