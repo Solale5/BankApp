@@ -60,6 +60,7 @@ router.patch('/api/clients/me/accounts/:id/deposit', auth, async (req, res) => {
         }
         account.balance = account.balance + req.body.balance
         await account.save()
+
         res.send({ account })
     } catch (e) {
         res.status(400).send(e)
@@ -74,6 +75,9 @@ router.patch('/api/clients/me/accounts/:id/withdraw', auth, async (req, res) => 
         const account = await Account.findOne({where: {accountNumber: _id, userid: req.user.id}})
         if (!account ) {
             return res.status(404).send()
+        }
+        if (account.balance < req.body.balance) {
+          return res.status(404).send('Not enough money')
         }
         account.balance = account.balance - req.body.balance
         await account.save()
@@ -90,23 +94,26 @@ router.post('/api/clients/me/accounts/:id/transfer', auth, async (req, res) => {
   
     try {
         const account = await Account.findOne({where: {accountNumber: _id, userid: req.user.id}})
-        if (!account ) {
+
+        if (!account  ) {
             return res.status(404).send()
         }
+
+        if (account.balance < req.body.balance) {
+          return res.status(404).send('Not enough money')
+        }
         account.balance = account.balance - req.body.balance
-        
-
-        const user = await User.findOne({where: {email: req.body.email}}); 
-        // TODO: send a request to the deposit endpoint of the other account
-        const account2 = await Account.findOne({where: { userid: user.id}})
+      
+        const account2 = await Account.findOne({where: { accountNumber: req.body.accountNumber, userid: req.user.id}})
+        if (!account2 ) {
+          return res.status(404).send()
+        }
         account2.balance = account2.balance + req.body.balance
-
 
         await account2.save()
         await account.save()
 
-
-         res.send({ account, user, account2 })
+         res.send({ account, account2 })
     } catch (e) {
         res.status(400).send(e)
     }
@@ -129,14 +136,9 @@ router.delete('/api/clients/me/accounts/:id', auth, async (req, res) => {
 
 
 // TODO: 
-// How to generate the account number and routing number? 
-// how to transfer money to an external bank account ? 
-// Is there a special format for a bank account number and the routing number?
-// transfer to another account but not credit 
-// internal transfer within the same user accounts 
-//[ each month pay off  credit card]
-// transfer to another account but not credit
-// define the main account for each user and define a unique id for each account
+// How to generate the  routing number? 
+
+//[ each month pay off credit card]
 // add joi validation 
 // document the apis 
 module.exports = router
