@@ -70,7 +70,7 @@ PS: the signupToken would be sent in the verification email.
 
 - #### Response of the request:
   - `Email verifified successfully` will be provided on success and other messages on failure according to the error <br>
-
+##
 #### User Login
 
 - ##### Endpoint: host/api/clients/login
