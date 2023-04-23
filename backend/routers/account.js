@@ -3,6 +3,7 @@ const {User, Account} = require('../models')
 const auth = require('../middleware/auth')
 const jwt = require('jsonwebtoken')
 const router = new express.Router()
+require("dotenv").config();
 
 // add a new account 
 // a user might have multiple accounts of the same type 

@@ -8,7 +8,6 @@ const {transactions} = require('../models/transactions');
 const {Token}= require('../models/token')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken');
 
 
 module.exports = (sequelize, DataTypes) => {
@@ -30,9 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     }
 
 
-    toJSON() {
-      return { ...this.get(), password:undefined, uuid: undefined }
-    }
+    // toJSON() {
+    //   return { ...this.get(),  uuid: undefined ,  securityQuestion:undefined}
+    // }
 
   }
 
@@ -46,9 +45,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       
     },
+    // change to false later
     active: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false
+      defaultValue: true
     },
     age: {
       type: DataTypes.INTEGER,
@@ -56,7 +56,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+    
     },
     securityQuestion: {
       type: DataTypes.STRING,
@@ -91,7 +92,9 @@ module.exports = (sequelize, DataTypes) => {
       beforeSave: async (user, options) => {
         if(user.changed('password')){
           user.password = await bcrypt.hash(user.password, 8)
-          user.securityAnswer = await bcrypt.hash(user.securityAnswer, 8) 
+        }
+        if(user.changed( 'securityAnswer')){
+          user.securityAnswer = await bcrypt.hash(user.securityAnswer, 8)
         }
       }, 
       

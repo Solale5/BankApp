@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const express = require("express");
 const router = express.Router();
 const Joi = require('joi');
+require("dotenv").config();
 
 
 // how reset password works ?
@@ -22,17 +23,15 @@ router.post("/reset-password", async (req, res) => {
         const schema = Joi.object({ email: Joi.string().email().required() });
         const { error } = schema.validate(req.body);
         if (error) return res.status(400).send(error.details[0].message);
-
         const user = await User.findOne({ where: { email: req.body.email } })
 
         if (!user)
-            return res.status(400).send("user with given email doesn't exist");
+            return res.status(400).send( "user with given email doesn't exist" );
             
         let token = await Token.findOne({ where: { userid: user.id } })
       
         if (!token) {
-
-            token = jwt.sign({ _id: user.id}, 'thisismynewcourse')
+            token = jwt.sign({ _id: user.id}, process.env.Private_Key)
             await Token.create({ userid: user.id, value: token});
         }
 
@@ -40,14 +39,11 @@ router.post("/reset-password", async (req, res) => {
         const link = `${process.env.BASE_URL}/password-reset/${user.id}/${token}`;
         await sendEmail(user.email, "Password reset", link);
    
-       //res.send("password reset link sent to your email account");
-       
-       //testing
-       res.send({ user, token })
+       //testing ( just provide the user id and the token)
+       res.status(200).send({user, token})
 
     } catch (error) {
-        res.send("An error occured");
-        console.log(error);
+        res.status(400).send( "An error occured");
     }
 });
 
@@ -55,7 +51,7 @@ router.post("/:id/:token", async (req, res) => {
     try {
 
         // validate the password 
-        const schema = Joi.object({ password: Joi.string().required() });
+        const schema = Joi.object({ password: Joi.string().min(6).required() });
         const { error } = schema.validate(req.body);
         if (error) return res.status(400).send(error.details[0].message);
 
@@ -71,10 +67,9 @@ router.post("/:id/:token", async (req, res) => {
         // remove all the tokens associated with the user to force him login again
         await Token.destroy({ where: { userid: user.id } });
 
-        res.send("password reset sucessfully.");
+        res.send("password reset successfully");
     } catch (error) {
-        res.send("An error occured");
-        console.log(error);
+        res.status(400).send( "An error occured");
     }
 });
 

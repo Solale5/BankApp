@@ -1,33 +1,24 @@
 const jwt = require('jsonwebtoken');
 const sendEmail = require('./sendemail');
+const {Token} = require('../models');
 require("dotenv").config();
 
-const verifyEmail = async (email) => {
+const verifyEmail = async (user) => {
 		const token = jwt.sign({
-			data: email, 
-		}, 'ourSecretKey', { expiresIn: '2m' }
+			email: user.email, 
+		}, process.env.Private_Key, { expiresIn: '2m' }
 	);	
 
-	const mailConfigurations = {
-
-		// It should be a string of sender/server email
-		to: email,
-		from: process.env.USER,
-		// Subject of Email
-		subject:'Confirm your email address	',
-		
-		// This would be the text of email body
-		text: `
-		You recently signed up to Sparans Bank using this email.
-		Please follow the following link to verify your email:
-		http://${process.env.HOST}/users/verify/${token}
-		Thanks for banking with us!
-		`
-	};
-	
+	// frontend url should be added here
+	const text=  `
+	You recently signed up to Sparans Bank using this email.
+	Please follow the following link to verify your email:
+	http://${process.env.BASE_URL}/clients/verify/${token}
+	Thanks for banking with us!
+	`
 	// send email function
-	await sendEmail(mailConfigurations)
+	await sendEmail(user.email, 'Confirm your email address	', text)
+	await Token.create({ userid: user.id, value: token});
+
 }
-
-
 module.exports = verifyEmail
