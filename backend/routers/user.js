@@ -35,10 +35,15 @@ router.post('/api/clients/signup', async (req, res) => {
 
       const user = await User.create(req.body)
 
-      //verify email  
-      await verifyEmail(user)
+      //verify email 
+      const token = jwt.sign({
+        email: user.email, 
+      }, process.env.Private_Key, { expiresIn: '2m' }
+    );	
 
-      return res.status(201).send({user})
+      await verifyEmail(user, token)
+
+      return res.status(201).send({user, token})
     } catch (err) {
       return res.status(400).json('Invalid data')
     }
@@ -179,17 +184,16 @@ router.delete('/api/clients/me', auth, async (req, res) => {
 })
 
 // verify the email 
-router.get('/clients/verify/:token',  (req, res)=>{
+router.post('/api/clients/verify/:token',  (req, res)=>{
 	const token = req.params.token;
 
 	// Verifying the JWT token
 	jwt.verify(token, process.env.Private_Key,  async (err, decoded) => {
 		if (err) {
-     
 			res.status(400).send("Email verification failed, possibly the link is invalid or expired");
 		}
 		else {
-      const user = await User.findOne({ where: { email: decoded.data } })
+      const user = await User.findOne({ where: { email: decoded.email } })
       await user.update({active: true})
 			res.status(200).send("Email verifified successfully");
 		}

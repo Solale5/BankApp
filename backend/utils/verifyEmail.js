@@ -3,11 +3,8 @@ const sendEmail = require('./sendemail');
 const {Token} = require('../models');
 require("dotenv").config();
 
-const verifyEmail = async (user) => {
-		const token = jwt.sign({
-			email: user.email, 
-		}, process.env.Private_Key, { expiresIn: '2m' }
-	);	
+const verifyEmail = async (user, token) => {
+
 
 	// frontend url should be added here
 	const text=  `
