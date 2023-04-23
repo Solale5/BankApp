@@ -18,8 +18,12 @@ router.post("/api/clients/signup", async (req, res) => {
 router.post("/api/clients/login", async (req, res) => {
   try {
     // find the user by email
+    console.log("login attempt");
+
     const user = await User.findOne({ where: { email: req.body.email } });
     if (!user) {
+      console.log("error with login");
+      console.log(req.body.email);
       throw new Error();
     }
 
@@ -41,6 +45,8 @@ router.post("/api/clients/login", async (req, res) => {
 // logout
 // you should provide the token in the request header
 router.post("/api/clients/logout", auth, async (req, res) => {
+  console.log("logout recieved");
+  console.log(req.token);
   try {
     await Token.destroy({
       where: {
