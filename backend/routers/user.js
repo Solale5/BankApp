@@ -200,6 +200,4 @@ router.post('/api/clients/verify/:token',  (req, res)=>{
 	});
 });
 
-
-
 module.exports = router

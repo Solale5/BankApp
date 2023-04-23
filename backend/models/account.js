@@ -20,9 +20,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Account.init({
-    uuid: {
+    accountNumber: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+      defaultValue: DataTypes.UUIDV4,
+      unique: true,
+      allowNull: false
     },
     userid: {
       type: DataTypes.INTEGER,
@@ -33,10 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       //allowNull: false
       defaultValue: 'Checking'
     },
-    accountNumber: {
-      type: DataTypes.STRING,
-      //allowNull: false
-    },
+
     routingNumber: {
       type: DataTypes.STRING,
       //allowNull: false

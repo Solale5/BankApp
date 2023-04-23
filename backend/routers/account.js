@@ -4,12 +4,19 @@ const auth = require('../middleware/auth')
 const jwt = require('jsonwebtoken')
 const router = new express.Router()
 require("dotenv").config();
+const crypto = require('crypto');
+const generateUniqueId = require('generate-unique-id');
+
 
 // add a new account 
-// a user might have multiple accounts of the same type 
 router.post('/api/clients/me/accounts/', auth, async (req, res) => {
     try {
-      const account = await Account.create({userid: req.user.id, type: req.body.type})
+      let accountNumber = generateUniqueId({
+        length: 9,
+        useLetters: false
+      })
+      const account = await Account.create({userid: req.user.id, type: req.body.type, accountNumber})
+
       return res.status(201).send({account})
     } catch (err) {
       return res.status(400).json(err)
@@ -21,7 +28,8 @@ router.post('/api/clients/me/accounts/', auth, async (req, res) => {
   router.get('/api/clients/me/accounts/:id', auth, async (req, res) => {
     const _id = req.params.id
     try {
-      const account = await Account.findOne({where: {uuid: _id, userid: req.user.id}})
+      const account = await Account.findOne({where: {accountNumber: _id, userid: req.user.id}})
+      
       return res.status(200).send({account})
     } catch (err) {
       return res.status(400).json(err)
@@ -46,7 +54,7 @@ router.patch('/api/clients/me/accounts/:id/deposit', auth, async (req, res) => {
     const _id = req.params.id
   
     try {
-        const account = await Account.findOne({where: {uuid: _id, userid: req.user.id}})
+        const account = await Account.findOne({where: {accountNumber: _id, userid: req.user.id}})
         if (!account ) {
             return res.status(404).send()
         }
@@ -63,7 +71,7 @@ router.patch('/api/clients/me/accounts/:id/withdraw', auth, async (req, res) => 
     const _id = req.params.id
   
     try {
-        const account = await Account.findOne({where: {uuid: _id, userid: req.user.id}})
+        const account = await Account.findOne({where: {accountNumber: _id, userid: req.user.id}})
         if (!account ) {
             return res.status(404).send()
         }
@@ -81,21 +89,24 @@ router.post('/api/clients/me/accounts/:id/transfer', auth, async (req, res) => {
     const _id = req.params.id
   
     try {
-        const account = await Account.findOne({where: {uuid: _id, userid: req.user.id}})
+        const account = await Account.findOne({where: {accountNumber: _id, userid: req.user.id}})
         if (!account ) {
             return res.status(404).send()
         }
         account.balance = account.balance - req.body.balance
-        await account.save()
+        
 
         const user = await User.findOne({where: {email: req.body.email}}); 
         // TODO: send a request to the deposit endpoint of the other account
         const account2 = await Account.findOne({where: { userid: user.id}})
         account2.balance = account2.balance + req.body.balance
+
+
         await account2.save()
+        await account.save()
 
 
-          res.send({ account, user, account2 })
+         res.send({ account, user, account2 })
     } catch (e) {
         res.status(400).send(e)
     }
@@ -107,7 +118,7 @@ router.delete('/api/clients/me/accounts/:id', auth, async (req, res) => {
     const _id = req.params.id
   
     try {
-       const account = await Account.destroy({where: {uuid: _id, userid: req.user.id}})
+       const account = await Account.destroy({where: {accountNumber: _id, userid: req.user.id}})
         res.send({ account })
     } catch (e) {
         res.status(400).send(e)
@@ -118,19 +129,14 @@ router.delete('/api/clients/me/accounts/:id', auth, async (req, res) => {
 
 
 // TODO: 
-// should I hide any information of the account? no 
-// should I add a new account for each user? 5 accounts for each user 
 // How to generate the account number and routing number? 
-// How to make sure the account number is unique?
-// which account to receive the money ? 
-// How to transfer money to another account?
 // how to transfer money to an external bank account ? 
 // Is there a special format for a bank account number and the routing number?
 // transfer to another account but not credit 
 // internal transfer within the same user accounts 
 //[ each month pay off  credit card]
 // transfer to another account but not credit
-
-
-
+// define the main account for each user and define a unique id for each account
+// add joi validation 
+// document the apis 
 module.exports = router
