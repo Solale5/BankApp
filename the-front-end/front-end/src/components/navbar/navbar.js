@@ -1,7 +1,20 @@
 import { Link, useMatch, useResolvedPath, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+
 import "./navbar.css";
 
 export default function Navbar({ isLoggedIn, onLoginStatusChange }) {
+  // State variable to keep track of login status
+
+  const [areWeLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("isLoggedIn") === "true"
+  );
+
+  // Use useEffect to update login status when localStorage changes
+  useEffect(() => {
+    setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
+  }, []);
+
   const navigate = useNavigate();
   const handleLogout = async () => {
     // Get token and id from local storage
@@ -12,7 +25,7 @@ export default function Navbar({ isLoggedIn, onLoginStatusChange }) {
     localStorage.removeItem("userId");
     localStorage.removeItem("email");
     localStorage.removeItem("token");
-    onLoginStatusChange(false);
+    localStorage.removeItem("isLoggedIn");
 
     // Send logout request to server with token and id in request header
     try {
@@ -29,7 +42,8 @@ export default function Navbar({ isLoggedIn, onLoginStatusChange }) {
       console.error("Failed to logout:", error);
       // Handle error appropriately
     }
-
+    onLoginStatusChange(false);
+    setIsLoggedIn(setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true"));
     // Redirect to homepage
     navigate("/");
   };
@@ -41,8 +55,11 @@ export default function Navbar({ isLoggedIn, onLoginStatusChange }) {
       </Link>
       <ul>
         {/* <CustomLink to="/">Home</CustomLink> */}
-        {isLoggedIn ? (
+        {/* {console.log("navbar.js state variable " + isLoggedIn)}
+        {console.log("navbar.js local storage variable " + areWeLoggedIn)} */}
+        {areWeLoggedIn || isLoggedIn ? (
           <>
+            <CustomLink to="/account">Accounts</CustomLink>
             <CustomLink to="/findatm">Find ATM</CustomLink>
             <CustomLink to="/automate">Automate Payments</CustomLink>
             <li>
@@ -55,6 +72,7 @@ export default function Navbar({ isLoggedIn, onLoginStatusChange }) {
           <>
             <CustomLink to="/">Home</CustomLink>
             <CustomLink to="/findatm">Find ATM</CustomLink>
+            <CustomLink to="/login">login</CustomLink>
           </>
         )}
       </ul>

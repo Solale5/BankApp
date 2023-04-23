@@ -9,6 +9,7 @@ function Login({ onLoginStatusChange }) {
   const [password, setPassword] = useState("");
 
   let hardcodedApiKey = "http://localhost:5001/api/clients/login";
+
   const handleSubmit = async (e) => {
     console.log(username);
     console.log(password);
@@ -29,11 +30,12 @@ function Login({ onLoginStatusChange }) {
       }
       // Do something with the response data
       const data = await response.json();
-      console.log(data);
-      console.log(data.userId);
-      console.log(data.email);
-      console.log(data.token);
-      console.log(data.uuid);
+      console.log("login.js:");
+      console.log("data: " + data);
+      console.log("userID: " + data.userId);
+      console.log("email: " + data.email);
+      console.log("token: " + data.token);
+      console.log("uuid: " + data.uuid);
       // Store the token securely in localStorage
       localStorage.setItem("token", data.token);
       localStorage.setItem("userId", data.userId);
@@ -41,6 +43,9 @@ function Login({ onLoginStatusChange }) {
       localStorage.setItem("uuid", data.uuid);
 
       // Navigate to the /account route
+      // After successful login
+
+      localStorage.setItem("isLoggedIn", true);
       onLoginStatusChange(true);
       navigate("/account");
     } catch (error) {
