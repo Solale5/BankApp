@@ -4,10 +4,11 @@ const auth = require('../middleware/auth')
 const jwt = require('jsonwebtoken')
 const router = new express.Router()
 
-// add a new account 
-// a user might have multiple accounts of the same type 
+// add a new account
+// a user might have multiple accounts of the same type
 router.post('/api/clients/me/accounts/', auth, async (req, res) => {
     try {
+      console.log(`req.user.id: ${req.user.id}`);
       const account = await Account.create({userid: req.user.id})
       return res.status(201).send({account})
     } catch (err) {
@@ -18,7 +19,9 @@ router.post('/api/clients/me/accounts/', auth, async (req, res) => {
 
 // get the information of a specific account
   router.get('/api/clients/me/accounts/:id', auth, async (req, res) => {
+
     const _id = req.params.id
+    console.log(`const _id: ${_id}`);
     try {
       const account = await Account.findOne({where: {uuid: _id, userid: req.user.id}})
       return res.status(200).send({account})
@@ -40,10 +43,10 @@ router.post('/api/clients/me/accounts/', auth, async (req, res) => {
 
 
 // update the information of a specific account
-// deposit 
+// deposit
 router.patch('/api/clients/me/accounts/:id/deposit', auth, async (req, res) => {
     const _id = req.params.id
-  
+
     try {
         const account = await Account.findOne({where: {uuid: _id, userid: req.user.id}})
         if (!account ) {
@@ -57,10 +60,10 @@ router.patch('/api/clients/me/accounts/:id/deposit', auth, async (req, res) => {
     }
   })
 
-// withdraw 
+// withdraw
 router.patch('/api/clients/me/accounts/:id/withdraw', auth, async (req, res) => {
     const _id = req.params.id
-  
+
     try {
         const account = await Account.findOne({where: {uuid: _id, userid: req.user.id}})
         if (!account ) {
@@ -74,11 +77,11 @@ router.patch('/api/clients/me/accounts/:id/withdraw', auth, async (req, res) => 
     }
   })
 
-// transfer to another account 
-// internal trnasfer 
+// transfer to another account
+// internal trnasfer
 router.post('/api/clients/me/accounts/:id/transfer', auth, async (req, res) => {
     const _id = req.params.id
-  
+
     try {
         const account = await Account.findOne({where: {uuid: _id, userid: req.user.id}})
         if (!account ) {
@@ -87,7 +90,7 @@ router.post('/api/clients/me/accounts/:id/transfer', auth, async (req, res) => {
         account.balance = account.balance - req.body.balance
         await account.save()
 
-        const user = await User.findOne({where: {email: req.body.email}}); 
+        const user = await User.findOne({where: {email: req.body.email}});
         // TODO: send a request to the deposit endpoint of the other account
         const account2 = await Account.findOne({where: { userid: user.id}})
         account2.balance = account2.balance + req.body.balance
@@ -104,7 +107,7 @@ router.post('/api/clients/me/accounts/:id/transfer', auth, async (req, res) => {
 // delete a specific account
 router.delete('/api/clients/me/accounts/:id', auth, async (req, res) => {
     const _id = req.params.id
-  
+
     try {
        const account = await Account.destroy({where: {uuid: _id, userid: req.user.id}})
         res.send({ account })
@@ -116,14 +119,14 @@ router.delete('/api/clients/me/accounts/:id', auth, async (req, res) => {
 
 
 
-// TODO: 
+// TODO:
 // should I hid any information of the account?
 // should I add a new account for each user?
 // How to generate the account number and routing number?
 // How to make sure the account number and routing number are unique?
-// which account to receive the money ? 
+// which account to receive the money ?
 // How to transfer money to another account?
-// how to transfer money to an external bank account ? 
+// how to transfer money to an external bank account ?
 // Is there a special format for a bank account number and the routing number?
 
 

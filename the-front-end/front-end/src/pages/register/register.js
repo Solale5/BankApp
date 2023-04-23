@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./register.css";
 
 function RegistrationPage() {
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -47,7 +50,9 @@ function RegistrationPage() {
       const data = await response.json();
 
       // Do something with the response data
+
       console.log(data);
+      navigate("/login");
       if (data.registeredUser == name) {
         // window.location.href = "/login";
       }

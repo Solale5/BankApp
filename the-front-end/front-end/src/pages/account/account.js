@@ -39,13 +39,98 @@ function AccountPage() {
   const token = localStorage.getItem("token");
   const email = localStorage.getItem("email");
   const id = localStorage.getItem("userId");
+  const uuid = localStorage.getItem("uuid");
   // Use the token for authentication or other purposes
   // ...
 
   // Render the data in your component
+  console.log("frontend account.js")
   console.log(id ?? "No id found"); // Use nullish coalescing operator to display a default value
   console.log(token ?? "No token found");
   console.log(email ?? "No email found");
+  console.log(uuid ?? "No uuid found");
+
+
+  const type = "Checking";
+  const balance = 1000.0;
+
+
+  const addChecking = () => {
+    fetch("http://localhost:5001/api/clients/me/accounts", {
+      method: "Post",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ type, balance }),
+    })
+    .then(response => {
+      if (!response.ok) {
+        console.log(response);
+        throw new Error(response.statusText);
+      }
+      console.log("account created");
+      return response.json();
+    })
+
+  }
+
+  const [accounts, setAccounts] = useState([])
+
+
+  /*
+  const fetchAccountData = () => {
+    fetch("http://localhost:5001/api/clients/me/accounts/2")
+      .then(response => {
+        console.log("hi");
+        console.log(response);
+        return response.json()
+      })
+      .then(data => {
+        //console.log(data);
+        setAccounts(data)
+      })
+  }
+
+  useEffect(() => {
+    fetchAccountData()
+  }, [])*/
+
+
+
+  const fetchAccountData = () => {
+    fetch(`http://localhost:5001/api/clients/me/accounts/${uuid}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}` // assuming you have a token for authentication
+      }
+    })
+    .then(response => {
+
+      console.log("gpt hi");
+      if (!response.ok) {
+        console.log(response);
+        throw new Error(response.statusText);
+      }
+      console.log(response);
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  }
+
+
+
+
+
+
+
+
 
   {
     /*modal popup show/close
@@ -113,6 +198,9 @@ function AccountPage() {
     setImageName(result.data.imageName);
   };
 
+
+
+  // HTML Starts here
   return (
     //everything must go in between the "bod" div
     <div className="bod">
@@ -121,6 +209,14 @@ function AccountPage() {
        how many accordion tabs to have */}
       <p>account number: {id}</p>
       <p>email = {email} </p>
+
+
+      <button onClick={addChecking}>addAccount</button>
+      <button onClick={fetchAccountData}>clickme</button>
+
+      <p>{accounts.account_number}</p>
+
+
       <h1>Checking Accounts</h1>
       {checkings}
 

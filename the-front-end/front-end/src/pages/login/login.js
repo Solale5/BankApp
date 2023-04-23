@@ -33,10 +33,12 @@ function Login({ onLoginStatusChange }) {
       console.log(data.userId);
       console.log(data.email);
       console.log(data.token);
+      console.log(data.uuid);
       // Store the token securely in localStorage
       localStorage.setItem("token", data.token);
       localStorage.setItem("userId", data.userId);
       localStorage.setItem("email", data.email);
+      localStorage.setItem("uuid", data.uuid);
 
       // Navigate to the /account route
       onLoginStatusChange(true);

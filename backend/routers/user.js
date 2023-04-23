@@ -34,9 +34,9 @@ router.post("/api/clients/login", async (req, res) => {
     const token = jwt.sign({ _id: user.id }, "thisismynewcourse");
     await Token.create({ userid: user.id, value: token });
 
-    res.status(200).json({ userId: user.id, email: user.email, token });
+    res.status(200).json({ userId: user.id, email: user.email, token, uuid: user.uuid });
     console.log("data sent");
-    console.log({ userId: user.id, email: user.email, token });
+    console.log({ userId: user.id, email: user.email, token, uuid: user.uuid });
   } catch (e) {
     return res.status(400).json({ error: "Invalid login credentials" });
   }
@@ -45,7 +45,7 @@ router.post("/api/clients/login", async (req, res) => {
 // logout
 // you should provide the token in the request header
 router.post("/api/clients/logout", auth, async (req, res) => {
-  console.log("logout recieved");
+  console.log("logout received");
   console.log(req.token);
   try {
     await Token.destroy({
