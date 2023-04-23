@@ -35,11 +35,17 @@ function AccountPage() {
   let endpoint = "http://localhost:5001/atms";
   // Access the passed data from useLocation hook
   const location = useLocation();
-  const { id, token, email } = location.state;
+  // Retrieve the token from localStorage
+  const token = localStorage.getItem("token");
+  const email = localStorage.getItem("email");
+  const id = localStorage.getItem("userId");
+  // Use the token for authentication or other purposes
+  // ...
+
   // Render the data in your component
-  console.log(id);
-  console.log(token);
-  console.log(email);
+  console.log(id ?? "No id found"); // Use nullish coalescing operator to display a default value
+  console.log(token ?? "No token found");
+  console.log(email ?? "No email found");
 
   {
     /*modal popup show/close

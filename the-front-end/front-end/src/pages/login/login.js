@@ -33,10 +33,13 @@ function Login() {
       console.log(data.userId);
       console.log(data.email);
       console.log(data.token);
-      // Pass the data as state to the /account route and navigate to it
-      navigate("/account", {
-        state: { id: data.userId, token: data.token, email: data.email },
-      });
+      // Store the token securely in localStorage
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", data.userId);
+      localStorage.setItem("email", data.email);
+
+      // Navigate to the /account route
+      navigate("/account");
     } catch (error) {
       console.error(error);
       // Handle the error
