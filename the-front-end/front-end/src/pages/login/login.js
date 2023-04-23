@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./login.css";
-function Login() {
+function Login({ onLoginStatusChange }) {
   // Inside your login component
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -39,6 +39,7 @@ function Login() {
       localStorage.setItem("email", data.email);
 
       // Navigate to the /account route
+      onLoginStatusChange(true);
       navigate("/account");
     } catch (error) {
       console.error(error);
