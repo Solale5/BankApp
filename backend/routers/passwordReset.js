@@ -1,5 +1,5 @@
 const {User, Token} = require('../models')
-const sendEmail = require('./sendemail');
+const sendEmail = require('../utils/sendemail');
 const jwt = require('jsonwebtoken');
 const express = require("express");
 const router = express.Router();

@@ -2,7 +2,7 @@ const express = require('express')
 const {User, Token} = require('../models')
 const auth = require('../middleware/auth')
 const jwt = require('jsonwebtoken')
-const verifyEmail = require('./tokensender')
+const verifyEmail = require('../utils/verifyEmail')
 
 const router = new express.Router()
 router.post('/api/clients/signup', async (req, res) => {
