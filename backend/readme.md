@@ -197,8 +197,8 @@ PS: the signupToken would be sent in the verification email which should be used
 PS: Possible values for type are `Credit` or `Saving` or `Debit`
 
 - ##### Required request information:
-- Authorization Token returned when you logged in must be provided in the header section of the request.
-- type: required <br>
+  Authorization Token returned when you logged in must be provided in the header section of the request.
+  type: required <br>
   balance: optional <br>
 - #### Response of the request:
   The new account infomation will be returned on success.<br>
@@ -211,7 +211,7 @@ PS: Possible values for type are `Credit` or `Saving` or `Debit`
 - ##### Endpoint: host//api/clients/me/accounts/{{accountID}}
 - ##### Request Type: GET
 - ##### Required request information:
-- Authorization Token returned when you logged in must be provided in the header section of the request.
+  Authorization Token returned when you logged in must be provided in the header section of the request.
 - #### Response of the request:
   The account infomation will be returned on success.
 
@@ -242,7 +242,7 @@ PS: Possible values for type are `Credit` or `Saving` or `Debit`
 
 - ##### Required request information:
   Authorization Token returned when you logged in must be provided in the header section of the request.
-- balance field.
+  balance field.
 - #### Response of the request:
   The account infomation will be returned on success.
 
