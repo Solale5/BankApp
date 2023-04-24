@@ -320,7 +320,7 @@ PS: `accounID` is the account to transfer from. <br>
 - #### Response of the request:
   An email will be sent to your email with a token to reset the password. <br>
 
-#### Forgot Password
+#### Enter the new password
 
 - ##### Endpoint: host/{{userid}}/{{resetToken}}
 - ##### Request Type: POST
