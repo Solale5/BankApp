@@ -111,3 +111,74 @@ PS: the signupToken would be sent in the verification email which should be used
 
 - #### Response of the request:
   - the user will be logged out and the session token will be removed from the database. The status will be 200 on success.
+
+##
+
+#### User LogoutAll
+
+- ##### Endpoint: host/api/clients/logoutAll
+- ##### Request Type: POST
+
+- ##### Required request information:
+
+  Authorization Token returned when you logged in must be provided in the header section of the request.
+
+- #### Response of the request:
+  - the user will be logged out from all devices. The status will be 200 on success.
+
+##
+
+#### Get the information of a user
+
+- ##### Endpoint: host/api/clients/me
+- ##### Request Type: GET
+
+- ##### Required request information:
+  Authorization Token returned when you logged in must be provided in the header section of the request.<br>
+- #### Response of the request:
+  The user information will be provided on success.
+
+##
+
+#### Update user profile
+
+- ##### Endpoint: host/api/clients/me
+- ##### Request Type: PATCH
+- ##### Request Body Example:
+
+```
+    {
+    "name": "Mordan",
+    "age": "16",
+    "securityAnswer": "jane",
+    "phoneNumber": "4082348721",
+    "recoveryEmail": "mordanjai@gmail.com",
+    "street": "Washington St.",
+    "city": "San Jose",
+    "state": "CA"
+    }
+```
+
+- ##### Required request information:
+- Authorization Token returned when you logged in must be provided in the header section of the request.
+- A combination of fields from the above request body example must be provided. <br>
+  PS: You can't update either the email or the password or the security question. <BR>
+  To update the password, use `host/password-reset` endpoint.
+
+- #### Response of the request:
+  The updated user information will be provided on success.
+
+##
+
+#### Delete user profile
+
+- ##### Endpoint: host/api/clients/me
+- ##### Request Type: DELETE
+
+- ##### Required request information:
+- Authorization Token returned when you logged in must be provided in the header section of the request.<br>
+  -A combination of fields from the above request body example must be provided. <br>
+  PS: You can't update either the email or the password or the security question. <BR>
+  To update the password, use `host/password-reset` endpoint.
+- #### Response of the request:
+  Status 200 on success.
