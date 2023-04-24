@@ -32,8 +32,10 @@ app.use(cors());
 
 app.use(express.json());
 
-const userRouter = require("./routers/user");
-const accountRouter = require("./routers/account");
+const userRouter = require('./routers/user')
+const passwordResetRouter = require('./routers/passwordReset')
+const accountRouter = require('./routers/account')
+const transactionsRouter = require('./routers/transactions')
 
 
 //const fileUpload = require("express-fileupload");
@@ -41,9 +43,11 @@ const accountRouter = require("./routers/account");
 
 
 const port = process.env.PORT || 5001;
+app.use(userRouter)
+app.use(accountRouter)
+app.use(passwordResetRouter)
+app.use(transactionsRouter)
 
-app.use(userRouter);
-app.use(accountRouter);
 
 app.listen(port, () => {
   console.log("Server is up on port " + port);
@@ -116,8 +120,15 @@ app.post("/upload", async (req, res) => {
 */
 
 const main = async () => {
-  // remove the force option to avoid dropping the table
-  await sequelize.sync({ alter: true });
-};
 
-main();
+  // remove the force option to avoid dropping the table
+
+  await sequelize.sync({ alter: true, force: true })
+
+}
+
+main()
+
+
+
+

@@ -3,9 +3,9 @@ const {
   Model
 } = require('sequelize');
 
-const {Source} =  require('../models/source')
-const {Account} =  require('../models/account')
-const {User} =  require('../models/user')
+const { Source } = require('../models/source')
+const { Account } = require('../models/account')
+const { User } = require('../models/user')
 
 
 module.exports = (sequelize, DataTypes) => {
@@ -15,10 +15,10 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({Source, Account, User}) {
+    static associate({ Source, Account, User }) {
       this.hasOne(Source)
-      this.belongsTo(Account)
-      this.belongsTo(User)
+      this.belongsTo(Account, { foreignKey: 'accountid' })
+      this.belongsTo(User, { foreignKey: 'userid' })
     }
   }
   Transactions.init({
@@ -26,24 +26,33 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
     },
+    userid: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    accountid: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     routingINTEGER: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     transactionAmt: {
       type: DataTypes.DOUBLE,
-      allowNull: false
+      allowNull: true
     },
     transactionType: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     checkINTEGER: {
       type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     sequelize,

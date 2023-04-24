@@ -1,0 +1,663 @@
+{
+	"info": {
+		"_postman_id": "67613194-af83-4fce-8db9-a3cb7e4edbb2",
+		"name": "Bank-App Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26721580",
+		"_collection_link": "https://lunar-spaceship-276904.postman.co/workspace/CS160~63add438-f099-4b2c-899b-f29d5e972d56/collection/26721580-67613194-af83-4fce-8db9-a3cb7e4edbb2?action=share&creator=26721580&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "CreateUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201){\r",
+									"    pm.environment.set('signupToken', pm.response.json().token)\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Mordan\",\r\n    \"age\": \"16\",\r\n    \"password\": \"welcomdsf\",\r\n    \"securityQuestion\": \"what is your  mother's name?\",\r\n    \"securityAnswer\": \"jane\",\r\n    \"phoneNumber\": \"4082348721\",\r\n    \"email\": \"ahmed.abdelsalam.sa@gmail.com\",\r\n    \"recoveryEmail\": \"mordanjai@gmail.com\",\r\n    \"street\": \"Washington St.\",\r\n    \"city\": \"San Jose\",\r\n    \"state\": \"CA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/clients/signup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoginUser",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"if (pm.response.code === 200){\r",
+									"    pm.environment.set('authToken', pm.response.json().token)\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"email\": \"ahmed.abdelsalam.sa@gmail.com\",\r\n     \"password\": \"123456789\",\r\n     \"securityAnswer\": \"jane\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/clients/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followAuthorizationHeader": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/clients/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LogoutAll",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followAuthorizationHeader": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/clients/logoutAll",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"logoutAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateProfile",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"phoneNumber\": \"5258158366\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/clients/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetProfile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/clients/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/clients/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "Add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"if (pm.response.code === 201){\r",
+									"    pm.environment.set('accountID', pm.response.json().account.accountNumber)\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"Checking\",\r\n    \"balance\": 1000.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/clients/me/accounts/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"me",
+								"accounts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAccount",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"account_number\": 623796434\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/clients/me/accounts/{{accountID}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"me",
+								"accounts",
+								"{{accountID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllAccounts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/clients/me/accounts/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"me",
+								"accounts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deposit",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"balance\": 500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/clients/me/accounts/{{accountID}}/deposit",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"me",
+								"accounts",
+								"{{accountID}}",
+								"deposit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Withdraw",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_number\": 591983049,\r\n    \"account_number\": 526593519,\r\n    \"amount\": 500,\r\n    \"descripton\": \"This is a test withdraw\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/clients/me/accounts/{{accountID}}/withdraw",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"me",
+								"accounts",
+								"{{accountID}}",
+								"withdraw"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteAccount",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/clients/me/accounts/739230763",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"me",
+								"accounts",
+								"739230763"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transfer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accountNumber\":739230763 ,\r\n    \"balance\": 200\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/clients/me/accounts/{{accountID}}/transfer",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"me",
+								"accounts",
+								"{{accountID}}",
+								"transfer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ADMIN",
+			"item": [
+				{
+					"name": "GenerateReport",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ATM",
+			"item": []
+		},
+		{
+			"name": "ForTestingOnly",
+			"item": [
+				{
+					"name": "VerifyNewlyCreatedAccountEmail",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/clients/verify/{{signupToken}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"verify",
+								"{{signupToken}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "GetAccountTransactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/clients/me/transactions/{{accountID}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"me",
+								"transactions",
+								"{{accountID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllTransactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/clients/me/transactions/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"me",
+								"transactions",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reset-password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"if (pm.response.code === 200){\r",
+							"    pm.environment.set('resetToken', pm.response.json().token)\r",
+							"    pm.environment.set('userid', pm.response.json().user.id)\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"ahmed.abdelsalam.sa@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/reset-password",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"reset-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "set-new-password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\":\"123456789\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/{{userid}}/{{resetToken}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{userid}}",
+						"{{resetToken}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{authToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"",
+					""
+				]
+			}
+		}
+	]
+}
