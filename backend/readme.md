@@ -158,10 +158,11 @@ PS: the signupToken would be sent in the verification email which should be used
 ```
 
 - ##### Required request information:
-- Authorization Token returned when you logged in must be provided in the header section of the request.
-- A combination of fields from the above request body example must be provided. <br>
-  PS: You can't update either the email or the password or the security question. <BR>
-  To update the password, use `host/password-reset` endpoint.
+
+  - Authorization Token returned when you logged in must be provided in the header section of the request.
+  - A combination of fields from the above request body example must be provided. <br>
+    PS: You can't update either the email or the password or the security question. <BR>
+    To update the password, use `host/password-reset` endpoint.
 
 - #### Response of the request:
   The updated user information will be provided on success.
@@ -179,8 +180,6 @@ PS: the signupToken would be sent in the verification email which should be used
   Status 200 on success.
 
 ## Account Endpoints
-
-##
 
 #### Add a new account
 
@@ -218,12 +217,12 @@ PS: Possible values for type are `Credit` or `Saving` or `Debit`
 
 ##
 
-#### Get the information of a all accounts
+#### Get the information of all accounts
 
 - ##### Endpoint: host//api/clients/me/accounts/
 - ##### Request Type: GET
 - ##### Required request information:
-- Authorization Token returned when you logged in must be provided in the header section of the request.
+  Authorization Token returned when you logged in must be provided in the header section of the request.
 - #### Response of the request:
   All accounts infomation under the currently loggedin user will be returned on success.
 
@@ -242,7 +241,7 @@ PS: Possible values for type are `Credit` or `Saving` or `Debit`
 ```
 
 - ##### Required request information:
-- Authorization Token returned when you logged in must be provided in the header section of the request.
+  Authorization Token returned when you logged in must be provided in the header section of the request.
 - balance field.
 - #### Response of the request:
   The account infomation will be returned on success.
@@ -262,7 +261,78 @@ PS: Possible values for type are `Credit` or `Saving` or `Debit`
 ```
 
 - ##### Required request information:
-- Authorization Token returned when you logged in must be provided in the header section of the request.
-- balance field.
+  Authorization Token returned when you logged in must be provided in the header section of the request.<br>
+  balance field.
 - #### Response of the request:
   The account infomation will be returned on success.
+
+##
+
+#### Delete an account
+
+- ##### Endpoint: host/api/clients/me/accounts/{{accountID}}
+- ##### Request Type: DELETE
+- ##### Required request information:
+  Authorization Token returned when you logged in must be provided in the header section of the request.<br>
+- #### Response of the request:
+  Status 200 on success.
+
+##
+
+#### Transfer to an account
+
+- ##### Endpoint: host/api/clients/me/accounts/{{accountID}}/transfer
+- ##### Request Type: POST
+- ##### Request Body Example:
+
+```
+  {
+    "accountNumber":739230763 ,
+    "balance": 200
+  }
+```
+
+PS: `accounID` is the account to transfer from. <br>
+`accountNumber` is the account to transfer to.
+
+- ##### Required request information:
+  Authorization Token returned when you logged in must be provided in the header section of the request.<br>
+  `accountNumber` and `accountID` must be provided.
+- #### Response of the request:
+  Both the sender and receiver account information will be provided on success.
+
+## Password Reset
+
+#### Forgot Password
+
+- ##### Endpoint: host/reset-password
+- ##### Request Type: POST
+- ##### Request Body Example:
+
+```
+  {
+    "email":"ahmed.abdelsalam.sa@gmail.com"
+  }
+```
+
+- ##### Required request information:
+  `email` must be provided.
+- #### Response of the request:
+  An email will be sent to your email with a token to reset the password. <br>
+
+#### Forgot Password
+
+- ##### Endpoint: host/{{userid}}/{{resetToken}}
+- ##### Request Type: POST
+- ##### Request Body Example:
+
+```
+  {
+    "password":"123456789"
+  }
+```
+
+- ##### Required request information:
+  `password` must be provided.
+- #### Response of the request:
+  Status 200 will be provided on success.
