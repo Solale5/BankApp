@@ -27,8 +27,6 @@ To use Spartans-Bank backend API, you need to do the following:
 
 ## USER Endpoints
 
-##
-
 #### User Signup
 
 - ##### Endpoint: host/api/clients/signup
@@ -176,9 +174,95 @@ PS: the signupToken would be sent in the verification email which should be used
 - ##### Request Type: DELETE
 
 - ##### Required request information:
-- Authorization Token returned when you logged in must be provided in the header section of the request.<br>
-  -A combination of fields from the above request body example must be provided. <br>
-  PS: You can't update either the email or the password or the security question. <BR>
-  To update the password, use `host/password-reset` endpoint.
+  Authorization Token returned when you logged in must be provided in the header section of the request.<br>
 - #### Response of the request:
   Status 200 on success.
+
+## Account Endpoints
+
+##
+
+#### Add a new account
+
+- ##### Endpoint: host/api/clients/me/accounts/
+- ##### Request Type: POST
+- ##### Request Body Example:
+
+```
+  {
+    "type": "Credit",
+    "balance": 1000.0
+  }
+```
+
+PS: Possible values for type are `Credit` or `Saving` or `Debit`
+
+- ##### Required request information:
+- Authorization Token returned when you logged in must be provided in the header section of the request.
+- type: required <br>
+  balance: optional <br>
+- #### Response of the request:
+  The new account infomation will be returned on success.<br>
+  You need to keep the accountID, as you might need it later to do some operations on the created account.
+
+##
+
+#### Get the information of a specific account
+
+- ##### Endpoint: host//api/clients/me/accounts/{{accountID}}
+- ##### Request Type: GET
+- ##### Required request information:
+- Authorization Token returned when you logged in must be provided in the header section of the request.
+- #### Response of the request:
+  The account infomation will be returned on success.
+
+##
+
+#### Get the information of a all accounts
+
+- ##### Endpoint: host//api/clients/me/accounts/
+- ##### Request Type: GET
+- ##### Required request information:
+- Authorization Token returned when you logged in must be provided in the header section of the request.
+- #### Response of the request:
+  All accounts infomation under the currently loggedin user will be returned on success.
+
+##
+
+#### Deposit to an account
+
+- ##### Endpoint: host/api/clients/me/accounts/{{accountID}}/deposit
+- ##### Request Type: PATCH
+- ##### Request Body Example:
+
+```
+  {
+    "balance": 1000.0
+  }
+```
+
+- ##### Required request information:
+- Authorization Token returned when you logged in must be provided in the header section of the request.
+- balance field.
+- #### Response of the request:
+  The account infomation will be returned on success.
+
+##
+
+#### Withdraw from an account
+
+- ##### Endpoint: host/api/clients/me/accounts/{{accountID}}/withdraw
+- ##### Request Type: PATCH
+- ##### Request Body Example:
+
+```
+  {
+    "balance": 200.0
+  }
+```
+
+- ##### Required request information:
+- Authorization Token returned when you logged in must be provided in the header section of the request.
+- balance field.
+- #### Response of the request:
+  The account infomation will be returned on success.
