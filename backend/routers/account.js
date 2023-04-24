@@ -65,7 +65,7 @@ router.patch('/api/clients/me/accounts/:id/deposit', auth, async (req, res) => {
     const transaction = await Transactions.create({ userid: req.user.id, accountid: _id })
     transaction.routingINTEGER = BANKAPP_ROUTING_NUMBER
     transaction.transactionAmt = req.body.balance
-    transaction.type = 'Deposit'
+    transaction.transactionType = 'Deposit'
     transaction.description = req.body.description
     transaction.checkINTEGER = req.body.check_number
     await transaction.save()
@@ -95,7 +95,7 @@ router.patch('/api/clients/me/accounts/:id/withdraw', auth, async (req, res) => 
     const transaction = await Transactions.create({ userid: req.user.id, accountid: _id })
     transaction.routingINTEGER = BANKAPP_ROUTING_NUMBER
     transaction.transactionAmt = req.body.balance
-    transaction.type = 'Withdraw'
+    transaction.transactionType = 'Withdraw'
     transaction.description = req.body.description
     transaction.checkINTEGER = req.body.check_number
     await transaction.save()
@@ -138,14 +138,14 @@ router.post('/api/clients/me/accounts/:id/transfer', auth, async (req, res) => {
     const transaction1 = await Transactions.create({ userid: req.user.id, accountid: account.id })
     transaction1.routingINTEGER = BANKAPP_ROUTING_NUMBER
     transaction1.transactionAmt = req.body.balance
-    transaction1.type = 'Transfer'
+    transaction1.transactionType = 'Transfer'
     transaction1.description = "Transferred out of account"
     await transaction1.save()
 
     const transaction2 = await Transactions.create({ userid: account2.userid, accountid: account2.id })
     transaction2.routingINTEGER = BANKAPP_ROUTING_NUMBER
     transaction2.transactionAmt = req.body.balance
-    transaction2.type = 'Transfer'
+    transaction2.transactionType = 'Transfer'
     transaction2.description = "Transferred into account"
     await transaction2.save()
 
