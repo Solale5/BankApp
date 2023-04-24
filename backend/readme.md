@@ -194,7 +194,7 @@ PS: the signupToken would be sent in the verification email which should be used
   }
 ```
 
-PS: Possible values for type are `Credit` or `Saving` or `Debit`
+PS: The only possible values for type are `Credit` or `Saving` or `Debit`
 
 - ##### Required request information:
   Authorization Token returned when you logged in must be provided in the header section of the request.
@@ -236,7 +236,8 @@ PS: Possible values for type are `Credit` or `Saving` or `Debit`
 
 ```
   {
-    "balance": 1000.0
+    "balance": 1000.0,
+    "description": "This is a test deposit"
   }
 ```
 
@@ -245,6 +246,7 @@ PS: Possible values for type are `Credit` or `Saving` or `Debit`
   balance field.
 - #### Response of the request:
   The account infomation will be returned on success.
+  The transaction information will also be returned on success
 
 ##
 
@@ -256,7 +258,8 @@ PS: Possible values for type are `Credit` or `Saving` or `Debit`
 
 ```
   {
-    "balance": 200.0
+    "balance": 200.0, 
+    "description": "This is a test deposit"
   }
 ```
 
@@ -265,6 +268,7 @@ PS: Possible values for type are `Credit` or `Saving` or `Debit`
   balance field.
 - #### Response of the request:
   The account infomation will be returned on success.
+  The transaction information will also be returned on success
 
 ##
 
@@ -292,14 +296,15 @@ PS: Possible values for type are `Credit` or `Saving` or `Debit`
   }
 ```
 
-PS: `accounID` is the account to transfer from. <br>
-`accountNumber` is the account to transfer to.
+PS: `accountID` is the account to transfer money from. <br>
+`accountNumber` is the account to transfer money to.
 
 - ##### Required request information:
   Authorization Token returned when you logged in must be provided in the header section of the request.<br>
   `accountNumber` and `accountID` must be provided.
 - #### Response of the request:
-  Both the sender and receiver account information will be provided on success.
+  Both the sender and receiver account information will be provided on success. 
+  Both transactions: Transfer of money out of one account and Transfer of money into an another account will be provided  
 
 ## Password Reset
 
@@ -336,3 +341,34 @@ PS: `accounID` is the account to transfer from. <br>
   `password` must be provided.
 - #### Response of the request:
   Status 200 will be provided on success.
+
+## Transaction Endpoints 
+
+### Get Account Transactions 
+- ##### Endpoint: host/api/clients/me/transactions/{{accountID}}
+- ##### Request Type: GET
+- ##### Request Body Example: no body needed 
+
+```
+  {}
+```
+
+- ##### Required request information:
+  Authorization Token returned when the user is logged in must be provided in the header section of the request.
+- #### Response of the request:
+  All transactions under the current account will be returned. Please note the account refers to a bank account, not user account. A user can have several bank accounts. 
+  
+### Get All Transactions 
+- ##### Endpoint: host/api/clients/me/transactions/
+- ##### Request Type: GET
+- ##### Request Body Example: no body needed 
+
+```
+  {}
+```
+
+- ##### Required request information:
+  Authorization Token returned when the user is logged in must be provided in the header section of the request.
+- #### Response of the request:
+  All transactions under the current logged in user will be returned.
+
