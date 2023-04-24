@@ -3,9 +3,9 @@ const {
   Model
 } = require('sequelize');
 
-const {Account} = require('../models/account');
-const {transactions} = require('../models/transactions');
-const {Token}= require('../models/token')
+const { Account } = require('../models/account');
+const { transactions } = require('../models/transactions');
+const { Token } = require('../models/token')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 
@@ -18,14 +18,12 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({Token, Address, Account, Transactions}) {
+    static associate({ Token, Address, Account, Transactions }) {
       // define association here
       this.hasMany(Token, { foreignKey: 'userid' })
 
-      // not tested yet 
-        this.hasOne(Address)
-        this.hasMany(Account,  { foreignKey: 'userid' })
-        this.hasMany(Transactions)
+      this.hasMany(Account, { foreignKey: 'userid' })
+      this.hasMany(Transactions, { foreignKey: 'userid' })
     }
 
 
@@ -43,7 +41,11 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      
+
+    },
+    manager: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     },
     active: {
       type: DataTypes.BOOLEAN,
@@ -56,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-    
+
     },
     securityQuestion: {
       type: DataTypes.STRING,
@@ -74,32 +76,60 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      validate:{
+      validate: {
         isEmail: true
       },
-    
+
     },
     recoveryEmail: {
       type: DataTypes.STRING,
       allowNull: false
     },
+
+    zipcode: {
+      type: DataTypes.STRING,
+    },
+    street: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    state: {
+      type: DataTypes.STRING,
+      validate: {
+        isIn:
+          [['AK', 'AL', 'AR', 'AZ', 'CA',
+            'CO', 'CT', 'DE', 'FL', 'GA',
+            'HI', 'IA', 'ID', 'IL', 'IN',
+            'KS', 'KY', 'LA', 'MA', 'MD',
+            'ME', 'MI', 'MN', 'MO', 'MS',
+            'MT', 'NC', 'ND', 'NE', 'NH',
+            'NJ', 'NM', 'NV', 'NY', 'OH',
+            'OK', 'OR', 'PA', 'RI', 'SC',
+            'SD', 'TN', 'TX', 'UT', 'VA',
+            'VT', 'WA', 'WI', 'WV', 'WY']]
+      }
+    }
   }, {
     sequelize,
     modelName: 'User',
     tableName: 'User',
-    hooks:{
+    hooks: {
       beforeSave: async (user, options) => {
-        if(user.changed('password')){
+        if (user.changed('password')) {
           user.password = await bcrypt.hash(user.password, 8)
         }
-        if(user.changed( 'securityAnswer')){
+        if (user.changed('securityAnswer')) {
           user.securityAnswer = await bcrypt.hash(user.securityAnswer, 8)
         }
-      }, 
-      
+      },
+
     }
-      
-  },  );
+
+  },);
 
   return User;
 };
@@ -107,4 +137,3 @@ module.exports = (sequelize, DataTypes) => {
 
 
 
-  
