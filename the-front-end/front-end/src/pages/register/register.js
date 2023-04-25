@@ -96,9 +96,6 @@ function RegistrationPage() {
 
         console.log(data);
         navigate("/login");
-        if (data.registeredUser == name) {
-          // window.location.href = "/login";
-        }
       } catch (error) {
         console.error(error);
         // Handle the error
