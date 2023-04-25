@@ -372,3 +372,39 @@ PS: `accountID` is the account to transfer money from. <br>
 - #### Response of the request:
   All transactions under the current logged in user will be returned.
 
+## ADMIN Endpoints  
+### Generate Report 
+- ##### Endpoint: host/api/clients/me/reports/
+- ##### Request Type: GET
+- ##### Request Body Example: no body needed  
+    
+```
+  {}
+```
+- ##### Required request information:
+  Authorization Token returned when the user is logged in must be provided in the header section of the request. Please note that the user must have the "manager" field marked as true to run the API successfully. 
+- #### Response of the request:
+  An object body consisting of the following fields will be returned: number of users, number of accounts, total balance in the bank, average balance in the bank, total number of transactions, number of deposits, number of withdraws, number of transfers 
+  
+    
+#### Example Responses: A) User is a manager B) User is a regular bank customer 
+```
+  {
+    "number_of_users": 3,
+    "number_of_accounts": 2,
+    "total_balance": 1000,
+    "average_balance": 500,
+    "total_number_of_transactions": 2,
+    "num_deposit": 2,
+    "num_withdraw": 0,
+    "num_transfer": 0
+  } 
+```  
+```
+  {
+    "error": "User is not authorized to view reports"
+  } 
+``` 
+
+
+    
