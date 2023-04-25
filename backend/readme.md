@@ -194,7 +194,7 @@ PS: the signupToken would be sent in the verification email which should be used
   }
 ```
 
-PS: Possible values for type are `Credit` or `Saving` or `Debit`
+PS: Possible values for type are `Credit` or `Saving` or `Checking`
 
 - ##### Required request information:
   Authorization Token returned when you logged in must be provided in the header section of the request.
