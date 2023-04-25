@@ -36,6 +36,7 @@ const userRouter = require('./routers/user')
 const passwordResetRouter = require('./routers/passwordReset')
 const accountRouter = require('./routers/account')
 const transactionsRouter = require('./routers/transactions')
+const adminRouter = require('./routers/admin')
 
 
 //const fileUpload = require("express-fileupload");
@@ -47,6 +48,7 @@ app.use(userRouter)
 app.use(accountRouter)
 app.use(passwordResetRouter)
 app.use(transactionsRouter)
+app.use(adminRouter)
 
 
 app.listen(port, () => {
