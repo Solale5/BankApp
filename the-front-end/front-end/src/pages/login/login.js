@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./login.css";
+
 function Login({ onLoginStatusChange }) {
   // Inside your login component
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [securityQuestion, setSecurityQuestion] = useState("");
+  const [securityAnswer, setSecurityAnswer] = useState("");
 
   let hardcodedApiKey = "http://localhost:5001/api/clients/login";
 
   const handleSubmit = async (e) => {
-    console.log(username);
-    console.log(password);
-    let email = username;
     e.preventDefault();
 
     try {
@@ -22,29 +22,28 @@ function Login({ onLoginStatusChange }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ password, email }),
+        body: JSON.stringify({
+          password,
+          email: username,
+          securityAnswer,
+        }),
       });
 
       if (!response.ok) {
         throw new Error("Login failed");
       }
+
       // Do something with the response data
       const data = await response.json();
-      console.log("login.js:");
-      console.log("data: " + data);
-      console.log("userID: " + data.userId);
-      console.log("email: " + data.email);
-      console.log("token: " + data.token);
-      console.log("uuid: " + data.uuid);
+      console.log(data);
       // Store the token securely in localStorage
       localStorage.setItem("token", data.token);
-      localStorage.setItem("userId", data.userId);
-      localStorage.setItem("email", data.email);
-      localStorage.setItem("uuid", data.uuid);
+      localStorage.setItem("userId", data.user.id);
+      localStorage.setItem("email", data.user.email);
+      localStorage.setItem("uuid", data.user.uuid);
 
       // Navigate to the /account route
       // After successful login
-
       localStorage.setItem("isLoggedIn", true);
       onLoginStatusChange(true);
       navigate("/account");
@@ -57,7 +56,7 @@ function Login({ onLoginStatusChange }) {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="username">email:</label>
+        <label htmlFor="username">Email:</label>
         <input
           type="text"
           id="username"
@@ -72,6 +71,32 @@ function Login({ onLoginStatusChange }) {
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="securityQuestion">Security Question:</label>
+        <select
+          id="securityQuestion"
+          value={securityQuestion}
+          onChange={(e) => setSecurityQuestion(e.target.value)}
+        >
+          <option value="">Select a security question</option>
+          <option value="motherMaidenName">
+            What is your mother's maiden name?
+          </option>
+          <option value="firstPetName">
+            What is the name of your first pet?
+          </option>
+          <option value="cityOfBirth">What city were you born in?</option>
+        </select>
+      </div>
+      <div>
+        <label htmlFor="securityAnswer">Security Answer:</label>
+        <input
+          type="text"
+          id="securityAnswer"
+          value={securityAnswer}
+          onChange={(e) => setSecurityAnswer(e.target.value)}
         />
       </div>
       <button type="submit">Login</button>
