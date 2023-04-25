@@ -43,7 +43,7 @@ router.post('/api/clients/signup', async (req, res) => {
     }, process.env.Private_Key, { expiresIn: '2m' }
     );
 
-    await verifyEmail(user, token)
+    //await verifyEmail(user, token)
 
     return res.status(201).send({ user, token })
   } catch (err) {
