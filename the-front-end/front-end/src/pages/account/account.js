@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 
+import Modal from 'react-bootstrap/Modal';
 import Button from "react-bootstrap/Button";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 import CheckingAccord from "./AccComponents/checkingAccord.js";
 import SavingAccord from "./AccComponents/savingAccord.js";
@@ -51,10 +54,39 @@ function AccountPage() {
   console.log(uuid ?? "No uuid found");
 
 
-  const type = "Checking";
-  const balance = 1000.0;
+  const getAllAccounts = () => {
+    console.log("get all account info");
 
+    fetch("http://localhost:5001/api/clients/me/accounts", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    })
+    .then(response => {
+      if(!response.ok){
+        console.log(response);
+        throw new Error(response.statusText);
+      }
+      console.log("getAllAccounts");
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+    })
+  }
 
+  useEffect(() => {
+    getAllAccounts();
+  }, []);
+
+  /*
+  const onloadtest = () => {
+    console.log("run on load");
+  }*/
+
+  /*
   const addChecking = () => {
     fetch("http://localhost:5001/api/clients/me/accounts", {
       method: "POST",
@@ -77,8 +109,53 @@ function AccountPage() {
     })
 
   }
+  */
 
   const [accounts, setAccounts] = useState([])
+
+
+  // modal popup for account creation
+  const [modalShow, setModalShow] = useState(false);
+
+  const handleModalClose = () => setModalShow(false);
+  const handleModalShow = () => setModalShow(true);
+
+
+  // for account creation dropdown in modal popup
+  const [selectAccount, setSelectAccount] = useState();
+
+  const createAccount = () => {
+    // close modal
+    setModalShow(false);
+
+    const type = selectAccount;
+    const balance = 0.0;
+
+    console.log(`create account type: ${type}`);
+
+    // create account depending on value in dropdown
+    fetch("http://localhost:5001/api/clients/me/accounts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ type, balance }),
+    })
+    .then(response => {
+      if (!response.ok) {
+        console.log(response);
+        throw new Error(response.statusText);
+      }
+      console.log("account created");
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+    })
+  }
+
+
 
 
   /*
@@ -207,15 +284,46 @@ function AccountPage() {
   return (
     //everything must go in between the "bod" div
     <div className="bod">
+
+
+
       {/* comments are showing for some reason
        use for loop with amount of accounts to determine
        how many accordion tabs to have */}
       <p>account number: {id}</p>
       <p>email = {email} </p>
 
+      {/*
+      <button onClick={addChecking}>Create Account</button>
+      */}
 
-      <button onClick={addChecking}>addAccount</button>
-      <button onClick={fetchAccountData}>getAccounts</button>
+      <Button variant="primary" onClick={handleModalShow}>
+        Create Account
+      </Button>
+
+      <Modal show={modalShow} onHide={handleModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Account Creation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h1>Create Account: {selectAccount}</h1>
+          <select value={selectAccount} onChange={e=>setSelectAccount(e.target.value)}>
+            <option></option>
+            <option>Checking</option>
+            <option>Saving</option>
+            <option>Credit</option>
+          </select>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={createAccount}>
+            Create
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+
+
+      <button onClick={getAllAccounts}>getAccounts</button>
 
       <p>{accounts.account_number}</p>
 

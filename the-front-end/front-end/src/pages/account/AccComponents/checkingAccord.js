@@ -27,13 +27,71 @@ export default function CheckingAccord({
 }) {
 
 
+  //// NOTE:
+    // e.preventDefault(); prevents page from reloading on submit
+
+
+    //handle Transfer requests
+    const [checkingTransferAccNum, setCheckingTransferAccNum] = useState();
+    const [checkingTransferRoutNum, setCheckingTransferRoutNum] = useState();
+    const [checkingTransferAmount, setCheckingTransferAmount] = useState();
+
+    const handleCheckingTransferSubmit= (e) => {
+      console.log("Checking transfer request");
+      console.log(`checking transfer account number: ${checkingTransferAccNum}`);
+      console.log(`checking transfer routing number: ${checkingTransferRoutNum}`);
+      console.log(`checking transfer amount: ${checkingTransferAmount}`);
+
+      //connect to backend here
+
+      e.preventDefault();
+    }
+
+    //handle Withdraw requests
+    const [checkingWithdrawAmount, setCheckingWithdrawAmount] = useState();
+
+    const handleCheckingWithdrawSubmit = (e) => {
+      console.log("Checking withdraw request");
+      console.log(`checking withdraw amount ${checkingWithdrawAmount}`);
+
+      //connect to backend here
+
+      e.preventDefault();
+    }
+
+
+    //handle Desosit requests
+    const [checkingDepositAmount, setCheckingDepositAmount] = useState();
+
+    const handleCheckingDepositSubmit = (e) => {
+      console.log("Checking deposit request");
+      console.log(`checking desposit amount: ${checkingDepositAmount}`);
+
+      e.preventDefault();
+
+    }
+
+
     const s3 = new AWS.S3();
     const [imageUrl, setImageUrl] = useState(null);
     const [file, setFile] = useState(null);
 
     const handleFileSelect = (e) => {
-      setFile(e.target.files[0]);
+      //setFile(e.target.files[0]);
+
+
+      const file = e.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImageUrl(e.target.result);
+      };
+      reader.readAsDataURL(file);
     }
+
+    /*
+    //upload to AWS bucket
+    //idk if necessary
     const uploadToS3 = async () => {
       if (!file) {
         return;
@@ -47,6 +105,7 @@ export default function CheckingAccord({
       setImageUrl(Location);
       console.log('uploading to s3', Location);
     }
+    */
 
 
     /*
@@ -71,9 +130,45 @@ export default function CheckingAccord({
           <Accordion.Header>...{acc_num}</Accordion.Header>
           <Accordion.Body>
             <Accordion>
+              <h1>Balance: $</h1>
               <Accordion.Item eventKey="1T">
                 <Accordion.Header>Transfer</Accordion.Header>
                 <Accordion.Body>
+                  <form onSubmit={e => {handleCheckingTransferSubmit(e)}}>
+                    <label>Account Number</label>
+                    <input
+                      name='checking_transfer_account_number'
+                      placeholder='Account Number'
+                      type='number'
+                      value={checkingTransferAccNum}
+                      onChange={e => setCheckingTransferAccNum(e.target.value)}
+                    />
+                    <br/>
+                    <br/>
+                    <label>Routing Number</label>
+                    <input
+                      name='checking_transfer_routing_number'
+                      placeholder='Routing Number'
+                      type='number'
+                      value={checkingTransferRoutNum}
+                      onChange={e => setCheckingTransferRoutNum(e.target.value)}
+                    />
+                    <br/>
+                    <br/>
+                    <label>Amount</label>
+                    <input
+                      name='checking_transfer_amount'
+                      placeholder='$Amount'
+                      type='number'
+                      value={checkingTransferAmount}
+                      onChange={e => setCheckingTransferAmount(e.target.value)}
+                    />
+                    <br/>
+                    <br/>
+                    <button type="submit">Transfer</button>
+                  </form>
+
+                  {/* doing too much with React-Bootstrap
                   <Form>
                     <Form.Group
                       as={Row}
@@ -82,7 +177,7 @@ export default function CheckingAccord({
                     >
                       <Col sm={10}>
                         <Form.Control
-                          type="text"
+                          type="number"
                           placeholder="Account Number"
                         />
                       </Col>
@@ -118,14 +213,29 @@ export default function CheckingAccord({
                       Transfer
                     </Button>
                   </Form>
+                  */}
                 </Accordion.Body>
               </Accordion.Item>
 
               <Accordion.Item eventKey="1W">
                 <Accordion.Header>Withdraw</Accordion.Header>
                 <Accordion.Body>
-                  <Form>
+                  <form onSubmit={e => {handleCheckingWithdrawSubmit(e)}}>
+                    <label>Amount</label>
+                    <input
+                      name='checking_withdraw_amount'
+                      placeholder='$Amount'
+                      type='number'
+                      value={checkingWithdrawAmount}
+                      onChange={e => setCheckingWithdrawAmount(e.target.value)}
+                    />
+                    <br/>
+                    <br/>
+                    <button type="submit">Withdraw</button>
+                  </form>
 
+                  {/*
+                  <Form>
                     <Form.Group
                       as={Row}
                       className="mb-3"
@@ -143,6 +253,7 @@ export default function CheckingAccord({
                       Withdraw
                     </Button>
                   </Form>
+                  */}
                 </Accordion.Body>
               </Accordion.Item>
 
@@ -183,8 +294,33 @@ export default function CheckingAccord({
                   </Form>
                   */}
 
+                  <form onSubmit={e => {handleCheckingDepositSubmit(e)}}>
+                    <label>Input Check Image</label>
+                    <input
+                      name='checking_deposit_check_image'
+                      type='file'
+                      onChange={handleFileSelect}
+                    />
+                    <h5>AND</h5>
+                    <label>Input Deposit Amount:</label>
+                    <input
+                      name='checking_deposit_amount'
+                      placeholder='$Amount'
+                      type='number'
+                      value={checkingDepositAmount}
+                      onChange={e => setCheckingDepositAmount(e.target.value)}
+                    />
+                    <br/>
+                    <br/>
+                    {/* this line for AWS Bucket
+                      <button onClick={uploadToS3} type="submit">Deposit</button>*/}
+                    <button type="submit">Deposit</button>
+                  </form>
 
+                  <h3>Check Image:</h3>
+                  {imageUrl && <img src={imageUrl} alt="Check Image Not Found" />}
 
+                  {/*
                   <input type="file" onChange={handleFileSelect} />
                   <h5>Input Deposit Amount:</h5>
                   <input type="number" />
@@ -192,6 +328,7 @@ export default function CheckingAccord({
                   {imageUrl && (
                       <img src={imageUrl} alt="uploaded" />
                   )}
+                  */}
 
 
                   {/* if want to display image on site
