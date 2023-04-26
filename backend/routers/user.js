@@ -29,6 +29,7 @@ router.post("/api/clients/signup", async (req, res) => {
       dob: Joi.string().required(),
     });
     const { error } = schema.validate(req.body);
+    console.log(error);
     if (error) return res.status(400).send(error.details[0].message);
 
     const userExists = await User.findOne({ where: { email: req.body.email } });
@@ -148,6 +149,7 @@ router.patch("/api/clients/me", auth, async (req, res) => {
   const schema = Joi.object({
     name: Joi.string(),
     dob: Joi.date(),
+    //dob: Joi.string(),
     phoneNumber: Joi.string().length(10),
     securityAnswer: Joi.string(),
     recoveryEmail: Joi.string().email(),

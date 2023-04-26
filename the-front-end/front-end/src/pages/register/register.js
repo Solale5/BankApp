@@ -50,6 +50,8 @@ function RegistrationPage() {
   const [states, setStates] = useState("");
   const [selectedState, setSelectedState] = useState("");
 
+  console.log(dob);
+
   let hardcodedApiKey = "http://localhost:5001/api/clients/signup";
   const statesList = [
     { code: "AL", name: "Alabama" },
@@ -111,12 +113,15 @@ function RegistrationPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log(typeof dob);
+
     if (password !== passwordConfirmation) {
       alert("Passwords do not match");
       return;
     }
     if (checkAge(dob)) {
       let age = theAge;
+
       try {
         const response = await fetch(`${hardcodedApiKey}`, {
           method: "POST",
@@ -135,7 +140,7 @@ function RegistrationPage() {
             zipcode,
             city,
             street,
-            age,
+            //age,
             state: selectedState,
           }),
         });
