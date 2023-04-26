@@ -31,7 +31,6 @@ function checkAge(dob) {
     return false;
   }
 }
-
 function RegistrationPage() {
   const navigate = useNavigate();
 
@@ -48,9 +47,67 @@ function RegistrationPage() {
   const [street, setStreet] = useState("");
   const [dob, setDob] = useState("");
   const [state, setState] = useState("");
+  const [states, setStates] = useState("");
+  const [selectedState, setSelectedState] = useState("");
 
   let hardcodedApiKey = "http://localhost:5001/api/clients/signup";
-  const manager = false;
+  const statesList = [
+    { code: "AL", name: "Alabama" },
+    { code: "AK", name: "Alaska" },
+    { code: "AZ", name: "Arizona" },
+    { code: "AR", name: "Arkansas" },
+    { code: "CA", name: "California" },
+    { code: "CO", name: "Colorado" },
+    { code: "CT", name: "Connecticut" },
+    { code: "DE", name: "Delaware" },
+    { code: "FL", name: "Florida" },
+    { code: "GA", name: "Georgia" },
+    { code: "HI", name: "Hawaii" },
+    { code: "ID", name: "Idaho" },
+    { code: "IL", name: "Illinois" },
+    { code: "IN", name: "Indiana" },
+    { code: "IA", name: "Iowa" },
+    { code: "KS", name: "Kansas" },
+    { code: "KY", name: "Kentucky" },
+    { code: "LA", name: "Louisiana" },
+    { code: "ME", name: "Maine" },
+    { code: "MD", name: "Maryland" },
+    { code: "MA", name: "Massachusetts" },
+    { code: "MI", name: "Michigan" },
+    { code: "MN", name: "Minnesota" },
+    { code: "MS", name: "Mississippi" },
+    { code: "MO", name: "Missouri" },
+    { code: "MT", name: "Montana" },
+    { code: "NE", name: "Nebraska" },
+    { code: "NV", name: "Nevada" },
+    { code: "NH", name: "New Hampshire" },
+    { code: "NJ", name: "New Jersey" },
+    { code: "NM", name: "New Mexico" },
+    { code: "NY", name: "New York" },
+    { code: "NC", name: "North Carolina" },
+    { code: "ND", name: "North Dakota" },
+    { code: "OH", name: "Ohio" },
+    { code: "OK", name: "Oklahoma" },
+    { code: "OR", name: "Oregon" },
+    { code: "PA", name: "Pennsylvania" },
+    { code: "RI", name: "Rhode Island" },
+    { code: "SC", name: "South Carolina" },
+    { code: "SD", name: "South Dakota" },
+    { code: "TN", name: "Tennessee" },
+    { code: "TX", name: "Texas" },
+    { code: "UT", name: "Utah" },
+    { code: "VT", name: "Vermont" },
+    { code: "VA", name: "Virginia" },
+    { code: "WA", name: "Washington" },
+    { code: "WV", name: "West Virginia" },
+    { code: "WI", name: "Wisconsin" },
+    { code: "WY", name: "Wyoming" },
+  ];
+
+  const handleChangeState = (event) => {
+    setSelectedState(event.target.value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -58,7 +115,6 @@ function RegistrationPage() {
       alert("Passwords do not match");
       return;
     }
-    console.log(checkAge("2000-03-28"));
     if (checkAge(dob)) {
       let age = theAge;
       try {
@@ -79,9 +135,8 @@ function RegistrationPage() {
             zipcode,
             city,
             street,
-            state,
-            manager,
             age,
+            state: selectedState,
           }),
         });
 
@@ -222,12 +277,14 @@ function RegistrationPage() {
         </label>
         <label>
           State:
-          <input
-            type="text"
-            value={state}
-            onChange={(e) => setState(e.target.value)}
-            required
-          />
+          <select value={selectedState} onChange={handleChangeState}>
+            <option value="">Select a state</option>
+            {statesList.map((state) => (
+              <option key={state.code} value={state.code}>
+                {state.name}
+              </option>
+            ))}
+          </select>
         </label>
 
         <button type="submit">Register</button>
