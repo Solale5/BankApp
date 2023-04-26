@@ -347,8 +347,9 @@ function AccountPage() {
       </Modal>
 
 
-
+      {/*
       <button onClick={getAllAccounts}>getAccounts</button>
+      */}
 
       <p>{accounts.account_number}</p>
 
