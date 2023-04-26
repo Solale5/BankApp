@@ -17,7 +17,7 @@ router.post("/api/clients/signup", async (req, res) => {
       email: Joi.string().email().required(),
       password: Joi.string().min(6).required(),
       name: Joi.string().required(),
-      age: Joi.number().min(15).required(),
+      dob: Joi.date().required(),
       securityQuestion: Joi.string().required(),
       phoneNumber: Joi.string().length(10).required(),
       securityAnswer: Joi.string().required(),
@@ -146,7 +146,7 @@ router.patch("/api/clients/me", auth, async (req, res) => {
   //validate the data
   const schema = Joi.object({
     name: Joi.string(),
-    age: Joi.number(),
+    dob: Joi.date(),
     phoneNumber: Joi.string().length(10),
     securityAnswer: Joi.string(),
     recoveryEmail: Joi.string().email(),
@@ -164,7 +164,7 @@ router.patch("/api/clients/me", auth, async (req, res) => {
     "city",
     "state",
     "name",
-    "age",
+    "dob",
     "phoneNumber",
     "securityAnswer",
   ];

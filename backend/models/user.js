@@ -52,8 +52,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: true
     },
-    age: {
-      type: DataTypes.INTEGER,
+    dob: {
+      type: DataTypes.DATEONLY,
       allowNull: false
     },
     password: {
