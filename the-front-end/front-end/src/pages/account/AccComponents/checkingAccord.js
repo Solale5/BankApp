@@ -127,7 +127,7 @@ export default function CheckingAccord({
     return(
       <Accordion>
         <Accordion.Item eventKey="0">
-          <Accordion.Header>...{acc_num}</Accordion.Header>
+          <Accordion.Header>{acc_num}</Accordion.Header>
           <Accordion.Body>
             <Accordion>
               <h1>Balance: $</h1>

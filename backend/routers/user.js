@@ -51,6 +51,7 @@ router.post("/api/clients/signup", async (req, res) => {
 
     return res.status(201).send({ user, token });
   } catch (err) {
+    console.log(err);
     return res.status(400).json("Invalid data");
   }
 });

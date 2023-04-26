@@ -35,6 +35,9 @@ import "./account.css";
 // https://upmostly.com/tutorials/adding-multiple-functions-inside-a-single-onclick-event-handler
 
 function AccountPage() {
+  console.log("NEW");
+
+
   let endpoint = "http://localhost:5001/atms";
   // Access the passed data from useLocation hook
   const location = useLocation();
@@ -53,6 +56,13 @@ function AccountPage() {
   console.log(email ?? "No email found");
   console.log(uuid ?? "No uuid found");
 
+
+
+
+
+  const [checkingAccounts, setCheckingAccounts] = useState([]);
+  const [savingAccounts, setSavingAccounts] = useState([]);
+  const [creditAccounts, setCreditAccounts] = useState([]);
 
   const getAllAccounts = () => {
     console.log("get all account info");
@@ -74,12 +84,56 @@ function AccountPage() {
     })
     .then(data => {
       console.log(data);
+      //console.log(data.accounts[1]);
+      console.log(`number of accounts: ${data.accounts.length}`);
+      //window.accNum = data.accounts.length;
+      //console.log(`accNum inside ${accNum}`);
+
+      const tempCheckingAccounts = [];
+      const tempSavingAccounts = [];
+      const tempCreditAccounts = [];
+
+      for(let i=0; i<data.accounts.length; i++){
+        console.log(data.accounts[i]);
+        console.log(`type ${data.accounts[i].type}`);
+        console.log(typeof data.accounts[i].type);
+
+        //populate temporary arrays with different account types
+        if(data.accounts[i].type === 'Checking'){
+          console.log("push checking");
+          tempCheckingAccounts.push(<CheckingAccord acc_num={data.accounts[i].id} />);
+        }
+        else if(data.accounts[i].type === 'Saving'){
+          console.log("push saving");
+          tempSavingAccounts.push(<SavingAccord acc_num={data.accounts[i].id} />);
+        }
+        else if(data.accounts[i].type === 'Credit'){
+          console.log("push credit");
+          tempCreditAccounts.push(<CreditAccord acc_num={data.accounts[i].id} />);
+        }
+        else {
+          throw new Error("invalid account type");
+        }
+      }
+      //transfer arrays containing accounts to global arrays
+      setCheckingAccounts(tempCheckingAccounts);
+      setSavingAccounts(tempSavingAccounts);
+      setCreditAccounts(tempCreditAccounts);
+
     })
+
   }
 
   useEffect(() => {
     getAllAccounts();
   }, []);
+
+
+
+
+
+
+
 
   /*
   const onloadtest = () => {
@@ -153,6 +207,7 @@ function AccountPage() {
     .then(data => {
       console.log(data);
     })
+    getAllAccounts();
   }
 
 
@@ -234,6 +289,10 @@ function AccountPage() {
    */
   }
 
+
+  //old code for testing adding accounts using loops
+  //completely outdated and delete before submission
+  /*
   const checkings = [];
   let numcheckings = 2;
   for (let i = 0; i < numcheckings; i++) {
@@ -251,14 +310,7 @@ function AccountPage() {
   for (let i = 0; i < numcredits; i++) {
     credits.push(<CreditAccord acc_num={3 * i} />);
   }
-
-  const tests = [];
-  let testnum = 3;
-  for (let i = 0; i < testnum; i++) {
-    tests.push(
-      <AnimalCard name={i} scientificName="scientificName" size="size" />
-    );
-  }
+  */
 
   // testing file upload
   const [file, setFile] = useState();
@@ -329,30 +381,22 @@ function AccountPage() {
 
 
       <h1>Checking Accounts</h1>
-      {checkings}
+      {checkingAccounts}
 
       <h1>Saving Accounts</h1>
-      {savings}
+      {savingAccounts}
 
       <h1>Credit Accounts</h1>
-      {credits}
+      {creditAccounts}
 
       <AnimalCard name="name" scientificName="scientificName" size="size" />
 
       <h1> testing </h1>
-      <tbody>{tests}</tbody>
 
       <SavingAccord acc_num="134" />
 
-      <form onSubmit={submit}>
-        <input
-          filename={file}
-          onChange={(e) => setFile(e.target.files[0])}
-          type="file"
-          accept="image/*"
-        ></input>
-        <button type="submit">Submit</button>
-      </form>
+
+
     </div>
   );
 }
