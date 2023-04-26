@@ -101,7 +101,12 @@ function AccountPage() {
         //populate temporary arrays with different account types
         if(data.accounts[i].type === 'Checking'){
           console.log("push checking");
-          tempCheckingAccounts.push(<CheckingAccord acc_num={data.accounts[i].id} />);
+          tempCheckingAccounts.push(<CheckingAccord
+                                      acc_num={data.accounts[i].id}
+                                      rout_num={data.accounts[i].routingNumber}
+                                      balance={data.accounts[i].balance}
+                                      token={token}
+                                       />);
         }
         else if(data.accounts[i].type === 'Saving'){
           console.log("push saving");

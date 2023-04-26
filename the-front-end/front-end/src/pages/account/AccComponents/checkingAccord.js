@@ -23,7 +23,10 @@ AWS.config.update({
 
 
 export default function CheckingAccord({
-  acc_num
+  acc_num,
+  rout_num,
+  balance,
+  token
 }) {
 
 
@@ -43,8 +46,29 @@ export default function CheckingAccord({
       console.log(`checking transfer amount: ${checkingTransferAmount}`);
 
       //connect to backend here
+      let balance = parseFloat(checkingTransferAmount);
+      let accountNumber = checkingTransferAccNum;
 
-      e.preventDefault();
+      fetch(`http://localhost:5001/api/clients/me/accounts/${acc_num}/transfer`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}` // assuming you have a token for authentication
+        },
+        body: JSON.stringify({ accountNumber, balance }),
+      })
+      .then(response => {
+        if (!response.ok) {
+          console.log(response);
+          throw new Error(response.statusText);
+        }
+        console.log("checking transfer");
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+      })
+      //e.preventDefault();
     }
 
     //handle Withdraw requests
@@ -55,8 +79,33 @@ export default function CheckingAccord({
       console.log(`checking withdraw amount ${checkingWithdrawAmount}`);
 
       //connect to backend here
+      let balance = parseFloat(checkingWithdrawAmount);
+      let description = `withdraw of ${balance} from account ${acc_num}`;
+      console.log(`withdraw ${balance}`);
+      console.log(description);
 
-      e.preventDefault();
+      fetch(`http://localhost:5001/api/clients/me/accounts/${acc_num}/withdraw`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}` // assuming you have a token for authentication
+        },
+        body: JSON.stringify({ balance, description }),
+      })
+      .then(response => {
+        if (!response.ok) {
+          console.log(response);
+          throw new Error(response.statusText);
+        }
+        console.log("checking withdraw");
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+      })
+
+
+      //e.preventDefault();
     }
 
 
@@ -67,8 +116,33 @@ export default function CheckingAccord({
       console.log("Checking deposit request");
       console.log(`checking desposit amount: ${checkingDepositAmount}`);
 
-      e.preventDefault();
+      let balance = parseFloat(checkingDepositAmount);
+      //console.log(typeof balance);
+      let description = `deposit of $ ${balance} to account ${acc_num}`;
+      console.log(`deposit ${balance}`);
+      console.log(description);
 
+
+      fetch(`http://localhost:5001/api/clients/me/accounts/${acc_num}/deposit`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}` // assuming you have a token for authentication
+        },
+        body: JSON.stringify({ balance, description }),
+      })
+      .then(response => {
+        if (!response.ok) {
+          console.log(response);
+          throw new Error(response.statusText);
+        }
+        console.log("checking deposit");
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+      })
+      //e.preventDefault();
     }
 
 
@@ -130,7 +204,7 @@ export default function CheckingAccord({
           <Accordion.Header>{acc_num}</Accordion.Header>
           <Accordion.Body>
             <Accordion>
-              <h1>Balance: $</h1>
+              <h1>Balance: {balance}</h1>
               <Accordion.Item eventKey="1T">
                 <Accordion.Header>Transfer</Accordion.Header>
                 <Accordion.Body>
@@ -142,6 +216,7 @@ export default function CheckingAccord({
                       type='number'
                       value={checkingTransferAccNum}
                       onChange={e => setCheckingTransferAccNum(e.target.value)}
+                      required
                     />
                     <br/>
                     <br/>
@@ -152,6 +227,7 @@ export default function CheckingAccord({
                       type='number'
                       value={checkingTransferRoutNum}
                       onChange={e => setCheckingTransferRoutNum(e.target.value)}
+                      required
                     />
                     <br/>
                     <br/>
@@ -162,6 +238,7 @@ export default function CheckingAccord({
                       type='number'
                       value={checkingTransferAmount}
                       onChange={e => setCheckingTransferAmount(e.target.value)}
+                      required
                     />
                     <br/>
                     <br/>
@@ -228,6 +305,7 @@ export default function CheckingAccord({
                       type='number'
                       value={checkingWithdrawAmount}
                       onChange={e => setCheckingWithdrawAmount(e.target.value)}
+                      required
                     />
                     <br/>
                     <br/>
@@ -309,6 +387,7 @@ export default function CheckingAccord({
                       type='number'
                       value={checkingDepositAmount}
                       onChange={e => setCheckingDepositAmount(e.target.value)}
+                      required
                     />
                     <br/>
                     <br/>
@@ -345,7 +424,8 @@ export default function CheckingAccord({
               <Accordion.Item eventKey="1I">
                 <Accordion.Header>Information</Accordion.Header>
                 <Accordion.Body>
-                  account number and routing number goes here
+                  <h3>Account Number: {acc_num}</h3>
+                  <h3>Routing Number: {rout_num}</h3>
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>
