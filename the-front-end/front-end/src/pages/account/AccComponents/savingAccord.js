@@ -188,7 +188,7 @@ export default function SavingAccord({
   return (
     <Accordion>
       <Accordion.Item eventKey="0">
-        <Accordion.Header>{acc_num}</Accordion.Header>
+        <Accordion.Header>{acc_num} --- Balance: ${balance}</Accordion.Header>
         <Accordion.Body>
           <Accordion>
             <h1>Balance: {balance}</h1>
@@ -223,6 +223,7 @@ export default function SavingAccord({
                   name='saving_transfer_amount'
                   placeholder='$Amount'
                   type='number'
+                  step='0.01'
                   value={savingTransferAmount}
                   onChange={e => setSavingTransferAmount(e.target.value)}
                   required
@@ -291,6 +292,7 @@ export default function SavingAccord({
                     name='saving_withdraw_amount'
                     placeholder='$Amount'
                     type='number'
+                    step='0.01'
                     value={savingWithdrawAmount}
                     onChange={e => setSavingWithdrawAmount(e.target.value)}
                     required
@@ -367,6 +369,7 @@ export default function SavingAccord({
                     name='saving_deposit_amount'
                     placeholder='$Amount'
                     type='number'
+                    step='0.01'
                     value={savingDepositAmount}
                     onChange={e => setSavingDepositAmount(e.target.value)}
                     required

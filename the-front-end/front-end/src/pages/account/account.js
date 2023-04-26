@@ -119,7 +119,12 @@ function AccountPage() {
         }
         else if(data.accounts[i].type === 'Credit'){
           console.log("push credit");
-          tempCreditAccounts.push(<CreditAccord acc_num={data.accounts[i].id} />);
+          tempCreditAccounts.push(<CreditAccord
+                                    acc_num={data.accounts[i].id}
+                                    rout_num={data.accounts[i].routingNumber}
+                                    balance={data.accounts[i].balance}
+                                    token={token}
+                                  />);
         }
         else {
           throw new Error("invalid account type");
@@ -356,14 +361,6 @@ function AccountPage() {
 
       <h1>Credit Accounts</h1>
       {creditAccounts}
-
-      <AnimalCard name="name" scientificName="scientificName" size="size" />
-
-      <h1> testing </h1>
-
-      <SavingAccord acc_num="134" />
-
-
 
     </div>
   );

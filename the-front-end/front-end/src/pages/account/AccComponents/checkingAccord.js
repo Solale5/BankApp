@@ -166,7 +166,7 @@ export default function CheckingAccord({
     return(
       <Accordion>
         <Accordion.Item eventKey="0">
-          <Accordion.Header>{acc_num}</Accordion.Header>
+          <Accordion.Header>{acc_num} --- Balance: ${balance}</Accordion.Header>
           <Accordion.Body>
             <Accordion>
               <h1>Balance: {balance}</h1>
@@ -201,6 +201,7 @@ export default function CheckingAccord({
                       name='checking_transfer_amount'
                       placeholder='$Amount'
                       type='number'
+                      step='0.01'
                       value={checkingTransferAmount}
                       onChange={e => setCheckingTransferAmount(e.target.value)}
                       required
@@ -268,6 +269,7 @@ export default function CheckingAccord({
                       name='checking_withdraw_amount'
                       placeholder='$Amount'
                       type='number'
+                      step='0.01'
                       value={checkingWithdrawAmount}
                       onChange={e => setCheckingWithdrawAmount(e.target.value)}
                       required
@@ -350,6 +352,7 @@ export default function CheckingAccord({
                       name='checking_deposit_amount'
                       placeholder='$Amount'
                       type='number'
+                      step='0.01'
                       value={checkingDepositAmount}
                       onChange={e => setCheckingDepositAmount(e.target.value)}
                       required
