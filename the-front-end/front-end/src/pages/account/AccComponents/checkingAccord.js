@@ -103,13 +103,11 @@ export default function CheckingAccord({
       .then(data => {
         console.log(data);
       })
-
-
       //e.preventDefault();
     }
 
 
-    //handle Desosit requests
+    //handle Deposit requests
     const [checkingDepositAmount, setCheckingDepositAmount] = useState();
 
     const handleCheckingDepositSubmit = (e) => {
@@ -163,39 +161,6 @@ export default function CheckingAccord({
       reader.readAsDataURL(file);
     }
 
-    /*
-    //upload to AWS bucket
-    //idk if necessary
-    const uploadToS3 = async () => {
-      if (!file) {
-        return;
-      }
-      const params = {
-        Bucket: 'bankapppicturebucket',
-        Key: `${Date.now()}.${file.name}`,
-        Body: file
-      };
-      const { Location } = await s3.upload(params).promise();
-      setImageUrl(Location);
-      console.log('uploading to s3', Location);
-    }
-    */
-
-
-    /*
-    const [selectedFile, setSelectedFile] = useState(null);
-    const handleFileInput = (e) => {
-
-        setSelectedFile(e.target.files[0]);
-    }
-    const handleUpload = async (file) => {
-        uploadFile(file, config)
-            .then(data => console.log(data))
-            .catch(err => console.error(err))
-
-    }*/
-
-    //console.log("image");
 
 
     return(
@@ -429,11 +394,8 @@ export default function CheckingAccord({
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>
-
           </Accordion.Body>
         </Accordion.Item>
-
-
       </Accordion>
     )
   }

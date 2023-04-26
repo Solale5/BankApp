@@ -106,11 +106,16 @@ function AccountPage() {
                                       rout_num={data.accounts[i].routingNumber}
                                       balance={data.accounts[i].balance}
                                       token={token}
-                                       />);
+                                    />);
         }
         else if(data.accounts[i].type === 'Saving'){
           console.log("push saving");
-          tempSavingAccounts.push(<SavingAccord acc_num={data.accounts[i].id} />);
+          tempSavingAccounts.push(<SavingAccord
+                                    acc_num={data.accounts[i].id}
+                                    rout_num={data.accounts[i].routingNumber}
+                                    balance={data.accounts[i].balance}
+                                    token={token}
+                                  />);
         }
         else if(data.accounts[i].type === 'Credit'){
           console.log("push credit");
@@ -133,42 +138,6 @@ function AccountPage() {
     getAllAccounts();
   }, []);
 
-
-
-
-
-
-
-
-  /*
-  const onloadtest = () => {
-    console.log("run on load");
-  }*/
-
-  /*
-  const addChecking = () => {
-    fetch("http://localhost:5001/api/clients/me/accounts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
-      body: JSON.stringify({ type, balance }),
-    })
-    .then(response => {
-      if (!response.ok) {
-        console.log(response);
-        throw new Error(response.statusText);
-      }
-      console.log("account created");
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);
-    })
-
-  }
-  */
 
   const [accounts, setAccounts] = useState([])
 
@@ -263,12 +232,6 @@ function AccountPage() {
       console.error(error);
     });
   }
-
-
-
-
-
-
 
 
 
