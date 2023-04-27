@@ -1,33 +1,34 @@
 version: "3.8"
 services:
-
-  backend: 
-    build: ./backend   # to build an image
-    # build:   # this is the longer format 
+  backend:
+    build: ./backend # to build an image
+    # build:   # this is the longer format
     #   context: ./backend
-    #   dockerfile: Dockerfile  # this is the default name basically 
+    #   dockerfile: Dockerfile  # this is the default name basically
     #   args:
     #     some-arg: 1
     ports:
-      - '5001:5001'
-    volumes: 
+      - "5001:5001"
+    volumes:
       - logs:/app/logs
       - ./backend:/app
       - /app/node_modules
-    env_file: 
-      - ./env/backend.env
- 
+    env_file:
+      - ./backend/.env
+
   frontend:
     build: ./the-front-end/front-end
-    ports: 
-      - '3000:3000'
-    volumes: 
+    ports:
+      - "3000:3000"
+    volumes:
       - ./the-front-end/front-end/src:/app/src
-    stdin_open: true   # equivalent to -i 
-    tty: true          # -t 
-    depends_on: 
+    env_file:
+      - ./the-front-end/front-end/.env
+    stdin_open: true # equivalent to -i
+    tty: true # -t
+    depends_on:
       - backend
 
-volumes: # should be added to list the named volumes    
+volumes: # should be added to list the named volumes
   data:
   logs:
