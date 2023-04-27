@@ -37,8 +37,12 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
 
     //connect to backend here
     let balance = parseFloat(checkingTransferAmount);
-    let accountNumber = checkingTransferAccNum;
 
+
+    // actual trasfer API causes issues where an extra refresh
+    // is needed to actually display changes to host account
+    /*
+    let accountNumber = checkingTransferAccNum;
     fetch(
       process.env.REACT_APP_BACKEND_URL +
         `/api/clients/me/accounts/${acc_num}/transfer`,
@@ -62,7 +66,62 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
       .then((data) => {
         console.log(data);
       });
+      */
+
+    let description = `transfer $${balance} from account ${acc_num} to account ${checkingTransferAccNum}`
+
+    // withdraw from sending account
+    fetch(
+      process.env.REACT_APP_BACKEND_URL +
+        `/api/clients/me/accounts/${acc_num}/withdraw`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // assuming you have a token for authentication
+        },
+        body: JSON.stringify({ balance, description }),
+      })
+      .then((response) => {
+        if (!response.ok) {
+          console.log(response);
+          throw new Error(response.statusText);
+        }
+        console.log("checking transfer withdraw");
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
+
+      //deposit to recieving account
+      fetch(
+        process.env.REACT_APP_BACKEND_URL +
+          `/api/clients/me/accounts/${checkingTransferAccNum}/deposit`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // assuming you have a token for authentication
+          },
+          body: JSON.stringify({ balance, description }),
+        }
+      )
+      .then((response) => {
+        if (!response.ok) {
+          console.log(response);
+          throw new Error(response.statusText);
+        }
+        console.log("checking transfer deposit");
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
+
+
     //e.preventDefault();
+    //window.location.refresh();
   };
 
   //handle Withdraw requests
@@ -159,15 +218,43 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
     reader.readAsDataURL(file);
   };
 
+
+  //close account
+  const closeAccount = (e) => {
+    fetch(
+      process.env.REACT_APP_BACKEND_URL +
+        `/api/clients/me/accounts/${acc_num}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // assuming you have a token for authentication
+        },
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+          console.log(response);
+          throw new Error(response.statusText);
+        }
+        console.log("close checking account");
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
+      window.location.reload();
+  }
+
   return (
     <Accordion>
       <Accordion.Item eventKey="0">
         <Accordion.Header>
-          {acc_num} --- Balance: ${balance}
+          {acc_num} --- Balance: ${balance.toFixed(2)}
         </Accordion.Header>
         <Accordion.Body>
           <Accordion>
-            <h1>Balance: {balance}</h1>
+            <h1>Balance: ${balance.toFixed(2)}</h1>
             <Accordion.Item eventKey="1T">
               <Accordion.Header>Transfer</Accordion.Header>
               <Accordion.Body>
@@ -402,6 +489,9 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
+          <br/>
+          <button onClick={(e) => {closeAccount(e);}}>Close Account</button>
+
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>
