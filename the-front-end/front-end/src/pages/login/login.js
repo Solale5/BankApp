@@ -11,7 +11,8 @@ function Login({ onLoginStatusChange }) {
   const [securityQuestion, setSecurityQuestion] = useState("");
   const [securityAnswer, setSecurityAnswer] = useState("");
 
-  let hardcodedApiKey = "http://localhost:5001/api/clients/login";
+  let hardcodedApiKey =
+    process.env.REACT_APP_BACKEND_URL + "/api/clients/login";
 
   const handleSubmit = async (e) => {
     e.preventDefault();

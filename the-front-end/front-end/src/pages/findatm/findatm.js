@@ -22,7 +22,7 @@ const FindAtm = () => {
       // { lat: 37.7749, lng: -122.4187 },
       // { lat: 37.7748, lng: -122.4194 },
     ];
-    let endpoint = "http://localhost:5001/atms";
+    let endpoint = process.env.REACT_APP_BACKEND_URL + "/atms";
     console.log(address);
 
     let users = async function () {

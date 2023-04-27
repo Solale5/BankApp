@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 
 import "./navbar.css";
 
+console.log(process.env.REACT_APP_BACKEND_URL);
 export default function Navbar({ isLoggedIn, onLoginStatusChange }) {
   // State variable to keep track of login status
 
@@ -29,7 +30,7 @@ export default function Navbar({ isLoggedIn, onLoginStatusChange }) {
 
     // Send logout request to server with token and id in request header
     try {
-      await fetch("http://localhost:5001/api/clients/logout", {
+      await fetch(process.env.REACT_APP_BACKEND_URL + "/api/clients/logout", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

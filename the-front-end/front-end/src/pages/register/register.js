@@ -50,9 +50,10 @@ function RegistrationPage() {
   const [states, setStates] = useState("");
   const [selectedState, setSelectedState] = useState("");
 
-  console.log(dob);
+  // console.log(dob);
 
-  let hardcodedApiKey = "http://localhost:5001/api/clients/signup";
+  let hardcodedApiKey =
+    process.env.REACT_APP_BACKEND_URL + "/api/clients/signup";
   const statesList = [
     { code: "AL", name: "Alabama" },
     { code: "AK", name: "Alaska" },

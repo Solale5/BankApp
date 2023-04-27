@@ -2,8 +2,8 @@ import React, { useState, Component } from "react";
 import { Link } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 
-import {uploadFile} from 'react-s3';
-import AWS from 'aws-sdk';
+import { uploadFile } from "react-s3";
+import AWS from "aws-sdk";
 
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -12,19 +12,13 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 
 AWS.config.update({
-  accessKeyId: 'AKIA3FPU3UHCJEBJ7U5S',
-  secretAccessKey: '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',
-  region: 'us-west-1',
-  signatureVersion: 'v4',
+  accessKeyId: "AKIA3FPU3UHCJEBJ7U5S",
+  secretAccessKey: "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",
+  region: "us-west-1",
+  signatureVersion: "v4",
 });
 
-export default function SavingAccord({
-  acc_num,
-  rout_num,
-  balance,
-  token
-}) {
-
+export default function SavingAccord({ acc_num, rout_num, balance, token }) {
   /*
   const s3 = new AWS.S3();
   const [imageUrl, setImageUrl] = useState(null);
@@ -53,7 +47,7 @@ export default function SavingAccord({
   const [savingTransferRoutNum, setSavingTransferRoutNum] = useState();
   const [savingTransferAmount, setSavingTransferAmount] = useState();
 
-  const handleSavingTransferSubmit= (e) => {
+  const handleSavingTransferSubmit = (e) => {
     console.log("Saving transfer request");
     console.log(`Saving transfer account number: ${savingTransferAccNum}`);
     console.log(`Saving transfer routing number: ${savingTransferRoutNum}`);
@@ -63,28 +57,31 @@ export default function SavingAccord({
     let balance = parseFloat(savingTransferAmount);
     let accountNumber = savingTransferAccNum;
 
-    fetch(`http://localhost:5001/api/clients/me/accounts/${acc_num}/transfer`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}` // assuming you have a token for authentication
-      },
-      body: JSON.stringify({ accountNumber, balance }),
-    })
-    .then(response => {
-      if (!response.ok) {
-        console.log(response);
-        throw new Error(response.statusText);
+    fetch(
+      process.env.REACT_APP_BACKEND_URL +
+        `/api/clients/me/accounts/${acc_num}/transfer`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // assuming you have a token for authentication
+        },
+        body: JSON.stringify({ accountNumber, balance }),
       }
-      console.log("saving transfer");
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);
-    })
+    )
+      .then((response) => {
+        if (!response.ok) {
+          console.log(response);
+          throw new Error(response.statusText);
+        }
+        console.log("saving transfer");
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
     //e.preventDefault();
-  }
-
+  };
 
   //handle Withdraw requests
   const [savingWithdrawAmount, setSavingWithdrawAmount] = useState();
@@ -99,28 +96,31 @@ export default function SavingAccord({
     console.log(`withdraw ${balance}`);
     console.log(description);
 
-    fetch(`http://localhost:5001/api/clients/me/accounts/${acc_num}/withdraw`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}` // assuming you have a token for authentication
-      },
-      body: JSON.stringify({ balance, description }),
-    })
-    .then(response => {
-      if (!response.ok) {
-        console.log(response);
-        throw new Error(response.statusText);
+    fetch(
+      process.env.REACT_APP_BACKEND_URL +
+        `/api/clients/me/accounts/${acc_num}/withdraw`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // assuming you have a token for authentication
+        },
+        body: JSON.stringify({ balance, description }),
       }
-      console.log("saving withdraw");
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);
-    })
+    )
+      .then((response) => {
+        if (!response.ok) {
+          console.log(response);
+          throw new Error(response.statusText);
+        }
+        console.log("saving withdraw");
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
     //e.preventDefault();
-  }
-
+  };
 
   //handle Deposit requests
   const [savingDepositAmount, setSavingDepositAmount] = useState();
@@ -135,29 +135,31 @@ export default function SavingAccord({
     console.log(`deposit ${balance}`);
     console.log(description);
 
-
-    fetch(`http://localhost:5001/api/clients/me/accounts/${acc_num}/deposit`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}` // assuming you have a token for authentication
-      },
-      body: JSON.stringify({ balance, description }),
-    })
-    .then(response => {
-      if (!response.ok) {
-        console.log(response);
-        throw new Error(response.statusText);
+    fetch(
+      process.env.REACT_APP_BACKEND_URL +
+        `/api/clients/me/accounts/${acc_num}/deposit`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // assuming you have a token for authentication
+        },
+        body: JSON.stringify({ balance, description }),
       }
-      console.log("saving deposit");
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);
-    })
+    )
+      .then((response) => {
+        if (!response.ok) {
+          console.log(response);
+          throw new Error(response.statusText);
+        }
+        console.log("saving deposit");
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
     //e.preventDefault();
-  }
-
+  };
 
   const s3 = new AWS.S3();
   const [imageUrl, setImageUrl] = useState(null);
@@ -166,7 +168,6 @@ export default function SavingAccord({
   const handleFileSelect = (e) => {
     //setFile(e.target.files[0]);
 
-
     const file = e.target.files[0];
 
     const reader = new FileReader();
@@ -174,65 +175,61 @@ export default function SavingAccord({
       setImageUrl(e.target.result);
     };
     reader.readAsDataURL(file);
-  }
-
-
-
-
-
-
-
-
-
+  };
 
   return (
     <Accordion>
       <Accordion.Item eventKey="0">
-        <Accordion.Header>{acc_num} --- Balance: ${balance}</Accordion.Header>
+        <Accordion.Header>
+          {acc_num} --- Balance: ${balance}
+        </Accordion.Header>
         <Accordion.Body>
           <Accordion>
             <h1>Balance: {balance}</h1>
             <Accordion.Item eventKey="1T">
               <Accordion.Header>Transfer</Accordion.Header>
               <Accordion.Body>
-              <form onSubmit={e => {handleSavingTransferSubmit(e)}}>
-                <label>Account Number</label>
-                <input
-                  name='saving_transfer_account_number'
-                  placeholder='Account Number'
-                  type='number'
-                  value={savingTransferAccNum}
-                  onChange={e => setSavingTransferAccNum(e.target.value)}
-                  required
-                />
-                <br/>
-                <br/>
-                <label>Routing Number</label>
-                <input
-                  name='saving_transfer_routing_number'
-                  placeholder='Routing Number'
-                  type='number'
-                  value={savingTransferRoutNum}
-                  onChange={e => setSavingTransferRoutNum(e.target.value)}
-                  required
-                />
-                <br/>
-                <br/>
-                <label>Amount</label>
-                <input
-                  name='saving_transfer_amount'
-                  placeholder='$Amount'
-                  type='number'
-                  step='0.01'
-                  value={savingTransferAmount}
-                  onChange={e => setSavingTransferAmount(e.target.value)}
-                  required
-                />
-                <br/>
-                <br/>
-                <button type="submit">Transfer</button>
-              </form>
-
+                <form
+                  onSubmit={(e) => {
+                    handleSavingTransferSubmit(e);
+                  }}
+                >
+                  <label>Account Number</label>
+                  <input
+                    name="saving_transfer_account_number"
+                    placeholder="Account Number"
+                    type="number"
+                    value={savingTransferAccNum}
+                    onChange={(e) => setSavingTransferAccNum(e.target.value)}
+                    required
+                  />
+                  <br />
+                  <br />
+                  <label>Routing Number</label>
+                  <input
+                    name="saving_transfer_routing_number"
+                    placeholder="Routing Number"
+                    type="number"
+                    value={savingTransferRoutNum}
+                    onChange={(e) => setSavingTransferRoutNum(e.target.value)}
+                    required
+                  />
+                  <br />
+                  <br />
+                  <label>Amount</label>
+                  <input
+                    name="saving_transfer_amount"
+                    placeholder="$Amount"
+                    type="number"
+                    step="0.01"
+                    value={savingTransferAmount}
+                    onChange={(e) => setSavingTransferAmount(e.target.value)}
+                    required
+                  />
+                  <br />
+                  <br />
+                  <button type="submit">Transfer</button>
+                </form>
 
                 {/*
                 <Form>
@@ -286,19 +283,23 @@ export default function SavingAccord({
             <Accordion.Item eventKey="1W">
               <Accordion.Header>Withdraw</Accordion.Header>
               <Accordion.Body>
-                <form onSubmit={e => {handleSavingWithdrawSubmit(e)}}>
+                <form
+                  onSubmit={(e) => {
+                    handleSavingWithdrawSubmit(e);
+                  }}
+                >
                   <label>Amount</label>
                   <input
-                    name='saving_withdraw_amount'
-                    placeholder='$Amount'
-                    type='number'
-                    step='0.01'
+                    name="saving_withdraw_amount"
+                    placeholder="$Amount"
+                    type="number"
+                    step="0.01"
                     value={savingWithdrawAmount}
-                    onChange={e => setSavingWithdrawAmount(e.target.value)}
+                    onChange={(e) => setSavingWithdrawAmount(e.target.value)}
                     required
                   />
-                  <br/>
-                  <br/>
+                  <br />
+                  <br />
                   <button type="submit">Withdraw</button>
                 </form>
                 {/*
@@ -327,8 +328,7 @@ export default function SavingAccord({
             <Accordion.Item eventKey="1D">
               <Accordion.Header>Deposit</Accordion.Header>
               <Accordion.Body>
-
-              {/*
+                {/*
                 <Form>
                   <Form.Group className="mb-3" controlId="SavingDepositImage">
                     <Form.Label>Please upload image of Check</Form.Label>
@@ -356,26 +356,30 @@ export default function SavingAccord({
                 </Form>
                 */}
 
-                <form onSubmit={e => {handleSavingDepositSubmit(e)}}>
+                <form
+                  onSubmit={(e) => {
+                    handleSavingDepositSubmit(e);
+                  }}
+                >
                   <label>Input Check Image</label>
                   <input
-                    name='saving_deposit_check_image'
-                    type='file'
+                    name="saving_deposit_check_image"
+                    type="file"
                     onChange={handleFileSelect}
                   />
                   <h5>AND</h5>
                   <label>Input Deposit Amount:</label>
                   <input
-                    name='saving_deposit_amount'
-                    placeholder='$Amount'
-                    type='number'
-                    step='0.01'
+                    name="saving_deposit_amount"
+                    placeholder="$Amount"
+                    type="number"
+                    step="0.01"
                     value={savingDepositAmount}
-                    onChange={e => setSavingDepositAmount(e.target.value)}
+                    onChange={(e) => setSavingDepositAmount(e.target.value)}
                     required
                   />
-                  <br/>
-                  <br/>
+                  <br />
+                  <br />
                   {/* this line for AWS Bucket
                     <button onClick={uploadToS3} type="submit">Deposit</button>*/}
                   <button type="submit">Deposit</button>
@@ -383,7 +387,6 @@ export default function SavingAccord({
 
                 <h3>Check Image:</h3>
                 {imageUrl && <img src={imageUrl} alt="Check Image Not Found" />}
-
               </Accordion.Body>
             </Accordion.Item>
 
@@ -398,6 +401,5 @@ export default function SavingAccord({
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>
-
-  )
+  );
 }
