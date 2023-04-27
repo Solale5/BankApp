@@ -55,8 +55,11 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
 
     //connect to backend here
     let balance = parseFloat(savingTransferAmount);
-    let accountNumber = savingTransferAccNum;
 
+    // actual trasfer API causes issues where an extra refresh
+    // is needed to actually display changes to host account
+    /*
+    let accountNumber = savingTransferAccNum;
     fetch(
       process.env.REACT_APP_BACKEND_URL +
         `/api/clients/me/accounts/${acc_num}/transfer`,
@@ -80,6 +83,59 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
       .then((data) => {
         console.log(data);
       });
+      */
+      let description = `transfer $${balance} from account ${acc_num} to account ${savingTransferAccNum}`
+
+      // withdraw from sending account
+      fetch(
+        process.env.REACT_APP_BACKEND_URL +
+          `/api/clients/me/accounts/${acc_num}/withdraw`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // assuming you have a token for authentication
+          },
+          body: JSON.stringify({ balance, description }),
+        })
+        .then((response) => {
+          if (!response.ok) {
+            console.log(response);
+            throw new Error(response.statusText);
+          }
+          console.log("saving transfer withdraw");
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+        });
+
+        //deposit to recieving account
+        fetch(
+          process.env.REACT_APP_BACKEND_URL +
+            `/api/clients/me/accounts/${savingTransferAccNum}/deposit`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // assuming you have a token for authentication
+            },
+            body: JSON.stringify({ balance, description }),
+          }
+        )
+        .then((response) => {
+          if (!response.ok) {
+            console.log(response);
+            throw new Error(response.statusText);
+          }
+          console.log("saving transfer deposit");
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+        });
+
+
     //e.preventDefault();
   };
 

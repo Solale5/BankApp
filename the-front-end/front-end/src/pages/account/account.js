@@ -127,6 +127,7 @@ function AccountPage() {
           } else {
             throw new Error("invalid account type");
           }
+          //getAllAccounts();
         }
         //transfer arrays containing accounts to global arrays
         setCheckingAccounts(tempCheckingAccounts);
