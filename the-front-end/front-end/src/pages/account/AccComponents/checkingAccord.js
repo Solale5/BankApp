@@ -68,7 +68,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
       });
       */
 
-      let description = `transfer $${balance} from account ${acc_num} to account ${checkingTransferAccNum}`
+    let description = `transfer $${balance} from account ${acc_num} to account ${checkingTransferAccNum}`
 
     // withdraw from sending account
     fetch(
@@ -112,7 +112,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
           console.log(response);
           throw new Error(response.statusText);
         }
-        console.log("saving deposit");
+        console.log("checking transfer deposit");
         return response.json();
       })
       .then((data) => {
@@ -217,6 +217,34 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
     };
     reader.readAsDataURL(file);
   };
+
+
+  //close account
+  const closeAccount = (e) => {
+    fetch(
+      process.env.REACT_APP_BACKEND_URL +
+        `/api/clients/me/accounts/${acc_num}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // assuming you have a token for authentication
+        },
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+          console.log(response);
+          throw new Error(response.statusText);
+        }
+        console.log("close checking account");
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
+      window.location.reload();
+  }
 
   return (
     <Accordion>
@@ -461,6 +489,9 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
+          <br/>
+          <button onClick={(e) => {closeAccount(e);}}>Close Account</button>
+
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>

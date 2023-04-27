@@ -102,6 +102,33 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
     window.location.reload();
   };
 
+  //close account
+  const closeAccount = (e) => {
+    fetch(
+      process.env.REACT_APP_BACKEND_URL +
+        `/api/clients/me/accounts/${acc_num}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // assuming you have a token for authentication
+        },
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+          console.log(response);
+          throw new Error(response.statusText);
+        }
+        console.log("close saving account");
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
+      window.location.reload();
+  }
+
   return (
     <Accordion>
       <Accordion.Item eventKey="0">
@@ -214,6 +241,8 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
+          <br/>
+          <button onClick={(e) => {closeAccount(e);}}>Close Account</button>
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>

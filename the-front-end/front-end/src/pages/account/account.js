@@ -181,6 +181,7 @@ function AccountPage() {
         console.log(data);
       });
     getAllAccounts();
+    window.location.reload();
   };
 
   /*
