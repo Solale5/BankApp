@@ -133,10 +133,10 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
     <Accordion>
       <Accordion.Item eventKey="0">
         <Accordion.Header>
-          {acc_num} --- Due: ${balance}
+          {acc_num} --- Due: ${balance.toFixed(2)}
         </Accordion.Header>
         <Accordion.Body>
-          <p>Amount Due: {balance}</p>
+          <p>Amount Due: ${balance.toFixed(2)}</p>
           <p>Due Date: DD/MM/YY</p>
           <button
             onClick={(e) => {

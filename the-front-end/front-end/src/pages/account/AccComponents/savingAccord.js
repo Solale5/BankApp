@@ -264,11 +264,11 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
     <Accordion>
       <Accordion.Item eventKey="0">
         <Accordion.Header>
-          {acc_num} --- Balance: ${balance}
+          {acc_num} --- Balance: ${balance.toFixed(2)}
         </Accordion.Header>
         <Accordion.Body>
           <Accordion>
-            <h1>Balance: {balance}</h1>
+            <h1>Balance: ${balance.toFixed(2)}</h1>
             <Accordion.Item eventKey="1T">
               <Accordion.Header>Transfer</Accordion.Header>
               <Accordion.Body>
