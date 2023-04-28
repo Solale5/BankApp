@@ -17,7 +17,6 @@ const s3Config = {
 const s3Client = new S3Client(s3Config);
 */
 
-
 const { sequelize, User, Token } = require("./models");
 const express = require("express");
 const app = express();
@@ -32,29 +31,27 @@ app.use(cors());
 
 app.use(express.json());
 
-const userRouter = require('./routers/user')
-const passwordResetRouter = require('./routers/passwordReset')
-const accountRouter = require('./routers/account')
-const transactionsRouter = require('./routers/transactions')
-const adminRouter = require('./routers/admin')
-
+const userRouter = require("./routers/user");
+const passwordResetRouter = require("./routers/passwordReset");
+const accountRouter = require("./routers/account");
+const transactionsRouter = require("./routers/transactions");
+const adminRouter = require("./routers/admin");
 
 //const fileUpload = require("express-fileupload");
 
-
-
 const port = process.env.PORT || 5001;
-app.use(userRouter)
-app.use(accountRouter)
-app.use(passwordResetRouter)
-app.use(transactionsRouter)
-app.use(adminRouter)
-
+app.use(userRouter);
+app.use(accountRouter);
+app.use(passwordResetRouter);
+app.use(transactionsRouter);
+app.use(adminRouter);
 
 app.listen(port, () => {
   console.log("Server is up on port " + port);
 });
-
+app.get("/", (req, res) => {
+  res.send("backend 160 bank app");
+});
 app.post("/atms", (req, res) => {
   const apiKey = process.env.GOOGLE_MAP_KEY;
 
@@ -122,12 +119,10 @@ app.post("/upload", async (req, res) => {
 */
 
 const main = async () => {
-
   // remove the force option to avoid dropping the table
 
   //await sequelize.sync({ alter: true, force: true })
-  await sequelize.sync({ alter: true})
+  await sequelize.sync({ alter: true });
+};
 
-}
-
-main()
+main();
