@@ -1,118 +1,99 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import "./manager.css";
+import React, { useState, useEffect } from "react";
 
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+function BankManagerReports() {
+  const [reportData, setReportData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+  useEffect(() => {
+    fetchReportData();
+  }, []);
 
-function ManagerPage() {
-
-  const [zipShow, setZipShow] = useState(false);
-  const [balShow, setBalShow] = useState(false);
-  const [accShow, setAccShow] = useState(false);
-
-  const [submitShow, setSubmitShow] = useState(false);
-
-  const handleZipClick = event => {
-    setZipShow(curr => !curr);
-
-    setBalShow(false);
-    setAccShow(false);
+  async function fetchReportData() {
+    try {
+      const response = await fetch(
+        process.env.REACT_APP_BACKEND_URL + "/api/clients/me/reports/",
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      console.log(data.body);
+      setReportData(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      setError(error.message);
+    }
   }
 
-  const handleBalanceClick = event => {
-    setBalShow(curr => !curr);
-
-    setZipShow(false);
-    setAccShow(false);
+  function handleRefresh() {
+    setLoading(true);
+    setError(null);
+    fetchReportData();
   }
 
-  const handleSpecAccClick = event => {
-    setAccShow(curr => !curr);
-
-    setZipShow(false);
-    setBalShow(false);
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
-  const handleSubmit = event => {
-    setSubmitShow(true);
+  if (error) {
+    return <div>Error: {error}</div>;
   }
 
+  if (!reportData) {
+    return null;
+  }
 
   return (
-    <div className="bod">
-      <h1> Sort By: </h1>
-      <DropdownButton id="SearchBy" title="Filter">
-        <Dropdown.Item onClick={handleZipClick}>Zipcode</Dropdown.Item>
-        <Dropdown.Item onClick={handleBalanceClick}>Balance Range</Dropdown.Item>
-        <Dropdown.Item onClick={handleSpecAccClick}>Specific Account</Dropdown.Item>
-      </DropdownButton>
-
-
-      {/* hidden form elements depending on what dropdown is active */}
-
-      {zipShow && (
-        <div>
-          <h1>zipfield</h1>
-          <Form>
-            <Form.Group>
-              <Form.Label>Search by zipcode</Form.Label>
-              <Form.Control type="number" placeholder="enter zipcode" />
-            </Form.Group>
-            <Button onClick={handleSubmit}>Search</Button>
-          </Form>
-
+    <div className="tile-container">
+      <div className="tile">
+        <div className="tile-title">Number of Users</div>
+        <div className="tile-value">{reportData.number_of_users}</div>
+      </div>
+      <div className="tile">
+        <div className="tile-title">Number of Accounts</div>
+        <div className="tile-value">{reportData.number_of_accounts}</div>
+      </div>
+      <div className="tile">
+        <div className="tile-title">Total Balance</div>
+        <div className="tile-value">{reportData.total_balance}</div>
+      </div>
+      <div className="tile">
+        <div className="tile-title">Average Balance</div>
+        <div className="tile-value">
+          {Math.round(reportData.average_balance * 100) / 100}
         </div>
-
-      )}
-
-      {balShow && (
-        <div>
-          <Form>
-            <Form.Group>
-              <Form.Label>Balance Range</Form.Label>
-              <Form.Control type="number" placeholder="from" />
-              <Form.Control type="number" placeHolder="to"/>
-            </Form.Group>
-            <Button onClick={handleSubmit}>Search</Button>
-          </Form>
+      </div>
+      <div className="tile">
+        <div className="tile-title">Total Transactions</div>
+        <div className="tile-value">
+          {reportData.total_number_of_transactions}
         </div>
-      )}
-
-      {accShow && (
-        <div>
-          <Form>
-            <Form.Group>
-              <Form.Label>Search for Specific Account</Form.Label>
-              <Form.Control type="number" placeholder="routing number" />
-              <Form.Control type="number" placeholder="account number" />
-            </Form.Group>
-            <Button onClick={handleSubmit}>Search</Button>
-          </Form>
-        </div>
-      )}
-
-
-      {/* accounts found in search will be displayed here */}
-
-      {submitShow && (
-        <div>
-
-          <h1> Results: </h1>
-
-
-        </div>
-      )}
-
-
-
+      </div>
+      <div className="tile">
+        <div className="tile-title">Number of Deposits</div>
+        <div className="tile-value">{reportData.num_deposit}</div>
+      </div>
+      <div className="tile">
+        <div className="tile-title">Number of Withdrawals</div>
+        <div className="tile-value">{reportData.num_withdraw}</div>
+      </div>
+      <div className="tile">
+        <div className="tile-title">Number of Transfers</div>
+        <div className="tile-value">{reportData.num_transfer}</div>
+      </div>
+      <button className="refresh-button" onClick={handleRefresh}>
+        Refresh
+      </button>
     </div>
-
   );
 }
 
-
-
-export default ManagerPage;
+export default BankManagerReports;

@@ -47,7 +47,13 @@ function Login({ onLoginStatusChange }) {
       // After successful login
       localStorage.setItem("isLoggedIn", true);
       onLoginStatusChange(true);
-      navigate("/account");
+      console.log("login.js manager check:");
+      console.log(data.manager);
+      if (data.user.manager) {
+        navigate("/manager");
+      } else {
+        navigate("/account");
+      }
     } catch (error) {
       console.error(error);
       // Handle the error
