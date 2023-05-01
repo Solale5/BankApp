@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 
@@ -9,6 +9,12 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 
 export default function CreditAccord({ acc_num, rout_num, balance, token }) {
+
+  useEffect(() => {
+    transactionHistory();
+  }, []);
+
+
   // handle credit bill payment
   const [creditPayAccNum, setCreditPayAccNum] = useState();
   const [creditPayRoutNum, setCreditPayRoutNum] = useState();
@@ -129,6 +135,43 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
       window.location.reload();
   }
 
+  const [historyList, setHistoryList] = useState([]);
+  //transaction history
+  const transactionHistory = () => {
+    fetch(
+      process.env.REACT_APP_BACKEND_URL +
+        `/api/clients/me/transactions/${acc_num}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // assuming you have a token for authentication
+        },
+      }
+    )
+    .then((response) => {
+      if (!response.ok) {
+        console.log(response);
+        throw new Error(response.statusText);
+      }
+      console.log("close checking account");
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      //console.log(`transAmt: ${data.transactions[0].transactionAmt}`);
+      //console.log(`transType: ${data.transactions[0].transactionType}`);
+      console.log(`transDesc: ${data.transactions[0].description}`);
+
+      const tempHistoryList = [];
+      for(let i = 0; i< data.transactions.length; i++){
+        tempHistoryList.push(data.transactions[i].description + '\n');
+      }
+      setHistoryList(tempHistoryList);
+
+    });
+  }
+
   return (
     <Accordion>
       <Accordion.Item eventKey="0">
@@ -137,7 +180,6 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
         </Accordion.Header>
         <Accordion.Body>
           <p>Amount Due: ${balance.toFixed(2)}</p>
-          <p>Due Date: DD/MM/YY</p>
           <button
             onClick={(e) => {
               addToCreditBill(e);
@@ -238,6 +280,14 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
               <Accordion.Body>
                 <h3>Account Number: {acc_num}</h3>
                 <h3>Routing Number: {rout_num}</h3>
+              </Accordion.Body>
+            </Accordion.Item>
+
+            <Accordion.Item eventKey="1H">
+              <Accordion.Header>Transaction History</Accordion.Header>
+              <Accordion.Body>
+                {historyList.map((item, index) => (
+                  <div key={index}>{item}</div>))}
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>

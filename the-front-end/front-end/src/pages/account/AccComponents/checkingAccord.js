@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import axios from "axios";
@@ -21,8 +21,15 @@ AWS.config.update({
 });
 
 export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
+
+
   //// NOTE:
   // e.preventDefault(); prevents page from reloading on submit
+
+
+  useEffect(() => {
+    transactionHistory();
+  }, []);
 
   //handle Transfer requests
   const [checkingTransferAccNum, setCheckingTransferAccNum] = useState();
@@ -245,6 +252,45 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
       });
       window.location.reload();
   }
+
+
+  const [historyList, setHistoryList] = useState([]);
+  //transaction history
+  const transactionHistory = () => {
+    fetch(
+      process.env.REACT_APP_BACKEND_URL +
+        `/api/clients/me/transactions/${acc_num}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // assuming you have a token for authentication
+        },
+      }
+    )
+    .then((response) => {
+      if (!response.ok) {
+        console.log(response);
+        throw new Error(response.statusText);
+      }
+      console.log("close checking account");
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      //console.log(`transAmt: ${data.transactions[0].transactionAmt}`);
+      //console.log(`transType: ${data.transactions[0].transactionType}`);
+      console.log(`transDesc: ${data.transactions[0].description}`);
+
+      const tempHistoryList = [];
+      for(let i = 0; i< data.transactions.length; i++){
+        tempHistoryList.push(data.transactions[i].description + '\n');
+      }
+      setHistoryList(tempHistoryList);
+
+    });
+  }
+
 
   return (
     <Accordion>
@@ -488,6 +534,16 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
                 <h3>Routing Number: {rout_num}</h3>
               </Accordion.Body>
             </Accordion.Item>
+
+
+            <Accordion.Item eventKey="1H">
+              <Accordion.Header>Transaction History</Accordion.Header>
+              <Accordion.Body>
+                {historyList.map((item, index) => (
+                  <div key={index}>{item}</div>))}
+              </Accordion.Body>
+            </Accordion.Item>
+
           </Accordion>
           <br/>
           <button onClick={(e) => {closeAccount(e);}}>Close Account</button>
