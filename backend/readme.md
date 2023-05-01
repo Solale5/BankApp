@@ -304,7 +304,73 @@ PS: `accountID` is the account to transfer money from. <br>
   `accountNumber` and `accountID` must be provided.
 - #### Response of the request:
   Both the sender and receiver account information will be provided on success. 
-  Both transactions: Transfer of money out of one account and Transfer of money into an another account will be provided  
+  Both transactions: Transfer of money out of one account and Transfer of money into an another account will be provided   
+    
+### Set up Automated Bill Payments 
+   
+- ##### Endpoint: host/api/clients/me/accounts/{{accountID}}/automatepayment
+- ##### Request Type: PATCH
+- ##### Request Body Example: 
+    
+```
+  {
+    "accountNumber": 837689434,
+    "amount": 800, 
+    "frequency": "weekly",
+    "minutes": 14,
+    "hour": 16,
+    "day_of_the_week": 0,
+    "day_of_the_month": 30
+  }  
+    
+```
+    
+PS: `accountID` is the account to deposit money to. <br>
+`accountNumber` is the account to withdraw money from. It's the opposite setup of Transfer API above. 
+    
+- ##### Required request information:
+  Authorization Token returned when you logged in must be provided in the header section of the request.<br>
+  `accountNumber` and `accountID` must be provided. 
+   - `accountNumber`: the account to withdraw money from. A 404 status code will be sent if there are insufficient funds <br> 
+   - `amount`: amount of money to be set up as scheduled payments 
+   - `frequency`: must be one of the following to correctly set up scheduled payments: ['daily', 'weekly', 'monthly'] 
+   - `minutes`: must be a number between 0 and 59 inclusive 
+   - `hour`: must be a number between 0 and 23 inclusive 
+   - `day_of_the_week`: represents Sunday to Saturday. Must be a number between 0 and 6 inclusive 
+   - `day_of_the_month`: must be a number between 0 and 31 inclusive  
+  
+- #### IMPORTANT 
+   - Account now has a new boolean field: `automatePayment`. This field is default set to false upon account creation. 
+     It is set to true when this API is called. It will be automatically set to false when there are insufficient funds to make the   
+     scheduled payment. <br> 
+   - Two transactions will be added to the transaction history every time there is a scheduled payment. 
+     Transaction 1: a deposit, and Transaction 2: a withdrawal. Use the transaction history APIs to retrieve this information. <br> 
+   - This API allows scheduled payments between any two accounts. The frontend must ensure that this API is called for credit accounts 
+    only. 
+   - If you would like to read more on how the body of the request helps schedule payments, see this link: https://crontab.cronhub.io/ 
+    
+- #### Response of the request:
+   - The information of both the current account (account to be deposited money to) and the account from which money will be withdrawn from
+    will be provided on success.  
+
+ ### Stop Automated Bill Payments 
+   
+- ##### Endpoint: host/api/clients/me/accounts/{{accountID}}/stopautomatedpayment
+- ##### Request Type: PATCH
+- ##### Request Body Example: no body needed  
+
+ ```
+  {
+    
+  }
+``` 
+    
+- ##### Required request information:
+  Authorization Token returned when you logged in must be provided in the header section of the request.<br>
+  `accountID` must be provided.
+- #### Response of the request:
+  The account information will be returned. Scheduled automated payments for this account will be stopped. Note that the boolean field 
+  `automatePayment` will be set to false.    
 
 ## Password Reset
 
