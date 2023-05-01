@@ -35,8 +35,8 @@ function AutomatePage() {
   }, []);
 
   const [formData, setFormData] = useState({
-    fromAccountNumber: "",
-    toAccountID: "",
+    accountNumber: "",
+    accountID: "",
     amount: "",
     frequency: "",
     minutes: "",
@@ -91,9 +91,9 @@ function AutomatePage() {
     axios
       .patch(
         process.env.REACT_APP_BACKEND_URL +
-          `/api/clients/me/accounts/${formData.toAccountID}/automatepayment`,
+          `/api/clients/me/accounts/${formData.accountID}/automatepayment`,
         {
-          accountNumber: formData.fromAccountNumber,
+          accountNumber: formData.accountNumber,
           amount: formData.amount,
           frequency: formData.frequency,
           minutes: minutes,
@@ -123,8 +123,8 @@ function AutomatePage() {
         <label>
           Debit account to pay from:
           <select
-            name="fromAccountNumber"
-            value={formData.fromAccountNumber}
+            name="accountNumber"
+            value={formData.accountNumber}
             onChange={handleFormChange}
           >
             <option value="">Select account</option>
@@ -138,8 +138,8 @@ function AutomatePage() {
         <label>
           Receiving credit account:
           <select
-            name="toAccountID"
-            value={formData.toAccountID}
+            name="accountID"
+            value={formData.accountID}
             onChange={handleFormChange}
           >
             <option value="">Select account</option>
