@@ -94,7 +94,7 @@ function AutomatePage() {
           `/api/clients/me/accounts/${formData.accountID}/automatepayment`,
         {
           accountNumber: formData.accountNumber,
-          amount: formData.amount,
+          amount: amount,
           frequency: formData.frequency,
           minutes: minutes,
           hour: hour,
