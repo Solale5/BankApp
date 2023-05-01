@@ -60,7 +60,8 @@ function AutomatePage() {
     const hour = parseInt(formData.hour);
     const dayOfWeek = parseInt(formData.day_of_the_week);
     const dayOfMonth = parseInt(formData.day_of_the_month);
-
+    let amount = parseInt(formData.amount);
+    let accountNumber = parseInt(formData.accountNumber);
     if (isNaN(minutes) || minutes < 0 || minutes > 59) {
       alert("Minutes must be a number between 0 and 59");
       return;
@@ -93,8 +94,8 @@ function AutomatePage() {
         process.env.REACT_APP_BACKEND_URL +
           `/api/clients/me/accounts/${formData.accountID}/automatepayment`,
         {
-          accountNumber: formData.accountNumber,
-          amount: formData.amount,
+          accountNumber: accountNumber,
+          amount: amount,
           frequency: formData.frequency,
           minutes: minutes,
           hour: hour,
