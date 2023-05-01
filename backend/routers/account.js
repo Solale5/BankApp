@@ -252,7 +252,7 @@ router.patch('/api/clients/me/accounts/:id/automatepayment', auth, async (req, r
         // console.log("The transaction histories were correctly created.")
         console.log("Ending the scheduled payment now.")
       }
-    });
+    }, {timezone: "America/Los_Angeles"});
 
     res.send({ account1, account2 })
   } catch (e) {
