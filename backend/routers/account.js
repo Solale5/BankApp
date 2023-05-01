@@ -214,7 +214,7 @@ router.patch('/api/clients/me/accounts/:id/automatepayment', auth, async (req, r
     account1.save()
 
     //schedule a job to increment the account balance  
-    job = cron.schedule(cronExpression, async () => {
+    job = cron.schedule(cronExpression, function () {
 
       if (account1.automatePayment) {
 
@@ -235,21 +235,21 @@ router.patch('/api/clients/me/accounts/:id/automatepayment', auth, async (req, r
         console.log("The scheduled payment was successfully made.")
 
         //update the transaction history for both accounts 
-        const transaction1 = await Transactions.create({ userid: req.user.id, accountid: account1.id })
-        transaction1.routingINTEGER = BANKAPP_ROUTING_NUMBER
-        transaction1.transactionAmt = req.body.balance
-        transaction1.transactionType = 'Automated Payment'
-        transaction1.description = "Deposited into Account"
-        transaction1.save()
+        // const transaction1 = await Transactions.create({ userid: req.user.id, accountid: account1.id })
+        // transaction1.routingINTEGER = BANKAPP_ROUTING_NUMBER
+        // transaction1.transactionAmt = req.body.balance
+        // transaction1.transactionType = 'Automated Payment'
+        // transaction1.description = "Deposited into Account"
+        // transaction1.save()
 
-        const transaction2 = await Transactions.create({ userid: account2.userid, accountid: account2.id })
-        transaction2.routingINTEGER = BANKAPP_ROUTING_NUMBER
-        transaction2.transactionAmt = req.body.balance
-        transaction2.transactionType = 'Automated Payment'
-        transaction2.description = "Withdrawn from account"
-        transaction2.save()
+        // const transaction2 = await Transactions.create({ userid: account2.userid, accountid: account2.id })
+        // transaction2.routingINTEGER = BANKAPP_ROUTING_NUMBER
+        // transaction2.transactionAmt = req.body.balance
+        // transaction2.transactionType = 'Automated Payment'
+        // transaction2.description = "Withdrawn from account"
+        // transaction2.save()
 
-        console.log("The transaction histories were correctly created.")
+        // console.log("The transaction histories were correctly created.")
         console.log("Ending the scheduled payment now.")
       }
     });
