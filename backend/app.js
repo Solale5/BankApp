@@ -122,7 +122,7 @@ const main = async () => {
   // remove the force option to avoid dropping the table
 
   //await sequelize.sync({ alter: true, force: true })
-  await sequelize.sync({ alter: true });
+  await sequelize.sync({ });
 };
 
 main();
