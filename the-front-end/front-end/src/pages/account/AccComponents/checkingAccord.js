@@ -32,7 +32,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
   const [checkingTransferRoutNum, setCheckingTransferRoutNum] = useState();
   const [checkingTransferAmount, setCheckingTransferAmount] = useState();
 
-  const handleCheckingTransferSubmit = (e) => {
+  const handleCheckingTransferSubmit = async (e) => {
     console.log("Checking transfer request");
     console.log(`checking transfer account number: ${checkingTransferAccNum}`);
     console.log(`checking transfer routing number: ${checkingTransferRoutNum}`);
@@ -130,7 +130,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
   //handle Withdraw requests
   const [checkingWithdrawAmount, setCheckingWithdrawAmount] = useState();
 
-  const handleCheckingWithdrawSubmit = (e) => {
+  const handleCheckingWithdrawSubmit = async (e) => {
     console.log("Checking withdraw request");
     console.log(`checking withdraw amount ${checkingWithdrawAmount}`);
 
@@ -169,7 +169,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
   //handle Deposit requests
   const [checkingDepositAmount, setCheckingDepositAmount] = useState();
 
-  const handleCheckingDepositSubmit = (e) => {
+  const handleCheckingDepositSubmit = async (e) => {
     console.log("Checking deposit request");
     console.log(`checking desposit amount: ${checkingDepositAmount}`);
 
@@ -221,7 +221,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
   };
 
   //close account
-  const closeAccount = (e) => {
+  const closeAccount = async (e) => {
     fetch(
       process.env.REACT_APP_BACKEND_URL +
         `/api/clients/me/accounts/${acc_num}`,
@@ -251,7 +251,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
   const [historyList, setHistoryList] = useState([]);
   //transaction history
 
-  const transactionHistory = () => {
+  const transactionHistory = async () => {
     fetch(
       process.env.REACT_APP_BACKEND_URL +
         `/api/clients/me/transactions/${acc_num}`,

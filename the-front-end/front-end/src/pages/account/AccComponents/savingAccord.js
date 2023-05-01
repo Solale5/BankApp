@@ -30,7 +30,7 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
   const [savingTransferRoutNum, setSavingTransferRoutNum] = useState();
   const [savingTransferAmount, setSavingTransferAmount] = useState();
 
-  const handleSavingTransferSubmit = (e) => {
+  const handleSavingTransferSubmit = async (e) => {
     console.log("Saving transfer request");
     console.log(`Saving transfer account number: ${savingTransferAccNum}`);
     console.log(`Saving transfer routing number: ${savingTransferRoutNum}`);
@@ -126,7 +126,7 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
   //handle Withdraw requests
   const [savingWithdrawAmount, setSavingWithdrawAmount] = useState();
 
-  const handleSavingWithdrawSubmit = (e) => {
+  const handleSavingWithdrawSubmit = async (e) => {
     console.log("Saving withdraw request");
     console.log(`Saving withdraw amount ${savingWithdrawAmount}`);
 
@@ -165,7 +165,7 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
   //handle Deposit requests
   const [savingDepositAmount, setSavingDepositAmount] = useState();
 
-  const handleSavingDepositSubmit = (e) => {
+  const handleSavingDepositSubmit = async (e) => {
     console.log("Saving deposit request");
     console.log(`saving desposit amount: ${savingDepositAmount}`);
 
@@ -218,7 +218,7 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
   };
 
   //close account
-  const closeAccount = (e) => {
+  const closeAccount = async (e) => {
     fetch(
       process.env.REACT_APP_BACKEND_URL +
         `/api/clients/me/accounts/${acc_num}`,
@@ -246,7 +246,7 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
 
   const [historyList, setHistoryList] = useState([]);
   //transaction history
-  const transactionHistory = () => {
+  const transactionHistory = async () => {
     fetch(
       process.env.REACT_APP_BACKEND_URL +
         `/api/clients/me/transactions/${acc_num}`,

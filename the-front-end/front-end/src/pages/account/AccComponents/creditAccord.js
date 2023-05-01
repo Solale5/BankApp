@@ -19,7 +19,7 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
   const [creditPayRoutNum, setCreditPayRoutNum] = useState();
   const [creditPayAmount, setCreditPayAmount] = useState();
 
-  const handleCreditPaySubmit = (e) => {
+  const handleCreditPaySubmit = async (e) => {
     console.log("Credit pay request");
 
     let balance = parseFloat(creditPayAmount);
@@ -75,7 +75,7 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
       });
   };
 
-  const addToCreditBill = (e) => {
+  const addToCreditBill = async (e) => {
     let balance = 1000.0;
     //console.log(typeof balance);
     let description = `add $1000 to credit bill`;
@@ -108,7 +108,7 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
   };
 
   //close account
-  const closeAccount = (e) => {
+  const closeAccount = async (e) => {
     fetch(
       process.env.REACT_APP_BACKEND_URL +
         `/api/clients/me/accounts/${acc_num}`,
@@ -136,7 +136,7 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
 
   const [historyList, setHistoryList] = useState([]);
   //transaction history
-  const transactionHistory = () => {
+  const transactionHistory = async () => {
     fetch(
       process.env.REACT_APP_BACKEND_URL +
         `/api/clients/me/transactions/${acc_num}`,

@@ -47,7 +47,7 @@ function AccountPage() {
   const [savingAccounts, setSavingAccounts] = useState([]);
   const [creditAccounts, setCreditAccounts] = useState([]);
 
-  const getAllAccounts = () => {
+  const getAllAccounts = async () => {
     console.log("get all account info");
 
     fetch(process.env.REACT_APP_BACKEND_URL + "/api/clients/me/accounts", {
@@ -92,7 +92,7 @@ function AccountPage() {
                 token={token}
               />
             );
-          } else if (data.accounts[i].type === "Saving") {
+          } else if (data.accounts[i].type === "Saving" || data.accounts[i].type === "Savings") {
             console.log("push saving");
             tempSavingAccounts.push(
               <SavingAccord
@@ -139,7 +139,7 @@ function AccountPage() {
   // for account creation dropdown in modal popup
   const [selectAccount, setSelectAccount] = useState();
 
-  const createAccount = () => {
+  const createAccount = async () => {
     // close modal
     setModalShow(false);
 
