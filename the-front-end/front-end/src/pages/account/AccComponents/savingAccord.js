@@ -22,7 +22,7 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
 
 
   useEffect(() => {
-    //transactionHistory();
+    transactionHistory();
   }, []);
 
   //handle Transfer requests
@@ -41,7 +41,7 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
 
     // actual trasfer API causes issues where an extra refresh
     // is needed to actually display changes to host account
-    /*
+
     let accountNumber = savingTransferAccNum;
     fetch(
       process.env.REACT_APP_BACKEND_URL +
@@ -66,7 +66,9 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
       .then((data) => {
         console.log(data);
       });
-      */
+
+
+      /*
       let description = `transfer $${balance} from account ${acc_num} to account ${savingTransferAccNum}`
 
       // withdraw from sending account
@@ -117,6 +119,7 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
         .then((data) => {
           console.log(data);
         });
+        */
     //e.preventDefault();
   };
 
@@ -260,19 +263,23 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
         console.log(response);
         throw new Error(response.statusText);
       }
-      console.log("close checking account");
       return response.json();
     })
     .then((data) => {
       console.log(data);
       //console.log(`transAmt: ${data.transactions[0].transactionAmt}`);
       //console.log(`transType: ${data.transactions[0].transactionType}`);
-      console.log(`transDesc: ${data.transactions[0].description}`);
-
+      //console.log(`transDesc: ${data.transactions[0].description}`);
       const tempHistoryList = [];
-      for(let i = 0; i< data.transactions.length; i++){
-        tempHistoryList.push(data.transactions[i].description + '\n');
+      if(data.transactions.length > 0){
+        for(let i = 0; i< data.transactions.length; i++){
+          tempHistoryList.push(data.transactions[i].description + '\n');
+        }
+      } else {
+        console.log("no transaction history");
       }
+
+
       setHistoryList(tempHistoryList);
     });
   }

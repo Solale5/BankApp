@@ -11,7 +11,7 @@ import Button from "react-bootstrap/Button";
 export default function CreditAccord({ acc_num, rout_num, balance, token }) {
 
   useEffect(() => {
-    //transactionHistory();
+    transactionHistory();
   }, []);
 
   // handle credit bill payment
@@ -125,7 +125,7 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
           console.log(response);
           throw new Error(response.statusText);
         }
-        console.log("close saving account");
+        console.log("close credit account");
         return response.json();
       })
       .then((data) => {
@@ -153,18 +153,21 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
         console.log(response);
         throw new Error(response.statusText);
       }
-      console.log("close checking account");
       return response.json();
     })
     .then((data) => {
       console.log(data);
       //console.log(`transAmt: ${data.transactions[0].transactionAmt}`);
       //console.log(`transType: ${data.transactions[0].transactionType}`);
-      console.log(`transDesc: ${data.transactions[0].description}`);
+      //console.log(`transDesc: ${data.transactions[0].description}`);
 
       const tempHistoryList = [];
-      for(let i = 0; i< data.transactions.length; i++){
-        tempHistoryList.push(data.transactions[i].description + '\n');
+      if(data.transactions.length > 0) {
+        for(let i = 0; i< data.transactions.length; i++){
+          tempHistoryList.push(data.transactions[i].description + '\n');
+        }
+      } else {
+        console.log("no transaction history");
       }
       setHistoryList(tempHistoryList);
     });

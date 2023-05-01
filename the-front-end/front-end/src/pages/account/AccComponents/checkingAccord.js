@@ -24,7 +24,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
   //// NOTE:
   // e.preventDefault(); prevents page from reloading on submit
   useEffect(() => {
-    //transactionHistory();
+    transactionHistory();
   }, []);
 
   //handle Transfer requests
@@ -44,7 +44,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
 
     // actual trasfer API causes issues where an extra refresh
     // is needed to actually display changes to host account
-    /*
+
     let accountNumber = checkingTransferAccNum;
     fetch(
       process.env.REACT_APP_BACKEND_URL +
@@ -69,8 +69,9 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
       .then((data) => {
         console.log(data);
       });
-      */
 
+
+    /*
     let description = `transfer $${balance} from account ${acc_num} to account ${checkingTransferAccNum}`
 
     // withdraw from sending account
@@ -121,6 +122,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
       .then((data) => {
         console.log(data);
       });
+      */
     //e.preventDefault();
     //window.location.refresh();
   };
@@ -266,19 +268,23 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
         console.log(response);
         throw new Error(response.statusText);
       }
-      console.log("close checking account");
       return response.json();
     })
     .then((data) => {
-      console.log(data);
+      //console.log(data);
       //console.log(`transAmt: ${data.transactions[0].transactionAmt}`);
       //console.log(`transType: ${data.transactions[0].transactionType}`);
-      console.log(`transDesc: ${data.transactions[0].description}`);
+      //console.log(`transDesc: ${data.transactions[0].description}`);
 
       const tempHistoryList = [];
-      for(let i = 0; i< data.transactions.length; i++){
-        tempHistoryList.push(data.transactions[i].description + '\n');
+      if(data.transactions.length > 0){
+        for(let i = 0; i< data.transactions.length; i++){
+          tempHistoryList.push(data.transactions[i].description + '\n');
+        }
+      } else {
+        console.log("no transaction history");
       }
+
       setHistoryList(tempHistoryList);
     });
   }
@@ -355,7 +361,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
                     type="number"
                     step="0.01"
                     value={checkingWithdrawAmount}
-                    onChange={(e) => setCheckingWithdrawAmount(e.target.value)}
+                    onChange={e => setCheckingWithdrawAmount(e.target.value)}
                     required
                   />
                   <br />
@@ -411,7 +417,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
               </Accordion.Body>
             </Accordion.Item>
 
-            
+
             <Accordion.Item eventKey="1H">
               <Accordion.Header>Transaction History</Accordion.Header>
               <Accordion.Body>
