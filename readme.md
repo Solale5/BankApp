@@ -27,11 +27,11 @@ Before running the application, ensure that Node.js and MySQL are properly insta
 
 To get started with the Banking App development environment, follow these steps:
 
-1. install Node.js
+1. Install Node.js
 2. Clone the repository
 3. Install the necessary dependencies using `npm install`
 4. Run the front end application using
-   `cd the-front-end/front-end` | `npm install` | `npm start`
+   `cd the-front-end/front-end` | `npm install` or `npm install --force` | `npm start`
 5. Run the backend server using `cd backend` | `npm install` | `npm start run`
 
 To simply access the Bank App, go to this link:

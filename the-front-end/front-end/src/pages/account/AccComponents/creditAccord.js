@@ -14,7 +14,6 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
     transactionHistory();
   }, []);
 
-
   // handle credit bill payment
   const [creditPayAccNum, setCreditPayAccNum] = useState();
   const [creditPayRoutNum, setCreditPayRoutNum] = useState();
@@ -168,7 +167,6 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
         tempHistoryList.push(data.transactions[i].description + '\n');
       }
       setHistoryList(tempHistoryList);
-
     });
   }
 
@@ -236,42 +234,6 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
                   <br />
                   <button type="submit">Pay</button>
                 </form>
-
-                {/*
-                <Form>
-                  <Form.Group
-                    as={Row}
-                    className="mb-3"
-                    controlId="CreditSelectAcc"
-                  >
-
-                    <Form.Label>Select Account:</Form.Label>
-                    <Form.Select>
-                      <option>Select</option>
-                      <option>Checking</option>
-                      <option>Saving</option>
-                    </Form.Select>
-
-                  </Form.Group>
-
-                  <Form.Group
-                    as={Row}
-                    className="mb-3"
-                    controlId="CheckingTransferAmount"
-                  >
-                    <Form.Label column sm={2}>
-                      $
-                    </Form.Label>
-                    <Col sm={10}>
-                      <Form.Control type="text" placeholder="Amount" />
-                    </Col>
-                  </Form.Group>
-
-                  <Button variant="secondary" onClick={" "}>
-                    Pay
-                  </Button>
-                </Form>
-                */}
               </Accordion.Body>
             </Accordion.Item>
 

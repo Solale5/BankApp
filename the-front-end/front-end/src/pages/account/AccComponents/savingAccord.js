@@ -117,8 +117,6 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
         .then((data) => {
           console.log(data);
         });
-
-
     //e.preventDefault();
   };
 
@@ -276,7 +274,6 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
         tempHistoryList.push(data.transactions[i].description + '\n');
       }
       setHistoryList(tempHistoryList);
-
     });
   }
 
@@ -333,53 +330,6 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
                   <br />
                   <button type="submit">Transfer</button>
                 </form>
-
-                {/*
-                <Form>
-                  <Form.Group
-                    as={Row}
-                    className="mb-3"
-                    controlId="SavingAccNum"
-                  >
-                    <Col sm={10}>
-                      <Form.Control
-                        type="text"
-                        placeholder="Account Number"
-                      />
-                    </Col>
-                  </Form.Group>
-
-                  <Form.Group
-                    as={Row}
-                    className="mb-3"
-                    controlId="SavingRoutNum"
-                  >
-                    <Col sm={10}>
-                      <Form.Control
-                        type="text"
-                        placeholder="Routing Number"
-                      />
-                    </Col>
-                  </Form.Group>
-
-                  <Form.Group
-                    as={Row}
-                    className="mb-3"
-                    controlId="SavingTransferAmount"
-                  >
-                    <Form.Label column sm={2}>
-                      $
-                    </Form.Label>
-                    <Col sm={10}>
-                      <Form.Control type="text" placeholder="Amount" />
-                    </Col>
-                  </Form.Group>
-
-                  <Button variant="secondary" onClick={" "}>
-                    Transfer
-                  </Button>
-                </Form>
-                */}
               </Accordion.Body>
             </Accordion.Item>
 
@@ -405,60 +355,12 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
                   <br />
                   <button type="submit">Withdraw</button>
                 </form>
-                {/*
-                <Form>
-                  <Form.Group
-                    as={Row}
-                    className="mb-3"
-                    controlId="SavingWithdrawAmount"
-                  >
-                    <Form.Label column sm={2}>
-                      $
-                    </Form.Label>
-                    <Col sm={10}>
-                      <Form.Control type="text" placeholder="Amount" />
-                    </Col>
-                  </Form.Group>
-
-                  <Button variant="secondary" onClick={" "}>
-                    Withdraw
-                  </Button>
-                </Form>
-                */}
               </Accordion.Body>
             </Accordion.Item>
 
             <Accordion.Item eventKey="1D">
               <Accordion.Header>Deposit</Accordion.Header>
               <Accordion.Body>
-                {/*
-                <Form>
-                  <Form.Group className="mb-3" controlId="SavingDepositImage">
-                    <Form.Label>Please upload image of Check</Form.Label>
-                    <Form.Control type="file" />
-                  </Form.Group>
-
-                  <p> OR </p>
-
-                  <Form.Group
-                    as={Row}
-                    className="mb-3"
-                    controlId="SavingDepositAmount"
-                  >
-                    <Form.Label column sm={2}>
-                      $
-                    </Form.Label>
-                    <Col sm={10}>
-                      <Form.Control type="text" placeholder="Amount" />
-                    </Col>
-                  </Form.Group>
-
-                  <Button variant="secondary" onClick={" "}>
-                    Deposit
-                  </Button>
-                </Form>
-                */}
-
                 <form
                   onSubmit={(e) => {
                     handleSavingDepositSubmit(e);

@@ -21,12 +21,8 @@ AWS.config.update({
 });
 
 export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
-
-
   //// NOTE:
   // e.preventDefault(); prevents page from reloading on submit
-
-
   useEffect(() => {
     transactionHistory();
   }, []);
@@ -125,8 +121,6 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
       .then((data) => {
         console.log(data);
       });
-
-
     //e.preventDefault();
     //window.location.refresh();
   };
@@ -214,7 +208,6 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
   const [file, setFile] = useState(null);
 
   const handleFileSelect = (e) => {
-    //setFile(e.target.files[0]);
 
     const file = e.target.files[0];
 
@@ -224,7 +217,6 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
     };
     reader.readAsDataURL(file);
   };
-
 
   //close account
   const closeAccount = (e) => {
@@ -287,7 +279,6 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
         tempHistoryList.push(data.transactions[i].description + '\n');
       }
       setHistoryList(tempHistoryList);
-
     });
   }
 
@@ -345,53 +336,6 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
                   <br />
                   <button type="submit">Transfer</button>
                 </form>
-
-                {/* doing too much with React-Bootstrap
-                  <Form>
-                    <Form.Group
-                      as={Row}
-                      className="mb-3"
-                      controlId="CheckingAccNum"
-                    >
-                      <Col sm={10}>
-                        <Form.Control
-                          type="number"
-                          placeholder="Account Number"
-                        />
-                      </Col>
-                    </Form.Group>
-
-                    <Form.Group
-                      as={Row}
-                      className="mb-3"
-                      controlId="CheckingRoutNum"
-                    >
-                      <Col sm={10}>
-                        <Form.Control
-                          type="text"
-                          placeholder="Routing Number"
-                        />
-                      </Col>
-                    </Form.Group>
-
-                    <Form.Group
-                      as={Row}
-                      className="mb-3"
-                      controlId="CheckingTransferAmount"
-                    >
-                      <Form.Label column sm={2}>
-                        $
-                      </Form.Label>
-                      <Col sm={10}>
-                        <Form.Control type="text" placeholder="Amount" />
-                      </Col>
-                    </Form.Group>
-
-                    <Button variant="secondary" onClick={" "}>
-                      Transfer
-                    </Button>
-                  </Form>
-                  */}
               </Accordion.Body>
             </Accordion.Item>
 
@@ -417,65 +361,12 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
                   <br />
                   <button type="submit">Withdraw</button>
                 </form>
-
-                {/*
-                  <Form>
-                    <Form.Group
-                      as={Row}
-                      className="mb-3"
-                      controlId="CheckingWithdrawAmount"
-                    >
-                      <Form.Label column sm={2}>
-                        $
-                      </Form.Label>
-                      <Col sm={10}>
-                        <Form.Control type="text" placeholder="Amount" />
-                      </Col>
-                    </Form.Group>
-
-                    <Button variant="secondary" onClick={" "}>
-                      Withdraw
-                    </Button>
-                  </Form>
-                  */}
               </Accordion.Body>
             </Accordion.Item>
 
             <Accordion.Item eventKey="1D">
               <Accordion.Header>Deposit</Accordion.Header>
               <Accordion.Body>
-                {/*
-                  <Form onSubmit={submit}>
-                    <Form.Group className="mb-3" controlId="CheckingDepositImage">
-                      <Form.Label>Please upload image of Check</Form.Label>
-                      <Form.Control
-                        filename={file}
-                        type="file"
-                        onChange={e => setFile(e.target.files[0])}
-                      />
-                    </Form.Group>
-
-                    <p> OR </p>
-
-                    <Form.Group
-                      as={Row}
-                      className="mb-3"
-                      controlId="checkingDepositAmount"
-                    >
-                      <Form.Label column sm={2}>
-                        $
-                      </Form.Label>
-                      <Col sm={10}>
-                        <Form.Control type="text" placeholder="Amount" />
-                      </Col>
-                    </Form.Group>
-
-                    <Button variant="secondary" type="submit">
-                      Deposit
-                    </Button>
-                  </Form>
-                  */}
-
                 <form
                   onSubmit={(e) => {
                     handleCheckingDepositSubmit(e);
@@ -508,22 +399,6 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
                 <h3>Check Image:</h3>
                 {imageUrl && <img src={imageUrl} alt="Check Image Not Found" />}
 
-                {/*
-                  <input type="file" onChange={handleFileSelect} />
-                  <h5>Input Deposit Amount:</h5>
-                  <input type="number" />
-                  <button onClick={uploadToS3}>Submit</button>
-                  {imageUrl && (
-                      <img src={imageUrl} alt="uploaded" />
-                  )}
-                  */}
-
-                {/* if want to display image on site
-                  get rid of forms and add this to the bottom
-
-
-
-                  */}
               </Accordion.Body>
             </Accordion.Item>
 
