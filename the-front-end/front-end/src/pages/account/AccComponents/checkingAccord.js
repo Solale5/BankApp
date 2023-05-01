@@ -24,7 +24,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
   //// NOTE:
   // e.preventDefault(); prevents page from reloading on submit
   useEffect(() => {
-    transactionHistory();
+    //transactionHistory();
   }, []);
 
   //handle Transfer requests
@@ -248,6 +248,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
 
   const [historyList, setHistoryList] = useState([]);
   //transaction history
+
   const transactionHistory = () => {
     fetch(
       process.env.REACT_APP_BACKEND_URL +
@@ -410,7 +411,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
               </Accordion.Body>
             </Accordion.Item>
 
-
+            
             <Accordion.Item eventKey="1H">
               <Accordion.Header>Transaction History</Accordion.Header>
               <Accordion.Body>
@@ -418,6 +419,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
                   <div key={index}>{item}</div>))}
               </Accordion.Body>
             </Accordion.Item>
+
 
           </Accordion>
           <br/>

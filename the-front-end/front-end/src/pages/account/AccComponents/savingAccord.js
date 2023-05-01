@@ -22,7 +22,7 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
 
 
   useEffect(() => {
-    transactionHistory();
+    //transactionHistory();
   }, []);
 
   //handle Transfer requests

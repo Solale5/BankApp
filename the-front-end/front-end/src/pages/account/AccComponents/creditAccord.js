@@ -11,7 +11,7 @@ import Button from "react-bootstrap/Button";
 export default function CreditAccord({ acc_num, rout_num, balance, token }) {
 
   useEffect(() => {
-    transactionHistory();
+    //transactionHistory();
   }, []);
 
   // handle credit bill payment
