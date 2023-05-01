@@ -60,7 +60,7 @@ function AutomatePage() {
     const hour = parseInt(formData.hour);
     const dayOfWeek = parseInt(formData.day_of_the_week);
     const dayOfMonth = parseInt(formData.day_of_the_month);
-
+    let amount = parseInt(formData.amount);
     if (isNaN(minutes) || minutes < 0 || minutes > 59) {
       alert("Minutes must be a number between 0 and 59");
       return;
