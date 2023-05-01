@@ -279,7 +279,12 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
       const tempHistoryList = [];
       if(data.transactions.length > 0){
         for(let i = 0; i< data.transactions.length; i++){
-          tempHistoryList.push(data.transactions[i].description + '\n');
+          if(data.transactions[i].transactionType === "Transfer"){
+            tempHistoryList.push('$' + data.transactions[i].transactionAmt + ' ' + data.transactions[i].description + '\n');
+          } else {
+            tempHistoryList.push(data.transactions[i].description + '\n');
+          }
+
         }
       } else {
         console.log("no transaction history");
