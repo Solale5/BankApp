@@ -44,7 +44,11 @@ module.exports = (sequelize, DataTypes) => {
     balance: {
       type: DataTypes.DOUBLE,
       defaultValue: 0
-    }
+    },
+    automatePayment: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
   }, {
     sequelize,
     tableName: 'Account',
