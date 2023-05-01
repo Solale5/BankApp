@@ -123,13 +123,16 @@ router.post('/api/clients/me/accounts/:id/transfer', auth, async (req, res) => {
     if (account.balance < req.body.balance) {
       return res.status(404).send('Not enough money')
     }
-    account.balance = account.balance - req.body.balance
-
 
     const account2 = await Account.findOne({ where: { accountNumber: req.body.accountNumber } })
     if (!account2) {
       return res.status(404).send()
     }
+
+    if (account2.accountNumber == _id) {
+      return res.status(404).send('You can\'t transfer to this account')
+    }
+    account.balance = account.balance - req.body.balance
     account2.balance = account2.balance + req.body.balance
 
     await account2.save()
