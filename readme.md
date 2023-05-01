@@ -25,19 +25,25 @@ Before running the application, ensure that Node.js and MySQL are properly insta
 
 ## Getting Started
 
-To get started with the Banking App, follow these steps:
+To get started with the Banking App development environment, follow these steps:
 
-1. Clone the repository
-2. Install the necessary dependencies using `npm install`
-3. Run the front end application using
+1. install Node.js
+2. Clone the repository
+3. Install the necessary dependencies using `npm install`
+4. Run the front end application using
    `cd the-front-end/front-end` | `npm install` | `npm start`
-4. Run the backend server using `cd backend` | `npm install` | `nodemon server.js`
+5. Run the backend server using `cd backend` | `npm install` | `npm start run`
+
+To simply access the Bank App, go to this link:
+https://bankapp-cs160-group1.netlify.app/
+
 
 ## Features
 
 - User login and authentication
 - View account balances and transaction history
-- ...
+- transfer, deposit, withdraw from accounts
+- map locations to nearby Chase ATMs
 
 The `src` folder in the frontend contains the main source code files of the application. It includes the `index.js` file, which is the entry point of the application, and the `App.js` file, which contains the main logic and components of the application.
 
