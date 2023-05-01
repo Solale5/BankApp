@@ -164,6 +164,9 @@ router.post('/api/clients/me/accounts/:id/transfer', auth, async (req, res) => {
 router.patch('/api/clients/me/accounts/:id/automatepayment', auth, async (req, res) => {
   const _id = req.params.id
 
+  console.log("Recieved a request for a scheduled payment.")
+  console.log("Account Number: " + req.body.accountNumber + " Frequency: " + req.body.frequency + " Minutes: " + req.body.minutes + " Hour: " + req.body.hour + " Day of the week: " + req.body.day_of_the_week + " Day of the month: " + req.body.day_of_the_month)
+
   try {
     //find account1 to set up automatic bill payments for 
     const account1 = await Account.findOne({ where: { accountNumber: _id, userid: req.user.id } })
@@ -179,11 +182,13 @@ router.patch('/api/clients/me/accounts/:id/automatepayment', auth, async (req, r
 
 
     //check if account2 has sufficient funds before scheduling cron 
-    if (account2.balance < req.body.amount) {
+    if (account2.balance < req.body.balance) {
       account1.automatePayment = false //turn off automated payments if there is insufficient money 
       await account1.save()
       return res.status(404).send('Not enough money')
     }
+
+    console.log("Account2 has sufficient funds to be withdrawn money from.")
 
     //retrieve the frequency and construct the cron expression 
     let frequency = req.body.frequency.toLowerCase()
@@ -202,7 +207,7 @@ router.patch('/api/clients/me/accounts/:id/automatepayment', auth, async (req, r
       return res.status(400).send("Frequency must be of the following: daily, weekly, monthly ")
     }
 
-    console.log(cronExpression)
+    console.log("Cron expression for scheduling payment: " + cronExpression)
 
     //set the automate payment flag to start scheduled payment 
     account1.automatePayment = true
@@ -214,35 +219,38 @@ router.patch('/api/clients/me/accounts/:id/automatepayment', auth, async (req, r
       if (account1.automatePayment) {
 
         //check if account2 has sufficient funds after having started scheduled payments 
-        if (account2.balance < req.body.amount) {
+        if (account2.balance < req.body.balance) {
           account1.automatePayment = false //turn off automated payments if there is insufficient money 
           account1.save()
           return res.status(404).send('Not enough money')
         }
 
         //withdraw from account2, deposit into account1 
-        account2.balance = account2.balance - req.body.amount
-        account1.balance = account1.balance + req.body.amount
+        account2.balance = account2.balance - req.body.balance
+        account1.balance = account1.balance + req.body.balance
 
         account2.save()
         account1.save()
 
+        console.log("The scheduled payment was successfully made.")
+
         //update the transaction history for both accounts 
         const transaction1 = await Transactions.create({ userid: req.user.id, accountid: account1.id })
         transaction1.routingINTEGER = BANKAPP_ROUTING_NUMBER
-        transaction1.transactionAmt = req.body.amount
+        transaction1.transactionAmt = req.body.balance
         transaction1.transactionType = 'Automated Payment'
         transaction1.description = "Deposited into Account"
         transaction1.save()
 
         const transaction2 = await Transactions.create({ userid: account2.userid, accountid: account2.id })
         transaction2.routingINTEGER = BANKAPP_ROUTING_NUMBER
-        transaction2.transactionAmt = req.body.amount
+        transaction2.transactionAmt = req.body.balance
         transaction2.transactionType = 'Automated Payment'
         transaction2.description = "Withdrawn from account"
         transaction2.save()
 
-        console.log("automated bill payment")
+        console.log("The transaction histories were correctly created.")
+        console.log("Ending the scheduled payment now.")
       }
     });
 
