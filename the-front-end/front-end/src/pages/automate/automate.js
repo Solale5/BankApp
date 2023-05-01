@@ -62,6 +62,7 @@ function AutomatePage() {
     const dayOfMonth = parseInt(formData.day_of_the_month);
     let amount = parseInt(formData.amount);
     let accountNumber = parseInt(formData.accountNumber);
+    let accountID = parseInt(formData.accountID);
     if (isNaN(minutes) || minutes < 0 || minutes > 59) {
       alert("Minutes must be a number between 0 and 59");
       return;
@@ -105,6 +106,7 @@ function AutomatePage() {
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
+            accountID,
           },
         }
       )
