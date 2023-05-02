@@ -38,6 +38,9 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
 
     //connect to backend here
     let balance = parseFloat(savingTransferAmount);
+    if (balance < 0) {
+      return;
+    }
 
     // actual trasfer API causes issues where an extra refresh
     // is needed to actually display changes to host account
@@ -132,6 +135,9 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
 
     //connect to backend here
     let balance = parseFloat(savingWithdrawAmount);
+    if (balance < 0) {
+      return;
+    }
     let description = `withdraw of ${balance} from account ${acc_num}`;
     console.log(`withdraw ${balance}`);
     console.log(description);
@@ -170,6 +176,9 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
     console.log(`saving desposit amount: ${savingDepositAmount}`);
 
     let balance = parseFloat(savingDepositAmount);
+    if (balance < 0) {
+      return;
+    }
     //console.log(typeof balance);
     let description = `deposit of $ ${balance} to account ${acc_num}`;
     console.log(`deposit ${balance}`);
@@ -281,6 +290,7 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
         }
       } else {
         console.log("no transaction history");
+        return;
       }
 
 

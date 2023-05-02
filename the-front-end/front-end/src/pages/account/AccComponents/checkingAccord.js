@@ -23,6 +23,9 @@ AWS.config.update({
 export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
   //// NOTE:
   // e.preventDefault(); prevents page from reloading on submit
+  //console.log("START CHECKING");
+
+
   useEffect(() => {
     transactionHistory();
   }, []);
@@ -40,6 +43,9 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
 
     //connect to backend here
     let balance = parseFloat(checkingTransferAmount);
+    if (balance < 0) {
+      return;
+    }
 
 
     // actual trasfer API causes issues where an extra refresh
@@ -136,6 +142,12 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
 
     //connect to backend here
     let balance = parseFloat(checkingWithdrawAmount);
+    //console.log(`negative? ${balance < 0}`);
+
+    if (balance < 0) {
+      return;
+    }
+
     let description = `withdraw of ${balance} from account ${acc_num}`;
     console.log(`withdraw ${balance}`);
     console.log(description);
@@ -173,7 +185,14 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
     console.log("Checking deposit request");
     console.log(`checking desposit amount: ${checkingDepositAmount}`);
 
-    let balance = parseFloat(checkingDepositAmount);
+    let balance = parseFloat(checkingDepositAmount/100*100);
+
+    if (balance < 0) {
+      return;
+    }
+    //console.log(`negative? ${parseFloat(checkingDepositAmount) < 0}`);
+
+
     //console.log(typeof balance);
     let description = `deposit of $ ${balance} to account ${acc_num}`;
     console.log(`deposit ${balance}`);
@@ -251,7 +270,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
   const [historyList, setHistoryList] = useState([]);
   //transaction history
 
-  const transactionHistory = async () => {
+  const transactionHistory = () => {
     fetch(
       process.env.REACT_APP_BACKEND_URL +
         `/api/clients/me/transactions/${acc_num}`,
@@ -288,6 +307,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
         }
       } else {
         console.log("no transaction history");
+        return;
       }
 
       setHistoryList(tempHistoryList);
@@ -389,6 +409,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
                     name="checking_deposit_check_image"
                     type="file"
                     onChange={handleFileSelect}
+
                   />
                   <h5>AND</h5>
                   <label>Input Deposit Amount:</label>

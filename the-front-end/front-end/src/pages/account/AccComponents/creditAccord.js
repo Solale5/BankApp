@@ -23,6 +23,9 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
     console.log("Credit pay request");
 
     let balance = parseFloat(creditPayAmount);
+    if (balance < 0) {
+      return;
+    }
     let description = `pay $${creditPayAmount} from account ${creditPayAccNum}
                       to credit account ${acc_num}`;
 
@@ -168,6 +171,7 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
         }
       } else {
         console.log("no transaction history");
+        return;
       }
       setHistoryList(tempHistoryList);
     });
