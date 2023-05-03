@@ -239,8 +239,9 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
     reader.readAsDataURL(file);
   };
 
+  /*
   //close account
-  const closeAccount = async (e) => {
+  const closeAccount = (e) => {
     fetch(
       process.env.REACT_APP_BACKEND_URL +
         `/api/clients/me/accounts/${acc_num}`,
@@ -263,8 +264,11 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
       .then((data) => {
         console.log(data);
       });
+
       window.location.reload();
+
   }
+  */
 
 
   const [historyList, setHistoryList] = useState([]);
@@ -455,7 +459,6 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
 
           </Accordion>
           <br/>
-          <button onClick={(e) => {closeAccount(e);}}>Close Account</button>
 
         </Accordion.Body>
       </Accordion.Item>

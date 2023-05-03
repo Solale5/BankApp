@@ -110,6 +110,7 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
     window.location.reload();
   };
 
+  /*
   //close account
   const closeAccount = async (e) => {
     fetch(
@@ -136,6 +137,7 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
       });
       window.location.reload();
   }
+  */
 
   const [historyList, setHistoryList] = useState([]);
   //transaction history
@@ -159,7 +161,7 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
+      //console.log(data);
       //console.log(`transAmt: ${data.transactions[0].transactionAmt}`);
       //console.log(`transType: ${data.transactions[0].transactionType}`);
       //console.log(`transDesc: ${data.transactions[0].description}`);
@@ -260,8 +262,7 @@ export default function CreditAccord({ acc_num, rout_num, balance, token }) {
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
-          <br/>
-          <button onClick={(e) => {closeAccount(e);}}>Close Account</button>
+
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>

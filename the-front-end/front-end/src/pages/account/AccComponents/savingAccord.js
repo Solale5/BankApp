@@ -25,6 +25,8 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
     transactionHistory();
   }, []);
 
+
+
   //handle Transfer requests
   const [savingTransferAccNum, setSavingTransferAccNum] = useState();
   const [savingTransferRoutNum, setSavingTransferRoutNum] = useState();
@@ -226,6 +228,7 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
     reader.readAsDataURL(file);
   };
 
+  /*
   //close account
   const closeAccount = async (e) => {
     fetch(
@@ -250,8 +253,9 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
       .then((data) => {
         console.log(data);
       });
-      window.location.reload();
+      //window.location.reload();
   }
+  */
 
   const [historyList, setHistoryList] = useState([]);
   //transaction history
@@ -275,7 +279,7 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
+      //console.log(data);
       //console.log(`transAmt: ${data.transactions[0].transactionAmt}`);
       //console.log(`transType: ${data.transactions[0].transactionType}`);
       //console.log(`transDesc: ${data.transactions[0].description}`);
@@ -432,8 +436,6 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
-          <br/>
-          <button onClick={(e) => {closeAccount(e);}}>Close Account</button>
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>
