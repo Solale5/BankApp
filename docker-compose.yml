@@ -1,6 +1,7 @@
 version: "3.8"
 services:
   backend:
+    #image: ahmedhodhod/spartans:backend
     build: ./backend # to build an image
     # build:   # this is the longer format
     #   context: ./backend
@@ -9,26 +10,26 @@ services:
     #     some-arg: 1
     ports:
       - "5001:5001"
-    volumes:
-      - logs:/app/logs
-      - ./backend:/app
-      - /app/node_modules
-    env_file:
-      - ./backend/.env
+    #    volumes:
+    #      - logs:/app/logs
+    #      - ./backend:/app
+    #      - /app/node_modules
+    # env_file:
+    #   - ./backend/.env
 
   frontend:
     build: ./the-front-end/front-end
+    #image: ahmedhodhod/spartans:frontend
     ports:
       - "3000:3000"
-    volumes:
-      - ./the-front-end/front-end/src:/app/src
-    env_file:
-      - ./the-front-end/front-end/.env
+    #    volumes:
+    #      - ./the-front-end/front-end/src:/app/src
+    # env_file:
+    #   - ./the-front-end/front-end/.env
     stdin_open: true # equivalent to -i
     tty: true # -t
     depends_on:
       - backend
-
-volumes: # should be added to list the named volumes
-  data:
-  logs:
+#volumes: # should be added to list the named volumes
+#  data:
+#  logs:
