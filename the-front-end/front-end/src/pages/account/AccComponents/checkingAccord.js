@@ -413,7 +413,7 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
                     name="checking_deposit_check_image"
                     type="file"
                     onChange={handleFileSelect}
-
+                    required
                   />
                   <h5>AND</h5>
                   <label>Input Deposit Amount:</label>

@@ -396,6 +396,7 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
                     name="saving_deposit_check_image"
                     type="file"
                     onChange={handleFileSelect}
+                    required
                   />
                   <h5>AND</h5>
                   <label>Input Deposit Amount:</label>
