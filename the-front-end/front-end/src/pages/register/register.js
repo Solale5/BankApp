@@ -123,6 +123,8 @@ function RegistrationPage() {
     if (checkAge(dob)) {
       let age = theAge;
 
+      //let manager = true;
+
       try {
         const response = await fetch(`${hardcodedApiKey}`, {
           method: "POST",
@@ -141,6 +143,7 @@ function RegistrationPage() {
             zipcode,
             city,
             street,
+            //manager,
             //age,
             state: selectedState,
           }),

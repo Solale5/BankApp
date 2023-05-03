@@ -63,12 +63,12 @@ function BankManagerReports() {
       </div>
       <div className="tile">
         <div className="tile-title">Total Balance</div>
-        <div className="tile-value">{reportData.total_balance}</div>
+        <div className="tile-value">{reportData.total_balance.toFixed(2)}</div>
       </div>
       <div className="tile">
         <div className="tile-title">Average Balance</div>
         <div className="tile-value">
-          {Math.round(reportData.average_balance * 100) / 100}
+          {Math.round(reportData.average_balance.toFixed(2) * 100) / 100}
         </div>
       </div>
       <div className="tile">
