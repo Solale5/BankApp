@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TransferFragment"
+    android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/originAccountHeader"
+        android:layout_width="141dp"
+        android:layout_height="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+
+        android:layout_marginTop="26dp"
+
+        android:text="Transfer From:"
+        android:layout_gravity="center"/>
+
+    <Spinner
+        android:id="@+id/transferAccountSpinner"
+        android:layout_width="189dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="center" />
+
+
+    <TextView
+        android:id="@+id/transferToHeader"
+        android:layout_width="118dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/transferFromAccountNumber"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="23dp"
+        android:layout_gravity="center"
+        android:text="Transfer To:" />
+
+    <EditText
+        android:id="@+id/transferReceivingAccountNumber"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/transferToHeader"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center"
+        android:background="@drawable/smallbox"
+        android:ems="10"
+        android:hint="Enter Account number"
+        android:inputType="number"
+        android:layout_centerHorizontal="true"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop = "40dp">
+
+            <TextView
+                android:id="@+id/dollarSignHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="$"
+                android:textSize="18sp"
+
+                />
+
+    <EditText
+        android:id="@+id/transferAmount"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/transferReceivingAccountNumber"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center"
+
+        android:ems="10"
+        android:hint="Enter Transfer Amount"
+        android:inputType="numberDecimal"
+        android:layout_centerHorizontal="true" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+
+    <Button
+        android:id="@+id/transferButtonFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/transferAmount"
+        android:layout_alignParentStart="true"
+
+        android:layout_marginTop="24dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/blue"
+        android:text="Transfer"
+        android:layout_centerHorizontal="true"/>
+
+</LinearLayout>

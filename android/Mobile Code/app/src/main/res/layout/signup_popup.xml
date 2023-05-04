@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:id="@+id/streetRegister"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/smallbox"
+        android:ems="10"
+        android:hint=" Street Address"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneregister" />
+
+    <EditText
+        android:id="@+id/cityRegister"
+        android:layout_width="164dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/smallbox"
+        android:ems="10"
+        android:hint=" City"
+        android:textSize="10sp"
+
+        app:layout_constraintEnd_toEndOf="@+id/streetRegister"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/streetRegister" />
+
+    <EditText
+        android:id="@+id/securityQuestionAnswer"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:background="@drawable/smallbox"
+        android:ems="10"
+        android:hint="Security Question Answer"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/securityquestionsspinner" />
+
+    <TextView
+        android:id="@+id/signuptext"
+        android:layout_width="204dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="28dp"
+        android:text="Sign Up"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/emailregister"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/smallbox"
+        android:ems="10"
+        android:hint=" Email"
+        android:inputType="textEmailAddress"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameregister" />
+
+    <EditText
+        android:id="@+id/recoveryEmailRegister"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/smallbox"
+        android:ems="10"
+        android:hint=" Recovery Email"
+        android:inputType="textEmailAddress"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailregister" />
+
+    <EditText
+        android:id="@+id/passwordregister"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/smallbox"
+        android:ems="10"
+        android:hint=" Password"
+        android:inputType="textPassword"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recoveryEmailRegister" />
+
+    <EditText
+        android:id="@+id/nameregister"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/smallbox"
+        android:ems="10"
+        android:hint=" Full Name"
+        android:inputType="textPersonName"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signuptext" />
+
+
+    <EditText
+        android:id="@+id/phoneregister"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/smallbox"
+        android:ems="10"
+        android:hint=" Phone Number"
+        android:inputType="number"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordregister" />
+
+    <EditText
+        android:id="@+id/zipcoderegister"
+        android:layout_width="113dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/smallbox"
+        android:ems="10"
+        android:hint=" Zip code"
+        android:inputType="number"
+        android:textSize="10sp"
+
+        app:layout_constraintEnd_toEndOf="@+id/streetRegister"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/dobTextView"
+        app:layout_constraintTop_toBottomOf="@+id/cityRegister" />
+
+    <ImageButton
+        android:id="@+id/createaccountbutton"
+        android:layout_width="295dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="28dp"
+        android:background="#00000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/securityQuestionAnswer"
+        app:srcCompat="@drawable/createaccountbutton" />
+
+    <Spinner
+        android:id="@+id/securityquestionsspinner"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="4dp"
+        android:entries="@array/securityQuestion"
+        android:hint="Security Question"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/securityQuestionHeader"
+        app:menu="@menu/security_questions" />
+
+    <EditText
+        android:id="@+id/dobTextView"
+        android:layout_width="91dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/smallbox"
+        android:editable="false"
+        android:ems="10"
+        android:hint="yy/mm/dd"
+        android:textAlignment="viewStart"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.393"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cityRegister" />
+
+    <TextView
+        android:id="@+id/securityQuestionHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Security Question:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.124"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dobTextView" />
+
+
+    <Spinner
+        android:id="@+id/stateSpinner"
+        android:layout_width="100dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="8dp"
+        android:entries="@array/states"
+        app:layout_constraintEnd_toStartOf="@+id/cityRegister"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/stateHeader"
+        app:layout_constraintTop_toBottomOf="@+id/streetRegister" />
+
+    <TextView
+        android:id="@+id/stateHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="State:"
+        app:layout_constraintEnd_toStartOf="@+id/dobTextView"
+        app:layout_constraintHorizontal_bias="0.644"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/streetRegister" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Date of Birth:"
+        app:layout_constraintEnd_toStartOf="@+id/dobTextView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stateSpinner" />
+
+    <Space
+        android:layout_width="406dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createaccountbutton" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

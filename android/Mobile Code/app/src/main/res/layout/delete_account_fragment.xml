@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DeleteAccountFragment"
+    android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <TextView
+        android:id="@+id/selectDeleteAccountHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="106dp"
+        android:text="Select Account"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"/>
+    <Spinner
+        android:id="@+id/deleteAccountSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/selectDeleteAccountHeader"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center"
+
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/deleteAccountButtonInsideFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/deleteAccountSpinner"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+
+        android:layout_marginTop="30dp"
+
+        android:backgroundTint="@color/blue"
+        android:layout_gravity="center"
+        android:text="Delete Account"
+        android:layout_centerHorizontal="true"/>
+</LinearLayout>

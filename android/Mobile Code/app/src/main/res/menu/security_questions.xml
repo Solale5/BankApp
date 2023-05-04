@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="What is your father's name?"
+        android:id="@+id/fatherName" />
+
+    <item
+        android:title="What is your childhood nickname?"
+        android:id="@+id/nickname" />
+    <item
+        android:title="What is your dog's name?"
+        android:id="@+id/dogName" />
+    <item
+        android:title="What is your mother's name?"
+        android:id="@+id/motherName" />
+
+    <item
+        android:title="What city were you born in?"
+        android:id="@+id/city"/>
+</menu>

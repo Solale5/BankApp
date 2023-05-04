@@ -1,0 +1,172 @@
+<resources>
+    <string name="app_name">BankApp</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="start_capture">Take Video</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="connectionLink">localhost:5001</string>
+
+    <string-array name="securityQuestion">
+        <item>What is your father\'s name?</item>
+        <item>What is your childhood nickname?</item>
+        <item>What is your dog\'s name?</item>
+        <item>What is your mother\'s name?</item>
+        <item>What city were you born in?</item>
+    </string-array>
+
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Non-binary</item>
+        <item>Other</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
+    <string-array name="accountTypes">
+        <item>Checking</item>
+        <item>Savings</item>
+        <item>Credit</item>
+    </string-array>
+
+    <string-array name="frequency">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+    </string-array>
+
+    <string-array name="frequencyWeek">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+
+    </string-array>
+
+    <string-array name="frequencyDays">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+    </string-array>
+
+    <string-array name="states">
+        <item>AL</item>
+        <item>AK</item>
+        <item>AZ</item>
+        <item>AR</item>
+        <item>CA</item>
+        <item>CO</item>
+        <item>CT</item>
+        <item>DE</item>
+        <item>DC</item>
+        <item>FL</item>
+        <item>GA</item>
+        <item>HI</item>
+        <item>ID</item>
+        <item>IL</item>
+        <item>IN</item>
+        <item>IA</item>
+        <item>KS</item>
+        <item>KY</item>
+        <item>LA</item>
+        <item>ME</item>
+        <item>MD</item>
+        <item>MA</item>
+        <item>MI</item>
+        <item>MN</item>
+        <item>MS</item>
+        <item>MO</item>
+        <item>MT</item>
+        <item>NE</item>
+        <item>NV</item>
+        <item>NH</item>
+        <item>NJ</item>
+        <item>NM</item>
+        <item>NY</item>
+        <item>NC</item>
+        <item>ND</item>
+        <item>OH</item>
+        <item>OK</item>
+        <item>OR</item>
+        <item>PA</item>
+        <item>RI</item>
+        <item>SC</item>
+        <item>SD</item>
+        <item>TN</item>
+        <item>TX</item>
+        <item>UT</item>
+        <item>VT</item>
+        <item>VA</item>
+        <item>WA</item>
+        <item>WV</item>
+        <item>WI</item>
+        <item>WY</item>
+    </string-array>
+
+    <string-array name="billpayments">
+        <item>Setup Bill Payments</item>
+        <item>Cancel Bill Payments</item>
+    </string-array>
+
+    <string-array name="updateuserchoices">
+
+        <item>Phone Number</item>
+        <item>Address</item>
+        <item>City</item>
+        <item>State</item>
+    </string-array>
+
+    <string-array name="month">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+
+    <string-array name="day">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+    </string-array>
+
+
+</resources>

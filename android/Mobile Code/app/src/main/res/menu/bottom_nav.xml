@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Dashboard"
+        android:id="@+id/dashboard"
+        android:icon="@drawable/dashboardicon"/>
+
+    <item
+        android:title="Transactions"
+        android:id="@+id/transactions"
+        android:icon="@drawable/moneyicon"/>
+
+    <item
+        android:title="ATM Locator"
+        android:id="@+id/atmlocator"
+        android:icon="@drawable/atmicon"/>
+
+    <item
+        android:title="Account"
+        android:id="@+id/account"
+        android:icon="@drawable/accounticon"/>
+    <item
+        android:title="Settings"
+        android:id="@+id/settings"
+        android:icon="@drawable/settingsicon"/>
+
+
+</menu>

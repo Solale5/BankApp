@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
+        <!--
+    In the above cardview widget
+    cardelevation property will give elevation to your card view
+    card corner radius will provide radius to your card view
+    card background color will give background color to your card view
+    card max elevation will give the cardview maximum elevation
+    card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.
+    card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.
+    below are the two widgets imageview and text view we are displaying inside our card view.
+    -->
+
+        <TextView
+            android:id="@+id/accountDetailsNum"
+            android:layout_width="260dp"
+            android:layout_height="84dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Account Number"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/accountDetailsMoney"
+            android:layout_width="217dp"
+            android:layout_height="43dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:text="$92,822.23"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:barrierDirection="top" />
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/details_recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="568dp"
+        android:scrollbars="vertical" />
+
+
+
+</LinearLayout>

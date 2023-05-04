@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AccountFragment"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+
+
+    <TextView
+        android:id="@+id/profileHeader"
+        android:layout_width="215dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="16dp"
+        android:text="Account Profile"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="center"/>
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="203dp"
+        android:layout_height="91dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileHeader"
+        app:srcCompat="@drawable/accounticon"
+        />
+
+    <TextView
+        android:id="@+id/profileEmail"
+        android:layout_width="202dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/smallbox"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/profilePhone"
+        android:layout_width="202dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/profileEmail"
+        android:layout_gravity="center"
+        android:background="@drawable/smallbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="176dp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/profileAddress"
+        android:layout_width="202dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/profilePhone"
+        android:layout_gravity="center"
+        android:background="@drawable/smallbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="176dp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/profileCity"
+        android:layout_width="202dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/profileAddress"
+        android:layout_gravity="center"
+        android:background="@drawable/smallbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="176dp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/profileState"
+        android:layout_width="202dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/smallbox"
+        android:text=""
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileZip"
+        tools:layout_editor_absoluteX="176dp" />
+
+    <TextView
+        android:id="@+id/profileZip"
+        android:layout_width="202dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/profileCity"
+        android:background="@drawable/smallbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="176dp"
+        android:textAlignment="center"/>
+
+    <Button
+        android:id="@+id/updateUserButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Update"
+        android:onClick="onClick"
+        android:layout_marginTop="30dp"/>
+
+
+</LinearLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- EditText for entering search text -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <EditText
+        android:id="@+id/search_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Search"
+        android:inputType="textPostalAddress"
+        android:layout_weight="2"/>
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="2dp"
+            android:onClick="searchButtonClicked"
+            android:text="Search"
+            android:backgroundTint="@color/blue"
+            />
+
+
+    </LinearLayout>
+
+    <!-- MapView for displaying map -->
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/search_edit_text"
+        android:apiKey="AIzaSyD3s00hGFu8g4rVv19_nnEaIx1Joj1EtI0"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"/>
+
+
+
+
+</LinearLayout>

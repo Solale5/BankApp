@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ImageDepositFragment"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/depositAccountHeader"
+        android:layout_width="160dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="100dp"
+
+        android:text="Account Number:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="center"/>
+
+    <Spinner
+        android:id="@+id/depositAccountSpinner"
+        android:layout_width="189dp"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/depositAccountHeader" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop = "40dp">
+
+    <TextView
+        android:id="@+id/dollarSignHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="$"
+        android:textSize="18sp"
+
+        />
+
+    <EditText
+        android:id="@+id/imageDepositAmount"
+        android:layout_width="134dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_toEndOf="@+id/dollarSignHeader"
+
+        android:background="@drawable/smallbox"
+        android:ems="10"
+        android:hint="Enter Amount"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/depositAccountSpinner" />
+
+
+</LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageDepositView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/border_box"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageDepositAmount"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/uploadImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageDepositView"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/blue"
+        android:text="Upload Image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageDepositView"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/depositButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageDepositAmount"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/blue"
+        android:layout_gravity="center"
+        android:text="Deposit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/uploadImageButton" />
+
+
+
+
+
+</LinearLayout>

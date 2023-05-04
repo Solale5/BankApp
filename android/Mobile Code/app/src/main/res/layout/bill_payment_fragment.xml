@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".BillPaymentFragment"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+
+
+    <LinearLayout
+        android:id="@+id/setupPart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="visible">
+    <!-- TODO: Update blank fragment layout -->
+
+
+        <TextView
+            android:id="@+id/titleHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:text="Bill Payment Setup"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/billPaymentAccountHeader"
+        android:layout_width="160dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:text="Take Funds From:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/billPaymentAccountSpinner"
+        android:layout_width="189dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/billPaymentAccountHeader" />
+
+
+
+    <TextView
+        android:id="@+id/creditAccountHeader"
+        android:layout_width="160dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:text="Pay off:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/creditAccountSpinner"
+        android:layout_width="189dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/billPaymentAccountHeader" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/dollarSignHeaderBillPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+
+
+                android:layout_marginEnd="4dp"
+                android:text="$"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/paymentAmount"
+                app:layout_constraintTop_toBottomOf="@+id/billPaymentAccountSpinner" />
+
+
+            <EditText
+                android:id="@+id/paymentAmount"
+                android:layout_width="134dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
+
+                android:layout_toEndOf="@+id/dollarSignHeaderBillPayment"
+
+                android:background="@drawable/smallbox"
+                android:ems="10"
+                android:hint="Enter Amount"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/billPaymentAccountSpinner" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/frequencyHeader"
+        android:layout_width="160dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:text="Frequency:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/frequencySpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:entries="@array/frequency"
+   />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/timeHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="4dp"
+                    android:text="Time:"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/paymentAmount"
+                    app:layout_constraintTop_toBottomOf="@+id/billPaymentAccountSpinner" />
+
+                <TimePicker
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:timePickerMode="spinner" />
+            </LinearLayout>
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/weekLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop = "30dp">
+
+
+
+            <TextView
+                android:id="@+id/weekHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+
+
+                android:layout_marginEnd="4dp"
+                android:text="Day of the Week:"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/paymentAmount"
+                app:layout_constraintTop_toBottomOf="@+id/billPaymentAccountSpinner" />
+            <Spinner
+                android:id="@+id/frequencySpinnerWeek"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:entries="@array/frequencyWeek"
+                />
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/monthLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop = "30dp">
+
+
+
+
+
+            <TextView
+                android:id="@+id/dayHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="4dp"
+                android:text="Day of Month:"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/paymentAmount"
+                app:layout_constraintTop_toBottomOf="@+id/billPaymentAccountSpinner" />
+            <Spinner
+                android:id="@+id/frequencySpinnerDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:entries="@array/day"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+        <Button
+        android:id="@+id/billPaymentButtonFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/paymentAmount"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/blue"
+        android:text="Setup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paymentAmount" />
+
+        <Button
+            android:id="@+id/cancelPaymentNotPopup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/blue"
+            android:text="Cancel Bill Payment"
+           />
+
+    </LinearLayout>
+
+
+</ScrollView>
