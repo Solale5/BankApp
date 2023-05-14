@@ -110,20 +110,40 @@ function RegistrationPage() {
   const handleChangeState = (event) => {
     setSelectedState(event.target.value);
   };
+  function validateForm() {
+    const phoneNumberRegex = /^\d{10}$/;
+    const zipcodeRegex = /^\d{5}$/;
+    let valid = true;
+    if (!phoneNumberRegex.test(phoneNumber)) {
+      alert("Please enter a valid phone number (10 digits)");
+      valid = false;
+    }
 
+    if (!zipcodeRegex.test(zipcode)) {
+      alert("Please enter a valid zipcode (5 digits)");
+      valid = false;
+    }
+
+    if (email === recoveryEmail) {
+      alert("Please enter a different recovery email");
+      valid = false;
+    }
+
+    return valid;
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     console.log(typeof dob);
-
+    if (!validateForm()) {
+      return;
+    }
     if (password !== passwordConfirmation) {
       alert("Passwords do not match");
       return;
     }
     if (checkAge(dob)) {
       let age = theAge;
-
-      //let manager = true;
 
       try {
         const response = await fetch(`${hardcodedApiKey}`, {
@@ -143,15 +163,16 @@ function RegistrationPage() {
             zipcode,
             city,
             street,
-            //manager,
             //age,
             state: selectedState,
           }),
         });
 
         if (!response.ok) {
-          console.log(response);
-          throw new Error("Registration failed");
+          const data = await response.json();
+          const error = data.message || "Registration failed";
+          alert(error);
+          throw new Error(error);
         }
 
         const data = await response.json();
@@ -161,7 +182,7 @@ function RegistrationPage() {
         console.log(data);
         navigate("/login");
       } catch (error) {
-        console.error(error);
+        alert(error);
         // Handle the error
       }
     } else {
@@ -263,6 +284,8 @@ function RegistrationPage() {
             type="text"
             value={zipcode}
             onChange={(e) => setZipcode(e.target.value)}
+            name="zipcode"
+            pattern="[0-9]{5}"
             required
           />
         </label>
