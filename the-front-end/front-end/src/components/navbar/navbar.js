@@ -51,13 +51,17 @@ export default function Navbar({ isLoggedIn, onLoginStatusChange }) {
 
   return (
     <nav className="nav">
-      <Link to="/" className="site-title">
-        Spartan Bank
-      </Link>
+      {areWeLoggedIn || isLoggedIn ? (
+        <Link to="/account" className="site-title">
+          Spartan Bank
+        </Link>
+      ) : (
+        <Link to="/" className="site-title">
+          Spartan Bank
+        </Link>
+      )}
+
       <ul>
-        {/* <CustomLink to="/">Home</CustomLink> */}
-        {/* {console.log("navbar.js state variable " + isLoggedIn)}
-        {console.log("navbar.js local storage variable " + areWeLoggedIn)} */}
         {areWeLoggedIn || isLoggedIn ? (
           <>
             <CustomLink to="/account">Accounts</CustomLink>
