@@ -408,7 +408,13 @@ export default function CheckingAccord({ acc_num, rout_num, balance, token }) {
                     handleCheckingDepositSubmit(e);
                   }}
                 >
-                  <label>Input Check Image</label>
+                  <label>Input Check Image (Front and Back)</label>
+                  <input
+                    name="checking_deposit_check_image"
+                    type="file"
+                    onChange={handleFileSelect}
+                    required
+                  />
                   <input
                     name="checking_deposit_check_image"
                     type="file"

@@ -391,7 +391,13 @@ export default function SavingAccord({ acc_num, rout_num, balance, token }) {
                     handleSavingDepositSubmit(e);
                   }}
                 >
-                  <label>Input Check Image</label>
+                  <label>Input Check Image (Front and Back)</label>
+                  <input
+                    name="saving_deposit_check_image"
+                    type="file"
+                    onChange={handleFileSelect}
+                    required
+                  />
                   <input
                     name="saving_deposit_check_image"
                     type="file"
