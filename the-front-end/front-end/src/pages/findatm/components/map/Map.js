@@ -124,8 +124,6 @@ export class MapContainer extends Component {
         >
           <div>
             <h3>{this.state.address}</h3>
-
-            <p>chase bank</p>
           </div>
         </InfoWindow>
       </Map>

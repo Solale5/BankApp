@@ -70,6 +70,10 @@ const FindAtm = () => {
         />
       </label>
       <LocationForm onLocationSubmit={handleLocationSubmit} />
+      <p>
+        on submit, the blue marker shows your location, atms will show up in red
+        (if any)
+      </p>
       <Map atmLocations={atmLocations} />
     </div>
   );
